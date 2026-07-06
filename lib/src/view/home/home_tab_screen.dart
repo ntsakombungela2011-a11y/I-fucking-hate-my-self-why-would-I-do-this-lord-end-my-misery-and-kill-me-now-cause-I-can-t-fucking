@@ -11,8 +11,6 @@ import 'package:lichess_mobile/src/model/account/home_preferences.dart';
 import 'package:lichess_mobile/src/model/account/home_widgets.dart';
 import 'package:lichess_mobile/src/model/account/ongoing_game.dart';
 import 'package:lichess_mobile/src/model/auth/auth_controller.dart';
-import 'package:lichess_mobile/src/model/blog/blog.dart';
-import 'package:lichess_mobile/src/model/blog/blog_repository.dart';
 import 'package:lichess_mobile/src/model/challenge/challenges.dart';
 import 'package:lichess_mobile/src/model/common/id.dart';
 import 'package:lichess_mobile/src/model/correspondence/correspondence_game_storage.dart';
@@ -22,8 +20,6 @@ import 'package:lichess_mobile/src/model/engine/nnue_service.dart';
 import 'package:lichess_mobile/src/model/game/game_history.dart';
 import 'package:lichess_mobile/src/model/message/message_repository.dart';
 import 'package:lichess_mobile/src/model/relation/following_user.dart';
-import 'package:lichess_mobile/src/model/tournament/tournament.dart';
-import 'package:lichess_mobile/src/model/tournament/tournament_providers.dart';
 import 'package:lichess_mobile/src/model/user/user.dart';
 import 'package:lichess_mobile/src/network/connectivity.dart';
 import 'package:lichess_mobile/src/styles/lichess_icons.dart';
@@ -42,7 +38,6 @@ import 'package:lichess_mobile/src/view/correspondence/offline_correspondence_ga
 import 'package:lichess_mobile/src/view/game/game_screen.dart';
 import 'package:lichess_mobile/src/view/game/game_screen_providers.dart';
 import 'package:lichess_mobile/src/view/game/offline_correspondence_games_screen.dart';
-import 'package:lichess_mobile/src/view/home/blog_carousel.dart';
 import 'package:lichess_mobile/src/view/home/following_carousel.dart';
 import 'package:lichess_mobile/src/view/home/games_carousel.dart';
 import 'package:lichess_mobile/src/view/message/conversation_screen.dart';
@@ -51,7 +46,6 @@ import 'package:lichess_mobile/src/view/play/play_bottom_sheet.dart';
 import 'package:lichess_mobile/src/view/play/play_menu.dart';
 import 'package:lichess_mobile/src/view/play/quick_game_matrix.dart';
 import 'package:lichess_mobile/src/view/settings/engine_settings_screen.dart';
-import 'package:lichess_mobile/src/view/tournament/tournament_list_screen.dart';
 import 'package:lichess_mobile/src/view/user/challenge_requests_screen.dart';
 import 'package:lichess_mobile/src/view/user/recent_games.dart';
 import 'package:lichess_mobile/src/widgets/buttons.dart';
@@ -158,8 +152,6 @@ class _HomeScreenState extends ConsumerState<HomeTabScreen> {
         final featuredTournaments = isOnline
             ? ref.watch(featuredTournamentsProvider)
             : const AsyncValue.data(IListConst<LightTournament>([]));
-        final blogPosts = isOnline
-            ? ref.watch(blogCarouselProvider)
             : const AsyncValue.data(IListConst<BlogPost>([]));
         final followingAsync = authUser != null && isOnline
             ? ref.watch(followingCarouselProvider)
@@ -250,9 +242,7 @@ class _HomeScreenState extends ConsumerState<HomeTabScreen> {
               ),
               if (_worker != null && !isKidMode)
                 _EditableWidget(
-                  widget: HomeEditableWidget.blogCarousel,
                   shouldShow: isOnline,
-                  child: _BlogCarouselWidget(blogPosts, _worker!),
                 ),
             ],
           ];
@@ -302,9 +292,7 @@ class _HomeScreenState extends ConsumerState<HomeTabScreen> {
                       FeaturedTournamentsWidget(featured: featuredTournaments),
                       if (_worker != null && !isKidMode)
                         _EditableWidget(
-                          widget: HomeEditableWidget.blogCarousel,
                           shouldShow: isOnline,
-                          child: _BlogCarouselWidget(blogPosts, _worker!),
                         ),
                       RecentGamesWidget(recentGames: recentGames, nbOfGames: nbOfGames, user: null),
                     ],
@@ -363,9 +351,7 @@ class _HomeScreenState extends ConsumerState<HomeTabScreen> {
             ),
             if (_worker != null && !isKidMode)
               _EditableWidget(
-                widget: HomeEditableWidget.blogCarousel,
                 shouldShow: isOnline,
-                child: _BlogCarouselWidget(blogPosts, _worker!),
               ),
             _EditableWidget(
               widget: HomeEditableWidget.recentGames,
@@ -711,13 +697,11 @@ class _BlogCarouselWidget extends ConsumerWidget {
         children: [
           Padding(
             padding: Styles.horizontalBodyPadding,
-            child: ListSectionHeader(title: Text(context.l10n.blog)),
           ),
           switch (posts) {
             AsyncData(:final value) => BlogCarousel(posts: value, worker: worker),
             AsyncError() => const Padding(
               padding: Styles.bodySectionPadding,
-              child: Text('Could not load blog posts.'),
             ),
             _ => Shimmer(
               child: ShimmerLoading(isLoading: true, child: BlogCarousel.loading(worker: worker)),

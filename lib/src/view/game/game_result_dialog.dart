@@ -12,7 +12,6 @@ import 'package:lichess_mobile/src/model/game/game_controller.dart';
 import 'package:lichess_mobile/src/model/game/game_status.dart';
 import 'package:lichess_mobile/src/model/game/over_the_board_game.dart';
 import 'package:lichess_mobile/src/model/game/playable_game.dart';
-import 'package:lichess_mobile/src/model/tournament/tournament_controller.dart';
 import 'package:lichess_mobile/src/utils/l10n_context.dart';
 import 'package:lichess_mobile/src/view/analysis/analysis_screen.dart';
 import 'package:lichess_mobile/src/view/game/status_l10n.dart';
@@ -164,7 +163,6 @@ class _GameResultDialogState extends ConsumerState<GameResultDialog> {
                     : null,
                 child: Text(context.l10n.newOpponent, textAlign: TextAlign.center),
               ),
-            if (value.tournament?.isOngoing == true) ...[
               FilledButton.icon(
                 icon: const Icon(Icons.play_arrow),
                 onPressed: () {
@@ -180,9 +178,7 @@ class _GameResultDialogState extends ConsumerState<GameResultDialog> {
               FilledButton.tonalIcon(
                 icon: const Icon(Icons.pause),
                 onPressed: () {
-                  // Pause the tournament
                   ref
-                      .read(tournamentControllerProvider(value.tournament!.id).notifier)
                       .joinOrPause();
                   // Close the dialog
                   Navigator.of(context).popUntil((route) => route is! PopupRoute);

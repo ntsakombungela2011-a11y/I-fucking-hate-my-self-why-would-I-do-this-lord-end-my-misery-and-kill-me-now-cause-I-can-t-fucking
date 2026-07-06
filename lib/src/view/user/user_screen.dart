@@ -23,7 +23,6 @@ import 'package:lichess_mobile/src/view/user/perf_cards.dart';
 import 'package:lichess_mobile/src/view/user/recent_games.dart';
 import 'package:lichess_mobile/src/view/user/user_activity.dart';
 import 'package:lichess_mobile/src/view/user/user_profile.dart';
-import 'package:lichess_mobile/src/view/watch/tv_screen.dart';
 import 'package:lichess_mobile/src/widgets/buttons.dart';
 import 'package:lichess_mobile/src/widgets/feedback.dart';
 import 'package:lichess_mobile/src/widgets/haptic_refresh_indicator.dart';
@@ -227,16 +226,6 @@ class _UserProfileListView extends ConsumerWidget {
                 }(),
               ],
               ListTile(
-                title: Text(context.l10n.watchGames),
-                leading: const Icon(Icons.live_tv_outlined),
-                trailing: isPlayingLive == true ? const TextBadge(text: 'LIVE') : null,
-                onTap: () {
-                  Navigator.of(
-                    context,
-                    rootNavigator: true,
-                  ).push(TvScreen.buildRoute(user: user.lightUser));
-                },
-              ),
               if (authUser != null) ...[
                 if (user.canChallenge != null)
                   ListTile(

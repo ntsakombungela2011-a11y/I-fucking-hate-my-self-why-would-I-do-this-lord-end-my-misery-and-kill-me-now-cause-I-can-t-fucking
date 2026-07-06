@@ -11,7 +11,6 @@ import 'package:lichess_mobile/src/utils/l10n_context.dart';
 import 'package:lichess_mobile/src/utils/navigation.dart';
 import 'package:lichess_mobile/src/view/user/user_context_menu.dart';
 import 'package:lichess_mobile/src/view/user/user_or_profile_screen.dart';
-import 'package:lichess_mobile/src/view/watch/tv_screen.dart';
 import 'package:lichess_mobile/src/widgets/feedback.dart';
 import 'package:lichess_mobile/src/widgets/list.dart';
 import 'package:lichess_mobile/src/widgets/platform.dart';
@@ -118,14 +117,6 @@ class _OnlineFriendListTile extends ConsumerWidget {
 
     return ListTile(
       title: UserFullNameWidget(user: user),
-      trailing: playing
-          ? IconButton(
-              tooltip: context.l10n.watchGames,
-              onPressed: () {
-                Navigator.of(context, rootNavigator: true).push(TvScreen.buildRoute(user: user));
-              },
-              icon: const Icon(Icons.live_tv),
-            )
           : null,
       onTap: () => Navigator.of(context).push(UserOrProfileScreen.buildRoute(user)),
       onLongPress: () => showModalBottomSheet<void>(

@@ -13,7 +13,6 @@ import 'package:lichess_mobile/src/model/common/service/sound_service.dart';
 import 'package:lichess_mobile/src/model/common/socket.dart';
 import 'package:lichess_mobile/src/model/game/game_controller.dart';
 import 'package:lichess_mobile/src/model/study/study_controller.dart';
-import 'package:lichess_mobile/src/model/tournament/tournament_controller.dart';
 import 'package:lichess_mobile/src/model/tv/tv_game_controller.dart';
 import 'package:lichess_mobile/src/model/user/user.dart';
 import 'package:lichess_mobile/src/network/http.dart';
@@ -53,7 +52,6 @@ final chatProvider = FutureProvider.autoDispose.family<ChatState?, ChatOptions>(
   (ref, options) => ref.watch(
     switch (options) {
       GameChatOptions(:final id) => gameControllerProvider(id),
-      TournamentChatOptions(:final id) => tournamentControllerProvider(id),
       StudyChatOptions(:final options) => studyControllerProvider(options),
       TvChatOptions(:final params) => tvGameControllerProvider(params),
     }.selectAsync((state) => state.chatState),
@@ -65,7 +63,6 @@ final chatProvider = FutureProvider.autoDispose.family<ChatState?, ChatOptions>(
 final chatNotifierProvider = Provider.autoDispose.family<ChatMixin, ChatOptions>(
   (ref, options) => ref.read(switch (options) {
     GameChatOptions(:final id) => gameControllerProvider(id).notifier,
-    TournamentChatOptions(:final id) => tournamentControllerProvider(id).notifier,
     StudyChatOptions(:final options) => studyControllerProvider(options).notifier,
     TvChatOptions(:final params) => tvGameControllerProvider(params).notifier,
   }),

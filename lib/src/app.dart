@@ -15,7 +15,6 @@ import 'package:lichess_mobile/src/model/account/account_service.dart';
 import 'package:lichess_mobile/src/model/account/ongoing_game.dart';
 import 'package:lichess_mobile/src/model/analysis/analysis_preferences.dart';
 import 'package:lichess_mobile/src/model/announce/announce_service.dart';
-import 'package:lichess_mobile/src/model/broadcast/broadcast_preferences.dart';
 import 'package:lichess_mobile/src/model/challenge/challenge_service.dart';
 import 'package:lichess_mobile/src/model/common/preloaded_data.dart';
 import 'package:lichess_mobile/src/model/correspondence/correspondence_service.dart';
@@ -120,10 +119,8 @@ class _AppState extends ConsumerState<Application> {
               .copyWith(smallBoard: smallBoard, showEngineLines: showEngineLines),
         );
     await ref
-        .read(broadcastPreferencesProvider.notifier)
         .save(
           ref
-              .read(broadcastPreferencesProvider)
               .copyWith(smallBoard: smallBoard, showEngineLines: showEngineLines),
         );
 
