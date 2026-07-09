@@ -46,14 +46,15 @@ class MoreTabScreen extends ConsumerWidget {
         appBar: PlatformAppBar(
           title: Theme.of(context).platform == TargetPlatform.iOS
               ? AppBarLichessTitle(
-                  iconSize: Theme.of(context).textTheme.headlineSmall?.fontSize ?? 24,
+                  iconSize:
+                      Theme.of(context).textTheme.headlineSmall?.fontSize ?? 24,
                 )
               : const AppBarLichessTitle(),
           centerTitle: false,
           titleTextStyle: Theme.of(context).platform == TargetPlatform.iOS
               ? Theme.of(context).textTheme.headlineSmall
               : null,
-          actions: const [AccountMenuButton()],
+          actions: const [],
         ),
         body: const _Body(),
       ),
@@ -84,7 +85,8 @@ class _Body extends ConsumerWidget {
                     ? const CupertinoListTileChevron()
                     : null,
                 title: Text(context.l10n.importPgn),
-                onTap: () => Navigator.of(context).push(ImportPgnScreen.buildRoute()),
+                onTap: () =>
+                    Navigator.of(context).push(ImportPgnScreen.buildRoute()),
               ),
               ListTile(
                 leading: const Icon(Icons.biotech_outlined),
@@ -138,27 +140,19 @@ class _Body extends ConsumerWidget {
                     : null,
                 title: Text(context.l10n.clock),
                 onTap: () {
-                  Navigator.of(context, rootNavigator: true).push(ClockToolScreen.buildRoute());
+                  Navigator.of(
+                    context,
+                    rootNavigator: true,
+                  ).push(ClockToolScreen.buildRoute());
                 },
               ),
             ],
           ),
-          ListSection(
-            header: SettingsSectionTitle(context.l10n.community),
-            hasLeading: true,
-            children: [
-              ListTile(
-                leading: const Icon(Icons.groups_3_outlined),
-                title: Text(context.l10n.players),
-                enabled: isOnline,
-                trailing: Theme.of(context).platform == TargetPlatform.iOS
-                    ? const CupertinoListTileChevron()
-                    : null,
-                onTap: () {
-                  Navigator.of(context, rootNavigator: true).push(PlayerScreen.buildRoute());
-                },
-              ),
-              if (authUser != null)
+          if (authUser != null)
+            ListSection(
+              header: SettingsSectionTitle(context.l10n.community),
+              hasLeading: true,
+              children: [
                 ListTile(
                   leading: const Icon(Icons.people_outline),
                   title: Text(context.l10n.friends),
@@ -167,34 +161,16 @@ class _Body extends ConsumerWidget {
                       ? const CupertinoListTileChevron()
                       : null,
                   onTap: () {
-                    Navigator.of(context, rootNavigator: true).push(FriendScreen.buildRoute());
-                  },
-                ),
-            ],
-          ),
-          const _AccountSection(),
-          if (Theme.of(context).platform == TargetPlatform.android)
-            ListSection(
-              hasLeading: true,
-              children: [
-                ListTile(
-                  leading: PatronIcon(color: 10, size: IconTheme.of(context).size),
-                  title: Text(context.l10n.patronDonate),
-                  subtitle: Text(context.l10n.patronBecomePatron),
-                  enabled: isOnline,
-                  onTap: () {
-                    launchUrl(Uri.parse('https://lichess.org/patron'));
-                  },
-                ),
-                ListTile(
-                  leading: const Icon(Icons.info_outline),
-                  title: Text(context.l10n.about),
-                  onTap: () {
-                    Navigator.of(context, rootNavigator: true).push(AboutScreen.buildRoute());
+                    Navigator.of(
+                      context,
+                      rootNavigator: true,
+                    ).push(FriendScreen.buildRoute());
                   },
                 ),
               ],
             ),
+          const _AccountSection(),
+
           Padding(
             padding: Styles.bodySectionPadding,
             child: LichessMessage(style: TextTheme.of(context).bodyMedium),
