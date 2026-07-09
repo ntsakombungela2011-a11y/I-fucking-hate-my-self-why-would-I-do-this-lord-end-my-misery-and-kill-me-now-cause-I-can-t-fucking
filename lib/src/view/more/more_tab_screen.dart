@@ -46,8 +46,7 @@ class MoreTabScreen extends ConsumerWidget {
         appBar: PlatformAppBar(
           title: Theme.of(context).platform == TargetPlatform.iOS
               ? AppBarLichessTitle(
-                  iconSize:
-                      Theme.of(context).textTheme.headlineSmall?.fontSize ?? 24,
+                  iconSize: Theme.of(context).textTheme.headlineSmall?.fontSize ?? 24,
                 )
               : const AppBarLichessTitle(),
           centerTitle: false,
@@ -85,8 +84,7 @@ class _Body extends ConsumerWidget {
                     ? const CupertinoListTileChevron()
                     : null,
                 title: Text(context.l10n.importPgn),
-                onTap: () =>
-                    Navigator.of(context).push(ImportPgnScreen.buildRoute()),
+                onTap: () => Navigator.of(context).push(ImportPgnScreen.buildRoute()),
               ),
               ListTile(
                 leading: const Icon(Icons.biotech_outlined),
@@ -106,7 +104,6 @@ class _Body extends ConsumerWidget {
                     ? const CupertinoListTileChevron()
                     : null,
                 title: Text(context.l10n.openingExplorer),
-                enabled: isOnline,
                 onTap: () => Navigator.of(context, rootNavigator: true).push(
                   OpeningExplorerScreen.buildRoute(
                     const AnalysisOptions.pgn(
@@ -140,10 +137,7 @@ class _Body extends ConsumerWidget {
                     : null,
                 title: Text(context.l10n.clock),
                 onTap: () {
-                  Navigator.of(
-                    context,
-                    rootNavigator: true,
-                  ).push(ClockToolScreen.buildRoute());
+                  Navigator.of(context, rootNavigator: true).push(ClockToolScreen.buildRoute());
                 },
               ),
             ],
@@ -161,10 +155,7 @@ class _Body extends ConsumerWidget {
                       ? const CupertinoListTileChevron()
                       : null,
                   onTap: () {
-                    Navigator.of(
-                      context,
-                      rootNavigator: true,
-                    ).push(FriendScreen.buildRoute());
+                    Navigator.of(context, rootNavigator: true).push(FriendScreen.buildRoute());
                   },
                 ),
               ],
