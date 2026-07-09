@@ -5,12 +5,15 @@ import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 import 'package:lichess_mobile/src/constants.dart';
-import 'package:lichess_mobile/src/model/common/chess.dart' show Variant;
+import 'package:flutter/foundation.dart';
+import 'package:lichess_mobile/src/db/openings_database.dart';
+import 'package:lichess_mobile/src/model/common/chess.dart' show Variant, LightOpening;
 import 'package:lichess_mobile/src/model/common/speed.dart';
 import 'package:lichess_mobile/src/model/explorer/opening_explorer.dart';
 import 'package:lichess_mobile/src/model/explorer/opening_explorer_preferences.dart';
 import 'package:lichess_mobile/src/network/http.dart';
 import 'package:lichess_mobile/src/utils/riverpod.dart';
+import 'package:sqflite/sqflite.dart';
 
 final openingExplorerProvider = AsyncNotifierProvider.autoDispose
     .family<
@@ -100,14 +103,14 @@ class OpeningExplorer extends AsyncNotifier<({OpeningExplorerEntry entry, bool i
       }
 
       // Build the list of OpeningMove objects using real chess logic for SAN
-      final Position currentPosition = Position.fromSetup(Setup.parseFen(fen));
+      final Position currentPosition = Position.setupPosition(variant.rule, Setup.parseFen(fen));
       final List<OpeningMove> movesList = [];
 
       for (final nextMoveUci in moveCounts.keys) {
         final moveObj = Move.parse(nextMoveUci);
         if (moveObj != null) {
           // Verify legality of the move
-          final isLegal = currentPosition.legalMoves.contains(moveObj);
+          final isLegal = currentPosition.isLegal(moveObj);
           if (isLegal) {
             final (_, sanStr) = currentPosition.makeSan(moveObj);
             final int count = moveCounts[nextMoveUci]!;
