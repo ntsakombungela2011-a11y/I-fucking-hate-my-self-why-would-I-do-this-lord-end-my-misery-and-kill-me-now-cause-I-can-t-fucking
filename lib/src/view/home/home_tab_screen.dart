@@ -72,7 +72,9 @@ class HomeTabScreen extends ConsumerStatefulWidget {
   final bool editModeEnabled;
 
   static Route<dynamic> buildRoute({bool editModeEnabled = false}) {
-    return buildScreenRoute(screen: HomeTabScreen(editModeEnabled: editModeEnabled));
+    return buildScreenRoute(
+      screen: HomeTabScreen(editModeEnabled: editModeEnabled),
+    );
   }
 
   @override
@@ -96,12 +98,15 @@ class _IsEditingHome extends InheritedWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<bool>('isEditingWidgets', isEditingWidgets));
+    properties.add(
+      DiagnosticsProperty<bool>('isEditingWidgets', isEditingWidgets),
+    );
   }
 }
 
 const String kWelcomeMessageShownKey = 'app_welcome_message_shown';
-const String kHideHomeWidgetCustomizationTip = 'app_hide_home_widget_customization_tip';
+const String kHideHomeWidgetCustomizationTip =
+    'app_hide_home_widget_customization_tip';
 
 class _HomeScreenState extends ConsumerState<HomeTabScreen> {
   ImageColorWorker? _worker;
@@ -149,9 +154,12 @@ class _HomeScreenState extends ConsumerState<HomeTabScreen> {
       skipLoadingOnReload: true,
       data: (isOnline) {
         final authUser = ref.watch(authControllerProvider);
-        final unreadLichessMessage = ref.watch(unreadMessagesProvider).value?.lichess == true;
+        final unreadLichessMessage =
+            ref.watch(unreadMessagesProvider).value?.lichess == true;
         final ongoingGames = ref.watch(ongoingGamesProvider);
-        final offlineCorresGames = ref.watch(offlineOngoingCorrespondenceGamesProvider);
+        final offlineCorresGames = ref.watch(
+          offlineOngoingCorrespondenceGamesProvider,
+        );
         final recentGames = ref.watch(myRecentGamesProvider);
         final nbOfGames = ref.watch(userNumberOfGamesProvider(null)).value ?? 0;
         final isTablet = isTabletOrLarger(context);
@@ -171,7 +179,10 @@ class _HomeScreenState extends ConsumerState<HomeTabScreen> {
         // (i.e. first installation, or the user has never played a game)
         final shouldShowWelcomeScreen =
             authUser == null &&
-            recentGames.maybeWhen(data: (data) => data.isEmpty, orElse: () => false);
+            recentGames.maybeWhen(
+              data: (data) => data.isEmpty,
+              orElse: () => false,
+            );
 
         List<Widget> widgets;
 
@@ -188,30 +199,6 @@ class _HomeScreenState extends ConsumerState<HomeTabScreen> {
                 child: LichessMessage(style: TextTheme.of(context).bodyLarge),
               ),
               const SizedBox(height: 8.0),
-              if (authUser == null) ...[
-                const Center(child: _SignInWidget()),
-                const SizedBox(height: 16.0),
-              ],
-              if (Theme.of(context).platform != TargetPlatform.iOS &&
-                  (authUser == null || authUser.user.isPatron != true)) ...[
-                Center(
-                  child: FilledButton.tonal(
-                    onPressed: () {
-                      launchUrl(Uri.parse('https://lichess.org/patron'));
-                    },
-                    child: Text(context.l10n.patronDonate),
-                  ),
-                ),
-                const SizedBox(height: 16.0),
-              ],
-              Center(
-                child: FilledButton.tonal(
-                  onPressed: () {
-                    launchUrl(Uri.parse('https://lichess.org/about'));
-                  },
-                  child: Text(context.l10n.aboutX('Lichess...')),
-                ),
-              ),
               const _WelcomeMessageCard(),
               const _HomeCustomizationTip(),
             ],
@@ -232,7 +219,7 @@ class _HomeScreenState extends ConsumerState<HomeTabScreen> {
                       ],
                     ),
                   ),
-                  Expanded(child: FeaturedTournamentsWidget(featured: featuredTournaments)),
+                  const Expanded(child: SizedBox.shrink()),
                 ],
               )
             else ...[
@@ -241,13 +228,12 @@ class _HomeScreenState extends ConsumerState<HomeTabScreen> {
                 const _EditableWidget(
                   widget: HomeEditableWidget.quickPairing,
                   shouldShow: true,
-                  child: Padding(padding: Styles.bodySectionPadding, child: QuickGameMatrix()),
+                  child: Padding(
+                    padding: Styles.bodySectionPadding,
+                    child: QuickGameMatrix(),
+                  ),
                 ),
-              _EditableWidget(
-                widget: HomeEditableWidget.featuredTournaments,
-                shouldShow: isOnline,
-                child: FeaturedTournamentsWidget(featured: featuredTournaments),
-              ),
+              const SizedBox.shrink(),
               if (_worker != null && !isKidMode)
                 _EditableWidget(
                   widget: HomeEditableWidget.blogCarousel,
@@ -271,7 +257,9 @@ class _HomeScreenState extends ConsumerState<HomeTabScreen> {
               _EditableWidget(
                 widget: HomeEditableWidget.perfCards,
                 shouldShow: authUser != null,
-                child: const AccountPerfCards(padding: Styles.bodySectionPadding),
+                child: const AccountPerfCards(
+                  padding: Styles.bodySectionPadding,
+                ),
               ),
             _EditableWidget(
               widget: HomeEditableWidget.friends,
@@ -289,7 +277,10 @@ class _HomeScreenState extends ConsumerState<HomeTabScreen> {
                       if (isOnline)
                         _OngoingGamesPreview(ongoingGames, maxGamesToShow: 5)
                       else
-                        _OfflineCorrespondencePreview(offlineCorresGames, maxGamesToShow: 5),
+                        _OfflineCorrespondencePreview(
+                          offlineCorresGames,
+                          maxGamesToShow: 5,
+                        ),
                     ],
                   ),
                 ),
@@ -299,14 +290,17 @@ class _HomeScreenState extends ConsumerState<HomeTabScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       const SizedBox(height: 8.0),
-                      FeaturedTournamentsWidget(featured: featuredTournaments),
                       if (_worker != null && !isKidMode)
                         _EditableWidget(
                           widget: HomeEditableWidget.blogCarousel,
                           shouldShow: isOnline,
                           child: _BlogCarouselWidget(blogPosts, _worker!),
                         ),
-                      RecentGamesWidget(recentGames: recentGames, nbOfGames: nbOfGames, user: null),
+                      RecentGamesWidget(
+                        recentGames: recentGames,
+                        nbOfGames: nbOfGames,
+                        user: null,
+                      ),
                     ],
                   ),
                 ),
@@ -316,7 +310,10 @@ class _HomeScreenState extends ConsumerState<HomeTabScreen> {
         } else {
           final hasOngoingGames =
               (isOnline &&
-                  ongoingGames.maybeWhen(data: (data) => data.isNotEmpty, orElse: () => false)) ||
+                  ongoingGames.maybeWhen(
+                    data: (data) => data.isNotEmpty,
+                    orElse: () => false,
+                  )) ||
               (!isOnline &&
                   offlineCorresGames.maybeWhen(
                     data: (data) => data.isNotEmpty,
@@ -336,7 +333,9 @@ class _HomeScreenState extends ConsumerState<HomeTabScreen> {
               widget: HomeEditableWidget.perfCards,
               shouldShow: authUser != null && isOnline,
               child: AccountPerfCards(
-                padding: Styles.horizontalBodyPadding.add(Styles.sectionBottomPadding),
+                padding: Styles.horizontalBodyPadding.add(
+                  Styles.sectionBottomPadding,
+                ),
               ),
             ),
             _EditableWidget(
@@ -347,20 +346,22 @@ class _HomeScreenState extends ConsumerState<HomeTabScreen> {
             _EditableWidget(
               widget: HomeEditableWidget.quickPairing,
               shouldShow: isOnline,
-              child: const Padding(padding: Styles.bodySectionPadding, child: QuickGameMatrix()),
+              child: const Padding(
+                padding: Styles.bodySectionPadding,
+                child: QuickGameMatrix(),
+              ),
             ),
             _EditableWidget(
               widget: HomeEditableWidget.ongoingGames,
               shouldShow: hasOngoingGames,
               child: isOnline
                   ? _OngoingGamesCarousel(ongoingGames, maxGamesToShow: 20)
-                  : _OfflineCorrespondenceCarousel(offlineCorresGames, maxGamesToShow: 20),
+                  : _OfflineCorrespondenceCarousel(
+                      offlineCorresGames,
+                      maxGamesToShow: 20,
+                    ),
             ),
-            _EditableWidget(
-              widget: HomeEditableWidget.featuredTournaments,
-              shouldShow: isOnline,
-              child: FeaturedTournamentsWidget(featured: featuredTournaments),
-            ),
+            const SizedBox.shrink(),
             if (_worker != null && !isKidMode)
               _EditableWidget(
                 widget: HomeEditableWidget.blogCarousel,
@@ -370,14 +371,21 @@ class _HomeScreenState extends ConsumerState<HomeTabScreen> {
             _EditableWidget(
               widget: HomeEditableWidget.recentGames,
               shouldShow: true,
-              child: RecentGamesWidget(recentGames: recentGames, nbOfGames: nbOfGames, user: null),
+              child: RecentGamesWidget(
+                recentGames: recentGames,
+                nbOfGames: nbOfGames,
+                user: null,
+              ),
             ),
           ];
         }
 
         final content = ListView(
           controller: homeScrollController,
-          children: [if (unreadLichessMessage) const _LichessMessageBanner(), ...widgets],
+          children: [
+            if (unreadLichessMessage) const _LichessMessageBanner(),
+            ...widgets,
+          ],
         );
 
         return FocusDetector(
@@ -405,19 +413,25 @@ class _HomeScreenState extends ConsumerState<HomeTabScreen> {
                   : PlatformAppBar(
                       title: Theme.of(context).platform == TargetPlatform.iOS
                           ? AppBarLichessTitle(
-                              iconSize: Theme.of(context).textTheme.headlineSmall?.fontSize ?? 24,
+                              iconSize:
+                                  Theme.of(
+                                    context,
+                                  ).textTheme.headlineSmall?.fontSize ??
+                                  24,
                             )
                           : const AppBarLichessTitle(),
                       centerTitle: false,
-                      titleTextStyle: Theme.of(context).platform == TargetPlatform.iOS
+                      titleTextStyle:
+                          Theme.of(context).platform == TargetPlatform.iOS
                           ? Theme.of(context).textTheme.headlineSmall
                           : null,
-                      actions: const [_ChallengeScreenButton(), AccountMenuButton()],
+                      actions: const [],
                     ),
               body: widget.editModeEnabled
                   ? content
                   : HapticRefreshIndicator(
-                      edgeOffset: Theme.of(context).platform == TargetPlatform.iOS
+                      edgeOffset:
+                          Theme.of(context).platform == TargetPlatform.iOS
                           ? MediaQuery.paddingOf(context).top + kToolbarHeight
                           : 0.0,
                       key: _refreshKey,
@@ -442,7 +456,9 @@ class _HomeScreenState extends ConsumerState<HomeTabScreen> {
               floatingActionButton: widget.editModeEnabled || isTablet
                   ? null
                   : const FloatingPlayButton(),
-              bottomSheet: widget.editModeEnabled ? null : const OfflineBanner(),
+              bottomSheet: widget.editModeEnabled
+                  ? null
+                  : const OfflineBanner(),
             ),
           ),
         );
@@ -514,7 +530,10 @@ class _SignInWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final signInState = ref.watch(signInMutation);
 
-    ref.listen(signInMutation, (_, next) => showSignInErrorSnackBar(context, next));
+    ref.listen(
+      signInMutation,
+      (_, next) => showSignInErrorSnackBar(context, next),
+    );
 
     return FilledButton(
       onPressed: switch (signInState) {
@@ -546,7 +565,11 @@ class _SignInWidget extends ConsumerWidget {
 ///   This parameter is only active when the user is not in edit mode, as we
 ///   always want to display the widget in edit mode.
 class _EditableWidget extends ConsumerWidget {
-  const _EditableWidget({required this.child, required this.widget, required this.shouldShow});
+  const _EditableWidget({
+    required this.child,
+    required this.widget,
+    required this.shouldShow,
+  });
 
   final Widget child;
   final HomeEditableWidget widget;
@@ -555,7 +578,8 @@ class _EditableWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final disabledWidgets = ref.watch(homePreferencesProvider).disabledWidgets;
-    final isEditing = _IsEditingHome.maybeOf(context)?.isEditingWidgets ?? false;
+    final isEditing =
+        _IsEditingHome.maybeOf(context)?.isEditingWidgets ?? false;
     final isEnabled = !disabledWidgets.contains(widget);
 
     if (!shouldShow) {
@@ -576,7 +600,9 @@ class _EditableWidget extends ConsumerWidget {
                       onChanged: widget.alwaysEnabled
                           ? null
                           : (_) {
-                              ref.read(homePreferencesProvider.notifier).toggleWidget(widget);
+                              ref
+                                  .read(homePreferencesProvider.notifier)
+                                  .toggleWidget(widget);
                             },
                     ),
                   ],
@@ -617,10 +643,11 @@ class _IsDayTimeNotifier extends Notifier<bool> {
   }
 }
 
-final _isDayTimeProvider = NotifierProvider.autoDispose<_IsDayTimeNotifier, bool>(
-  _IsDayTimeNotifier.new,
-  name: '_isDayTimeProvider',
-);
+final _isDayTimeProvider =
+    NotifierProvider.autoDispose<_IsDayTimeNotifier, bool>(
+      _IsDayTimeNotifier.new,
+      name: '_isDayTimeProvider',
+    );
 
 class _GreetingWidget extends ConsumerWidget {
   const _GreetingWidget();
@@ -639,38 +666,34 @@ class _GreetingWidget extends ConsumerWidget {
       maxScaleFactor: 1.3,
       child: Padding(
         padding: Styles.bodyPadding,
-        child: GestureDetector(
-          onTap: () {
-            ref.invalidate(accountProvider);
-            Navigator.of(context).push(ProfileScreen.buildRoute());
-          },
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                isDayTime ? '☀️' : '🌙',
-                style: const TextStyle(fontSize: iconSize, height: 1.0),
-              ),
-              const SizedBox(width: 5.0),
-              if (user != null)
-                Flexible(
-                  child: l10nWithWidget(
-                    isDayTime ? context.l10n.mobileGoodDay : context.l10n.mobileGoodEvening,
-                    Text(user.name, style: style),
-                    textStyle: style,
-                  ),
-                )
-              else
-                Flexible(
-                  child: Text(
-                    isDayTime
-                        ? context.l10n.mobileGoodDayWithoutName
-                        : context.l10n.mobileGoodEveningWithoutName,
-                    style: style,
-                  ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              isDayTime ? '☀️' : '🌙',
+              style: const TextStyle(fontSize: iconSize, height: 1.0),
+            ),
+            const SizedBox(width: 5.0),
+            if (user != null)
+              Flexible(
+                child: l10nWithWidget(
+                  isDayTime
+                      ? context.l10n.mobileGoodDay
+                      : context.l10n.mobileGoodEvening,
+                  Text(user.name, style: style),
+                  textStyle: style,
                 ),
-            ],
-          ),
+              )
+            else
+              Flexible(
+                child: Text(
+                  isDayTime
+                      ? context.l10n.mobileGoodDayWithoutName
+                      : context.l10n.mobileGoodEveningWithoutName,
+                  style: style,
+                ),
+              ),
+          ],
         ),
       ),
     );
@@ -688,7 +711,10 @@ class _TabletCreateAGameSection extends StatelessWidget {
         _EditableWidget(
           widget: HomeEditableWidget.quickPairing,
           shouldShow: true,
-          child: Padding(padding: Styles.bodySectionPadding, child: QuickGameMatrix()),
+          child: Padding(
+            padding: Styles.bodySectionPadding,
+            child: QuickGameMatrix(),
+          ),
         ),
         PlayMenu(),
       ],
@@ -714,13 +740,19 @@ class _BlogCarouselWidget extends ConsumerWidget {
             child: ListSectionHeader(title: Text(context.l10n.blog)),
           ),
           switch (posts) {
-            AsyncData(:final value) => BlogCarousel(posts: value, worker: worker),
+            AsyncData(:final value) => BlogCarousel(
+              posts: value,
+              worker: worker,
+            ),
             AsyncError() => const Padding(
               padding: Styles.bodySectionPadding,
               child: Text('Could not load blog posts.'),
             ),
             _ => Shimmer(
-              child: ShimmerLoading(isLoading: true, child: BlogCarousel.loading(worker: worker)),
+              child: ShimmerLoading(
+                isLoading: true,
+                child: BlogCarousel.loading(worker: worker),
+              ),
             ),
           },
         ],
@@ -773,11 +805,15 @@ class _OngoingGamesCarousel extends ConsumerWidget {
 }
 
 class _OfflineCorrespondenceCarousel extends ConsumerWidget {
-  const _OfflineCorrespondenceCarousel(this.offlineCorresGames, {required this.maxGamesToShow});
+  const _OfflineCorrespondenceCarousel(
+    this.offlineCorresGames, {
+    required this.maxGamesToShow,
+  });
 
   final int maxGamesToShow;
 
-  final AsyncValue<IList<(DateTime, OfflineCorrespondenceGame)>> offlineCorresGames;
+  final AsyncValue<IList<(DateTime, OfflineCorrespondenceGame)>>
+  offlineCorresGames;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -790,10 +826,11 @@ class _OfflineCorrespondenceCarousel extends ConsumerWidget {
           list: data,
           onTap: (index) {
             final el = data[index];
-            Navigator.of(
-              context,
-              rootNavigator: true,
-            ).push(OfflineCorrespondenceGameScreen.buildRoute(initialGame: (el.$1, el.$2)));
+            Navigator.of(context, rootNavigator: true).push(
+              OfflineCorrespondenceGameScreen.buildRoute(
+                initialGame: (el.$1, el.$2),
+              ),
+            );
           },
           builder: (el) => OngoingGameCarouselItem(
             game: OngoingGame(
@@ -812,7 +849,8 @@ class _OfflineCorrespondenceCarousel extends ConsumerWidget {
               secondsLeft: el.$2.myTimeLeft(el.$1)?.inSeconds,
             ),
           ),
-          moreScreenRouteBuilder: (context) => OfflineCorrespondenceGamesScreen.buildRoute(),
+          moreScreenRouteBuilder: (context) =>
+              OfflineCorrespondenceGamesScreen.buildRoute(),
           maxGamesToShow: maxGamesToShow,
         );
       },
@@ -841,8 +879,10 @@ class _OngoingGamesPreview extends ConsumerWidget {
         return PreviewGameList(
           list: list,
           maxGamesToShow: maxGamesToShow,
-          builder: (el) =>
-              OngoingGamePreview(game: el, padding: const EdgeInsets.symmetric(vertical: 8.0)),
+          builder: (el) => OngoingGamePreview(
+            game: el,
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+          ),
           moreScreenRouteBuilder: (context) => OngoingGamesScreen.buildRoute(),
         );
       case _:
@@ -852,11 +892,15 @@ class _OngoingGamesPreview extends ConsumerWidget {
 }
 
 class _OfflineCorrespondencePreview extends ConsumerWidget {
-  const _OfflineCorrespondencePreview(this.offlineCorresGames, {required this.maxGamesToShow});
+  const _OfflineCorrespondencePreview(
+    this.offlineCorresGames, {
+    required this.maxGamesToShow,
+  });
 
   final int maxGamesToShow;
 
-  final AsyncValue<IList<(DateTime, OfflineCorrespondenceGame)>> offlineCorresGames;
+  final AsyncValue<IList<(DateTime, OfflineCorrespondenceGame)>>
+  offlineCorresGames;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -865,8 +909,12 @@ class _OfflineCorrespondencePreview extends ConsumerWidget {
         return PreviewGameList(
           list: data,
           maxGamesToShow: maxGamesToShow,
-          builder: (el) => OfflineCorrespondenceGamePreview(game: el.$2, lastModified: el.$1),
-          moreScreenRouteBuilder: (context) => OfflineCorrespondenceGamesScreen.buildRoute(),
+          builder: (el) => OfflineCorrespondenceGamePreview(
+            game: el.$2,
+            lastModified: el.$1,
+          ),
+          moreScreenRouteBuilder: (context) =>
+              OfflineCorrespondenceGamesScreen.buildRoute(),
         );
       },
       orElse: () => const SizedBox.shrink(),
@@ -943,7 +991,9 @@ class _ChallengeScreenButton extends ConsumerWidget {
             ? null
             : () {
                 ref.invalidate(challengesProvider);
-                Navigator.of(context).push(ChallengeRequestsScreen.buildRoute());
+                Navigator.of(
+                  context,
+                ).push(ChallengeRequestsScreen.buildRoute());
               },
       ),
       _ => SemanticIconButton(
@@ -974,7 +1024,10 @@ class _TipCard extends StatelessWidget {
             children: [
               DefaultTextStyle.merge(
                 style: Theme.of(context).textTheme.bodyLarge,
-                child: Padding(padding: const EdgeInsets.all(8.0), child: content),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: content,
+                ),
               ),
               Row(mainAxisAlignment: MainAxisAlignment.end, children: actions),
             ],
@@ -994,11 +1047,17 @@ class _WelcomeMessageCard extends StatefulWidget {
 
 class _WelcomeMessageCardState extends State<_WelcomeMessageCard> {
   bool _shouldDisplay() {
-    return LichessBinding.instance.sharedPreferences.getBool(kWelcomeMessageShownKey) != true;
+    return LichessBinding.instance.sharedPreferences.getBool(
+          kWelcomeMessageShownKey,
+        ) !=
+        true;
   }
 
   void _dismiss() {
-    LichessBinding.instance.sharedPreferences.setBool(kWelcomeMessageShownKey, true);
+    LichessBinding.instance.sharedPreferences.setBool(
+      kWelcomeMessageShownKey,
+      true,
+    );
     setState(() {});
   }
 
@@ -1029,7 +1088,8 @@ class _NNUEFilesOutdatedTip extends ConsumerStatefulWidget {
   const _NNUEFilesOutdatedTip();
 
   @override
-  ConsumerState<_NNUEFilesOutdatedTip> createState() => _NNUEFilesOutdatedTipState();
+  ConsumerState<_NNUEFilesOutdatedTip> createState() =>
+      _NNUEFilesOutdatedTipState();
 }
 
 class _NNUEFilesOutdatedTipState extends ConsumerState<_NNUEFilesOutdatedTip> {
@@ -1039,12 +1099,16 @@ class _NNUEFilesOutdatedTipState extends ConsumerState<_NNUEFilesOutdatedTip> {
   @override
   void initState() {
     super.initState();
-    _checkNNUEFilesFuture = ref.read(nnueServiceProvider).hasOutdatedNNUEFiles();
+    _checkNNUEFilesFuture = ref
+        .read(nnueServiceProvider)
+        .hasOutdatedNNUEFiles();
   }
 
   @override
   Widget build(BuildContext context) {
-    final chessEnginePref = ref.watch(engineEvaluationPreferencesProvider).enginePref;
+    final chessEnginePref = ref
+        .watch(engineEvaluationPreferencesProvider)
+        .enginePref;
     if (chessEnginePref != ChessEnginePref.sfLatest) {
       return const SizedBox.shrink();
     }
@@ -1075,7 +1139,11 @@ class _NNUEFilesOutdatedTipState extends ConsumerState<_NNUEFilesOutdatedTip> {
           return _TipCard(
             content: Row(
               children: [
-                Icon(Icons.warning, size: 25.0, color: Theme.of(context).colorScheme.primary),
+                Icon(
+                  Icons.warning,
+                  size: 25.0,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
                 const SizedBox(width: 8.0),
                 const Flexible(
                   child: Text(
@@ -1119,11 +1187,15 @@ class _HomeCustomizationTipState extends State<_HomeCustomizationTip> {
     final prefs = LichessBinding.instance.sharedPreferences;
 
     return prefs.getBool(kHideHomeWidgetCustomizationTip) != true &&
-        LichessBinding.instance.numAppStarts <= kColdAppStartsHideCustomizationTipThreshold;
+        LichessBinding.instance.numAppStarts <=
+            kColdAppStartsHideCustomizationTipThreshold;
   }
 
   void _setHideHomeWidgetCustomizationTip() {
-    LichessBinding.instance.sharedPreferences.setBool(kHideHomeWidgetCustomizationTip, true);
+    LichessBinding.instance.sharedPreferences.setBool(
+      kHideHomeWidgetCustomizationTip,
+      true,
+    );
 
     // trigger rebuild to hide the tip
     setState(() {});
