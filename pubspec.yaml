@@ -1,5 +1,5 @@
 name: lichess_mobile
-description: Boipelo Chess: The Last Dance
+description: "Boipelo Chess: The Last Dance"
 publish_to: "none"
 
 version: 0.25.3+002503 # See README.md for details about versioning
