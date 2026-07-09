@@ -122,16 +122,6 @@ class _BodyState extends ConsumerState<_Body> {
         return ListView(
           children: [
             searchBar,
-            ListTile(
-              enabled: openingsAvailable,
-              title: Text(context.l10n.puzzleByOpenings),
-              trailing: const Icon(Icons.keyboard_arrow_right),
-              onTap: openingsAvailable
-                  ? () {
-                      Navigator.of(context).push(OpeningThemeScreen.buildRoute());
-                    }
-                  : null,
-            ),
             for (final category in list)
               _Category(
                 hasConnectivity: hasConnectivity,

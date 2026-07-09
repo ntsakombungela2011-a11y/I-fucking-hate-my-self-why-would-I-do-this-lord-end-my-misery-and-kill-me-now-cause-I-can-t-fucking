@@ -12,6 +12,7 @@ import 'package:lichess_mobile/src/model/puzzle/puzzle_preferences.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_repository.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_storage.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_theme.dart';
+import 'package:lichess_mobile/src/model/puzzle/procedural_generator.dart';
 import 'package:lichess_mobile/src/network/http.dart';
 import 'package:logging/logging.dart';
 import 'package:result_extensions/result_extensions.dart';
@@ -89,19 +90,15 @@ class PuzzleService {
   Future<PuzzleContext?> nextPuzzle({
     required UserId? userId,
     PuzzleAngle angle = const PuzzleTheme(PuzzleThemeKey.mix),
-  }) {
-    return Result.release(
-      _syncAndLoadData(userId, angle).map(
-        (data) => data.$1 != null && data.$1!.unsolved.isNotEmpty
-            ? PuzzleContext(
-                puzzle: data.$1!.unsolved[0],
-                angle: angle,
-                userId: userId,
-                glicko: data.$2,
-                rounds: data.$3,
-              )
-            : null,
-      ),
+  }) async {
+    final themeKey = angle is PuzzleTheme ? angle.themeKey : PuzzleThemeKey.mix;
+    final puzzle = ProceduralPuzzleGenerator.generatePuzzle(themeKey);
+    return PuzzleContext(
+      puzzle: puzzle,
+      angle: angle,
+      userId: userId,
+      glicko: const PuzzleGlicko(rating: 1500, deviation: 350),
+      rounds: const IListConst([]),
     );
   }
 
@@ -116,16 +113,6 @@ class PuzzleService {
     PuzzleAngle angle = const PuzzleTheme(PuzzleThemeKey.mix),
   }) async {
     puzzleStorage.save(puzzle: puzzle);
-    const emptyBatch = PuzzleBatch(solved: IListConst([]), unsolved: IListConst([]));
-    final data = await batchStorage.fetch(userId: userId, angle: angle) ?? emptyBatch;
-    await batchStorage.save(
-      userId: userId,
-      angle: angle,
-      data: PuzzleBatch(
-        solved: IList([...data.solved, solution]),
-        unsolved: data.unsolved.removeWhere((e) => e.puzzle.id == solution.id),
-      ),
-    );
     return nextPuzzle(userId: userId, angle: angle);
   }
 
@@ -134,7 +121,6 @@ class PuzzleService {
     required UserId? userId,
     PuzzleAngle angle = const PuzzleTheme(PuzzleThemeKey.mix),
   }) async {
-    await batchStorage.delete(userId: userId, angle: angle);
     return nextPuzzle(userId: userId, angle: angle);
   }
 

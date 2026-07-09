@@ -504,10 +504,6 @@ final puzzleThemeCategoriesProvider = Provider<IList<PuzzleThemeCategory>>((Ref 
       l10n.strings.puzzleLengths,
       [PuzzleThemeKey.oneMove, PuzzleThemeKey.short, PuzzleThemeKey.long, PuzzleThemeKey.veryLong],
     ),
-    (
-      l10n.strings.puzzleOrigin,
-      [PuzzleThemeKey.master, PuzzleThemeKey.masterVsMaster, PuzzleThemeKey.superGM],
-    ),
   ]);
 }, name: 'PuzzleThemeCategoriesProvider');
 
