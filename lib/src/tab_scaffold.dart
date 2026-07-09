@@ -140,9 +140,8 @@ class MainTabScaffold extends ConsumerWidget {
     final currentTab = ref.watch(currentBottomTabProvider);
 
     final extendBody = Theme.of(context).platform == TargetPlatform.iOS;
-    final displayedTabs = BottomTab.values
-        .where((t) => t != BottomTab.watch)
-        .toList();
+    final displayedTabs =
+        BottomTab.values.where((t) => t != BottomTab.watch).toList();
 
     return FullScreenBackground(
       child: MainTabScaffoldProperties(
@@ -196,9 +195,8 @@ class MainTabScaffold extends ConsumerWidget {
   /// Otherwise, switch to the tapped tab.
   void _onItemTapped(WidgetRef ref, int index) {
     final curTab = ref.read(currentBottomTabProvider);
-    final displayedTabs = BottomTab.values
-        .where((t) => t != BottomTab.watch)
-        .toList();
+    final displayedTabs =
+        BottomTab.values.where((t) => t != BottomTab.watch).toList();
     final tappedTab = displayedTabs[index];
 
     if (tappedTab == curTab) {
@@ -633,12 +631,12 @@ class _CupertinoTabBar extends StatelessWidget implements PreferredSizeWidget {
         width: 0.0, // 0.0 means one physical pixel
       ),
     ),
-  }) : assert(
-         items.length >= 2,
-         "Tabs need at least 2 items to conform to Apple's HIG",
-       ),
-       assert(0 <= currentIndex && currentIndex < items.length),
-       assert(height >= 0.0);
+  })  : assert(
+          items.length >= 2,
+          "Tabs need at least 2 items to conform to Apple's HIG",
+        ),
+        assert(0 <= currentIndex && currentIndex < items.length),
+        assert(height >= 0.0);
 
   /// The interactive items laid out within the bottom navigation bar.
   final List<BottomNavigationBarItem> items;
@@ -724,13 +722,13 @@ class _CupertinoTabBar extends StatelessWidget implements PreferredSizeWidget {
     // Return the border as is when it's a subclass.
     final Border? resolvedBorder =
         border == null || border.runtimeType != Border
-        ? border
-        : Border(
-            top: resolveBorderSide(border!.top),
-            left: resolveBorderSide(border!.left),
-            bottom: resolveBorderSide(border!.bottom),
-            right: resolveBorderSide(border!.right),
-          );
+            ? border
+            : Border(
+                top: resolveBorderSide(border!.top),
+                left: resolveBorderSide(border!.left),
+                bottom: resolveBorderSide(border!.bottom),
+                right: resolveBorderSide(border!.right),
+              );
 
     final Color inactive = CupertinoDynamicColor.resolve(
       inactiveColor,

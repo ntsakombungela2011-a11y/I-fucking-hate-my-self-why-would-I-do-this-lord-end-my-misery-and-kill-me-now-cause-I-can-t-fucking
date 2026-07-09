@@ -177,8 +177,7 @@ class _HomeScreenState extends ConsumerState<HomeTabScreen> {
 
         // Show the welcome screen if not logged in and there are no recent games and no stored games
         // (i.e. first installation, or the user has never played a game)
-        final shouldShowWelcomeScreen =
-            authUser == null &&
+        final shouldShowWelcomeScreen = authUser == null &&
             recentGames.maybeWhen(
               data: (data) => data.isEmpty,
               orElse: () => false,
@@ -308,8 +307,7 @@ class _HomeScreenState extends ConsumerState<HomeTabScreen> {
             ),
           ];
         } else {
-          final hasOngoingGames =
-              (isOnline &&
+          final hasOngoingGames = (isOnline &&
                   ongoingGames.maybeWhen(
                     data: (data) => data.isNotEmpty,
                     orElse: () => false,
@@ -413,8 +411,7 @@ class _HomeScreenState extends ConsumerState<HomeTabScreen> {
                   : PlatformAppBar(
                       title: Theme.of(context).platform == TargetPlatform.iOS
                           ? AppBarLichessTitle(
-                              iconSize:
-                                  Theme.of(
+                              iconSize: Theme.of(
                                     context,
                                   ).textTheme.headlineSmall?.fontSize ??
                                   24,
@@ -423,15 +420,15 @@ class _HomeScreenState extends ConsumerState<HomeTabScreen> {
                       centerTitle: false,
                       titleTextStyle:
                           Theme.of(context).platform == TargetPlatform.iOS
-                          ? Theme.of(context).textTheme.headlineSmall
-                          : null,
+                              ? Theme.of(context).textTheme.headlineSmall
+                              : null,
                       actions: const [],
                     ),
               body: widget.editModeEnabled
                   ? content
                   : HapticRefreshIndicator(
-                      edgeOffset:
-                          Theme.of(context).platform == TargetPlatform.iOS
+                      edgeOffset: Theme.of(context).platform ==
+                              TargetPlatform.iOS
                           ? MediaQuery.paddingOf(context).top + kToolbarHeight
                           : 0.0,
                       key: _refreshKey,
@@ -456,9 +453,8 @@ class _HomeScreenState extends ConsumerState<HomeTabScreen> {
               floatingActionButton: widget.editModeEnabled || isTablet
                   ? null
                   : const FloatingPlayButton(),
-              bottomSheet: widget.editModeEnabled
-                  ? null
-                  : const OfflineBanner(),
+              bottomSheet:
+                  widget.editModeEnabled ? null : const OfflineBanner(),
             ),
           ),
         );
@@ -539,12 +535,12 @@ class _SignInWidget extends ConsumerWidget {
       onPressed: switch (signInState) {
         MutationPending() => null,
         _ => () {
-          // The error is surfaced via the [ref.listen] above; ignore the
-          // rethrown future so it does not become an unhandled exception.
-          signInMutation.run(ref, (tsx) async {
-            await tsx.get(authControllerProvider.notifier).signIn();
-          }).ignore();
-        },
+            // The error is surfaced via the [ref.listen] above; ignore the
+            // rethrown future so it does not become an unhandled exception.
+            signInMutation.run(ref, (tsx) async {
+              await tsx.get(authControllerProvider.notifier).signIn();
+            }).ignore();
+          },
       },
       child: Text(context.l10n.signIn),
     );
@@ -619,8 +615,8 @@ class _EditableWidget extends ConsumerWidget {
             ],
           )
         : widget.alwaysEnabled || isEnabled
-        ? child
-        : const SizedBox.shrink();
+            ? child
+            : const SizedBox.shrink();
   }
 }
 
@@ -645,9 +641,9 @@ class _IsDayTimeNotifier extends Notifier<bool> {
 
 final _isDayTimeProvider =
     NotifierProvider.autoDispose<_IsDayTimeNotifier, bool>(
-      _IsDayTimeNotifier.new,
-      name: '_isDayTimeProvider',
-    );
+  _IsDayTimeNotifier.new,
+  name: '_isDayTimeProvider',
+);
 
 class _GreetingWidget extends ConsumerWidget {
   const _GreetingWidget();
@@ -741,19 +737,19 @@ class _BlogCarouselWidget extends ConsumerWidget {
           ),
           switch (posts) {
             AsyncData(:final value) => BlogCarousel(
-              posts: value,
-              worker: worker,
-            ),
-            AsyncError() => const Padding(
-              padding: Styles.bodySectionPadding,
-              child: Text('Could not load blog posts.'),
-            ),
-            _ => Shimmer(
-              child: ShimmerLoading(
-                isLoading: true,
-                child: BlogCarousel.loading(worker: worker),
+                posts: value,
+                worker: worker,
               ),
-            ),
+            AsyncError() => const Padding(
+                padding: Styles.bodySectionPadding,
+                child: Text('Could not load blog posts.'),
+              ),
+            _ => Shimmer(
+                child: ShimmerLoading(
+                  isLoading: true,
+                  child: BlogCarousel.loading(worker: worker),
+                ),
+              ),
           },
         ],
       ),
@@ -813,7 +809,7 @@ class _OfflineCorrespondenceCarousel extends ConsumerWidget {
   final int maxGamesToShow;
 
   final AsyncValue<IList<(DateTime, OfflineCorrespondenceGame)>>
-  offlineCorresGames;
+      offlineCorresGames;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -900,7 +896,7 @@ class _OfflineCorrespondencePreview extends ConsumerWidget {
   final int maxGamesToShow;
 
   final AsyncValue<IList<(DateTime, OfflineCorrespondenceGame)>>
-  offlineCorresGames;
+      offlineCorresGames;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -981,26 +977,26 @@ class _ChallengeScreenButton extends ConsumerWidget {
 
     return switch (isOnlineAsync) {
       AsyncData(value: final isOnline) => SemanticIconButton(
-        icon: Badge.count(
-          count: inwardCount,
-          isLabelVisible: inwardCount > 0,
-          child: const Icon(LichessIcons.crossed_swords, size: 18.0),
+          icon: Badge.count(
+            count: inwardCount,
+            isLabelVisible: inwardCount > 0,
+            child: const Icon(LichessIcons.crossed_swords, size: 18.0),
+          ),
+          semanticsLabel: context.l10n.preferencesNotifyChallenge,
+          onPressed: !isOnline
+              ? null
+              : () {
+                  ref.invalidate(challengesProvider);
+                  Navigator.of(
+                    context,
+                  ).push(ChallengeRequestsScreen.buildRoute());
+                },
         ),
-        semanticsLabel: context.l10n.preferencesNotifyChallenge,
-        onPressed: !isOnline
-            ? null
-            : () {
-                ref.invalidate(challengesProvider);
-                Navigator.of(
-                  context,
-                ).push(ChallengeRequestsScreen.buildRoute());
-              },
-      ),
       _ => SemanticIconButton(
-        icon: const Icon(LichessIcons.crossed_swords, size: 18.0),
-        semanticsLabel: context.l10n.preferencesNotifyChallenge,
-        onPressed: null,
-      ),
+          icon: const Icon(LichessIcons.crossed_swords, size: 18.0),
+          semanticsLabel: context.l10n.preferencesNotifyChallenge,
+          onPressed: null,
+        ),
     };
   }
 }
@@ -1099,16 +1095,14 @@ class _NNUEFilesOutdatedTipState extends ConsumerState<_NNUEFilesOutdatedTip> {
   @override
   void initState() {
     super.initState();
-    _checkNNUEFilesFuture = ref
-        .read(nnueServiceProvider)
-        .hasOutdatedNNUEFiles();
+    _checkNNUEFilesFuture =
+        ref.read(nnueServiceProvider).hasOutdatedNNUEFiles();
   }
 
   @override
   Widget build(BuildContext context) {
-    final chessEnginePref = ref
-        .watch(engineEvaluationPreferencesProvider)
-        .enginePref;
+    final chessEnginePref =
+        ref.watch(engineEvaluationPreferencesProvider).enginePref;
     if (chessEnginePref != ChessEnginePref.sfLatest) {
       return const SizedBox.shrink();
     }
