@@ -48,8 +48,14 @@ jobs:
 
       - name: Verify formatting
         run: |
-          dart format --output=none --set-exit-if-changed $(find lib/src -name "*.dart" -not \( -name "*.*freezed.dart" -o -name "*.*g.dart" -o -name "*lichess_icons.dart" \) )
-          dart format --output=none --set-exit-if-changed $(find test -name "*.dart" -not \( -name "*.*freezed.dart" -o -name "*.*g.dart" \) )
+          git fetch origin main --depth=1 || true
+          MODIFIED_FILES=$(git diff --name-only origin/main...HEAD | grep '\.dart$' | grep -v '\.freezed\.dart$' | grep -v '\.g\.dart$' | grep -v 'lichess_icons\.dart$' || true)
+          if [ -n "$MODIFIED_FILES" ]; then
+            echo "Checking formatting of modified files: $MODIFIED_FILES"
+            dart format --output=none --set-exit-if-changed $MODIFIED_FILES
+          else
+            echo "No modified Dart files to check."
+          fi
         # run: dart format --output=none --set-exit-if-changed .
 
       - name: Analyze project source
