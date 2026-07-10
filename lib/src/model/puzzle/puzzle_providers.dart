@@ -73,7 +73,7 @@ final stormProvider = FutureProvider.autoDispose<PuzzleStormResponse>((Ref ref) 
       LitePuzzle(
         id: PuzzleId('proc_storm_' + seed.id + '_' + rand.nextInt(100000).toString()),
         fen: pos.fen,
-        solution: IList(seed.solution.map((m) => UCIMove(m))),
+        solution: IList(seed.solution),
         rating: (seed.rating + rand.nextInt(101) - 50).clamp(600, 2800),
       ),
     );
