@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:dartchess/dartchess.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
+import 'package:flutter/foundation.dart';
 import 'package:lichess_mobile/src/model/common/id.dart';
 import 'package:lichess_mobile/src/model/common/perf.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle.dart';
@@ -33,10 +34,28 @@ class ProceduralPuzzleGenerator {
     ),
     ProceduralPuzzleSeed(
       id: "legalls_mate",
-      moves: ['e2e4', 'e7e5', 'g1f3', 'd7d6', 'f1c4', 'c8g4', 'b1c3', 'g7g6', 'f3e5', 'g4d1'],
+      moves: [
+        'e2e4',
+        'e7e5',
+        'g1f3',
+        'd7d6',
+        'f1c4',
+        'c8g4',
+        'b1c3',
+        'g7g6',
+        'f3e5',
+        'g4d1',
+      ],
       solution: ['c4f7', 'e8e7', 'c3d5'],
       rating: 1100,
-      themes: {'mate', 'mateIn2', 'sacrifice', 'discoveredAttack', 'opening', 'crushing'},
+      themes: {
+        'mate',
+        'mateIn2',
+        'sacrifice',
+        'discoveredAttack',
+        'opening',
+        'crushing',
+      },
     ),
     ProceduralPuzzleSeed(
       id: "philidor_smothered",
@@ -58,7 +77,14 @@ class ProceduralPuzzleGenerator {
       ],
       solution: ['d4f3'],
       rating: 1300,
-      themes: {'mate', 'mateIn1', 'smotheredMate', 'fork', 'opening', 'crushing'},
+      themes: {
+        'mate',
+        'mateIn1',
+        'smotheredMate',
+        'fork',
+        'opening',
+        'crushing',
+      },
     ),
     ProceduralPuzzleSeed(
       id: "en_passant",
@@ -91,10 +117,28 @@ class ProceduralPuzzleGenerator {
     ),
     ProceduralPuzzleSeed(
       id: "carokann_smothered",
-      moves: ['e2e4', 'c7c6', 'd2d4', 'd7d5', 'b1c3', 'd5e4', 'c3e4', 'b8d7', 'd1e2', 'g8f6'],
+      moves: [
+        'e2e4',
+        'c7c6',
+        'd2d4',
+        'd7d5',
+        'b1c3',
+        'd5e4',
+        'c3e4',
+        'b8d7',
+        'd1e2',
+        'g8f6',
+      ],
       solution: ['e4d6'],
       rating: 950,
-      themes: {'mate', 'mateIn1', 'smotheredMate', 'pin', 'opening', 'crushing'},
+      themes: {
+        'mate',
+        'mateIn1',
+        'smotheredMate',
+        'pin',
+        'opening',
+        'crushing',
+      },
     ),
     ProceduralPuzzleSeed(
       id: "lasker_trap",
@@ -235,23 +279,14 @@ class ProceduralPuzzleGenerator {
     'Zukertort',
   ];
 
-  static String _mirrorUciHorizontal(String uci) {
-    final fromFile = uci[0];
-    final fromRank = uci[1];
-    final toFile = uci[2];
-    final toRank = uci[3];
-    final promo = uci.length > 4 ? uci[4] : "";
-
-    final mirroredFromFile = String.fromCharCode(201 - fromFile.codeUnitAt(0));
-    final mirroredToFile = String.fromCharCode(201 - toFile.codeUnitAt(0));
-
-    return mirroredFromFile + fromRank + mirroredToFile + toRank + promo;
-  }
-
   static Puzzle generatePuzzle(PuzzleThemeKey themeKey) {
     final rand = Random();
 
-    // Loop until we find a 100% verified, legal puzzle
+    // Quiet, non-central filler moves that are safe and do not interfere with main lines
+    final whiteFiller = ['a2a3', 'a2a4', 'h2h3', 'h2h4', 'g2g3', 'b2b3'];
+    final blackFiller = ['a7a6', 'a7a5', 'h7h6', 'h7h5', 'g7g6', 'b7b6'];
+
+    // Loop until we find a 100% verified, legal puzzle using the real rules engine
     while (true) {
       try {
         // Filter seeds matching requested theme
@@ -268,12 +303,28 @@ class ProceduralPuzzleGenerator {
 
         final seed = matching[rand.nextInt(matching.length)];
 
-        // Verify legality of all moves and solution step-by-step
+        // Generate a random number of filler move pairs (0, 1, or 2 pairs)
+        final numFillerPairs = rand.nextInt(3);
+        final List<String> combinedMoves = [];
+
+        if (numFillerPairs > 0) {
+          final wPool = List<String>.from(whiteFiller)..shuffle(rand);
+          final bPool = List<String>.from(blackFiller)..shuffle(rand);
+          for (int i = 0; i < numFillerPairs; i++) {
+            combinedMoves.add(wPool[i]);
+            combinedMoves.add(bPool[i]);
+          }
+        }
+
+        // Add the standard seed moves
+        combinedMoves.addAll(seed.moves);
+
+        // Verify legality of all moves and solution step-by-step with dartchess
         Position pos = Position.initialPosition(Rule.chess);
         List<String> sanMoves = [];
         bool allMovesLegal = true;
 
-        for (final uci in seed.moves) {
+        for (final uci in combinedMoves) {
           final moveObj = Move.parse(uci);
           if (moveObj == null || !pos.isLegal(moveObj)) {
             allMovesLegal = false;
@@ -285,10 +336,10 @@ class ProceduralPuzzleGenerator {
         }
 
         if (!allMovesLegal) {
-          continue; // Discard and try another seed
+          continue; // Discard and try another combination
         }
 
-        // Also verify legality of solution moves
+        // Verify legality of the solution moves
         Position solPos = pos;
         for (final uci in seed.solution) {
           final moveObj = Move.parse(uci);
@@ -300,11 +351,19 @@ class ProceduralPuzzleGenerator {
         }
 
         if (!allMovesLegal) {
-          continue; // Discard and try another seed
+          continue; // Discard and try another combination
         }
 
-        // Puzzle is 100% legal and verified! Build and return it.
-        final puzzleIdStr = "proc_" + seed.id + "_" + rand.nextInt(100000).toString();
+        // Puzzle is 100% legal, non-repeating, and verified! Build and return it.
+        final fillerHash = numFillerPairs > 0
+            ? "_" + combinedMoves.sublist(0, numFillerPairs * 2).join()
+            : "";
+        final puzzleIdStr =
+            "proc_" +
+            seed.id +
+            fillerHash +
+            "_" +
+            rand.nextInt(1000000).toString();
         final int ratingJitter = rand.nextInt(101) - 50; // Jitter of +-50
         final finalRating = (seed.rating + ratingJitter).clamp(600, 2800);
 
@@ -317,11 +376,11 @@ class ProceduralPuzzleGenerator {
         final pgnString = sanMoves.join(' ');
         final Set<String> finalThemes = Set.from(seed.themes);
 
-        // Classification 1: Group 4 (Phases)
+        // Classification: Phases
         final int pieceCount = _countPieces(pos);
         if (pieceCount <= 6) {
           finalThemes.add('endgame');
-        } else if (seed.moves.length <= 16) {
+        } else if (combinedMoves.length <= 16) {
           finalThemes.add('opening');
         } else {
           finalThemes.add('middlegame');
@@ -332,12 +391,16 @@ class ProceduralPuzzleGenerator {
             id: PuzzleId(puzzleIdStr),
             rating: finalRating,
             plays: rand.nextInt(5000) + 1500,
-            initialPly: seed.moves.length,
+            initialPly: combinedMoves.length,
             solution: seed.solution.lock,
             themes: finalThemes.toISet(),
           ),
           game: PuzzleGame(
-            id: GameId(puzzleIdStr.substring(0, min(puzzleIdStr.length, 8)).padRight(8, '0')),
+            id: GameId(
+              puzzleIdStr
+                  .substring(0, min(puzzleIdStr.length, 8))
+                  .padRight(8, '0'),
+            ),
             perf: Perf.puzzle,
             rated: false,
             white: PuzzleGamePlayer(side: Side.white, name: p1),
@@ -346,7 +409,7 @@ class ProceduralPuzzleGenerator {
           ),
         );
       } catch (e) {
-        debugPrint('Silently discarding corrupt procedural puzzle: ');
+        // Silently discard and continue generating
         continue;
       }
     }
@@ -360,14 +423,5 @@ class ProceduralPuzzleGenerator {
       }
     }
     return count;
-  }
-
-  static bool _hasPieceType(Position pos, Role role) {
-    for (final (_, piece) in pos.board.pieces) {
-      if (piece.role == role) {
-        return true;
-      }
-    }
-    return false;
   }
 }
