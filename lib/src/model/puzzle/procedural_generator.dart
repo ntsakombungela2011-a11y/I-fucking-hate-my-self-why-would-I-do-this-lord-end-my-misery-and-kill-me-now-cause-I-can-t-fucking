@@ -235,6 +235,19 @@ class ProceduralPuzzleGenerator {
     'Zukertort',
   ];
 
+  static String _mirrorUciHorizontal(String uci) {
+    final fromFile = uci[0];
+    final fromRank = uci[1];
+    final toFile = uci[2];
+    final toRank = uci[3];
+    final promo = uci.length > 4 ? uci[4] : "";
+
+    final mirroredFromFile = String.fromCharCode(201 - fromFile.codeUnitAt(0));
+    final mirroredToFile = String.fromCharCode(201 - toFile.codeUnitAt(0));
+
+    return mirroredFromFile + fromRank + mirroredToFile + toRank + promo;
+  }
+
   static Puzzle generatePuzzle(PuzzleThemeKey themeKey) {
     final rand = Random();
 
@@ -252,8 +265,19 @@ class ProceduralPuzzleGenerator {
 
     final seed = matching[rand.nextInt(matching.length)];
 
+    final bool canMirror = !seed.themes.contains('castling');
+    final bool mirror = canMirror && rand.nextBool();
+
+    final List<String> seedMoves = mirror
+        ? seed.moves.map((m) => _mirrorUciHorizontal(m)).toList()
+        : seed.moves;
+    final List<String> seedSolution = mirror
+        ? seed.solution.map((m) => _mirrorUciHorizontal(m)).toList()
+        : seed.solution;
+
     // Generate a unique ID and rating
-    final puzzleIdStr = "proc_" + seed.id + "_" + rand.nextInt(100000).toString();
+    final puzzleIdStr =
+        "proc_" + seed.id + "_" + (mirror ? "m_" : "") + rand.nextInt(100000).toString();
     final int ratingJitter = rand.nextInt(101) - 50; // Jitter of +-50
     final finalRating = (seed.rating + ratingJitter).clamp(600, 2800);
 
@@ -265,9 +289,9 @@ class ProceduralPuzzleGenerator {
     }
 
     // Play moves up to setup to generate correct SAN PGN
-    Position pos = Chess.initial;
+    Position pos = Position.initialPosition(Rule.chess);
     List<String> sanMoves = [];
-    for (final uci in seed.moves) {
+    for (final uci in seedMoves) {
       final moveObj = Move.parse(uci)!;
       final (_, san) = pos.makeSan(moveObj);
       sanMoves.add(san);
@@ -333,7 +357,7 @@ class ProceduralPuzzleGenerator {
         rating: finalRating,
         plays: rand.nextInt(5000) + 1500,
         initialPly: seed.moves.length,
-        solution: seed.solution.lock,
+        solution: seedSolution.lock,
         themes: finalThemes.toISet(),
       ),
       game: PuzzleGame(
