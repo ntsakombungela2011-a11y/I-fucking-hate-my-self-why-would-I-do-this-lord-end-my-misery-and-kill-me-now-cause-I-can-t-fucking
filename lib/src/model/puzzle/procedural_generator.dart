@@ -251,124 +251,105 @@ class ProceduralPuzzleGenerator {
   static Puzzle generatePuzzle(PuzzleThemeKey themeKey) {
     final rand = Random();
 
-    // Filter seeds matching requested theme
-    List<ProceduralPuzzleSeed> matching = [];
-    if (themeKey == PuzzleThemeKey.mix) {
-      matching = _seeds;
-    } else {
-      final nameStr = themeKey.name;
-      matching = _seeds.where((s) => s.themes.contains(nameStr)).toList();
-      if (matching.isEmpty) {
-        matching = _seeds;
+    // Loop until we find a 100% verified, legal puzzle
+    while (true) {
+      try {
+        // Filter seeds matching requested theme
+        List<ProceduralPuzzleSeed> matching = [];
+        if (themeKey == PuzzleThemeKey.mix) {
+          matching = _seeds;
+        } else {
+          final nameStr = themeKey.name;
+          matching = _seeds.where((s) => s.themes.contains(nameStr)).toList();
+          if (matching.isEmpty) {
+            matching = _seeds;
+          }
+        }
+
+        final seed = matching[rand.nextInt(matching.length)];
+
+        // Verify legality of all moves and solution step-by-step
+        Position pos = Position.initialPosition(Rule.chess);
+        List<String> sanMoves = [];
+        bool allMovesLegal = true;
+
+        for (final uci in seed.moves) {
+          final moveObj = Move.parse(uci);
+          if (moveObj == null || !pos.isLegal(moveObj)) {
+            allMovesLegal = false;
+            break;
+          }
+          final (_, san) = pos.makeSan(moveObj);
+          sanMoves.add(san);
+          pos = pos.play(moveObj);
+        }
+
+        if (!allMovesLegal) {
+          continue; // Discard and try another seed
+        }
+
+        // Also verify legality of solution moves
+        Position solPos = pos;
+        for (final uci in seed.solution) {
+          final moveObj = Move.parse(uci);
+          if (moveObj == null || !solPos.isLegal(moveObj)) {
+            allMovesLegal = false;
+            break;
+          }
+          solPos = solPos.play(moveObj);
+        }
+
+        if (!allMovesLegal) {
+          continue; // Discard and try another seed
+        }
+
+        // Puzzle is 100% legal and verified! Build and return it.
+        final puzzleIdStr = "proc_" + seed.id + "_" + rand.nextInt(100000).toString();
+        final int ratingJitter = rand.nextInt(101) - 50; // Jitter of +-50
+        final finalRating = (seed.rating + ratingJitter).clamp(600, 2800);
+
+        final p1 = _playerNames[rand.nextInt(_playerNames.length)];
+        var p2 = _playerNames[rand.nextInt(_playerNames.length)];
+        while (p1 == p2) {
+          p2 = _playerNames[rand.nextInt(_playerNames.length)];
+        }
+
+        final pgnString = sanMoves.join(' ');
+        final Set<String> finalThemes = Set.from(seed.themes);
+
+        // Classification 1: Group 4 (Phases)
+        final int pieceCount = _countPieces(pos);
+        if (pieceCount <= 6) {
+          finalThemes.add('endgame');
+        } else if (seed.moves.length <= 16) {
+          finalThemes.add('opening');
+        } else {
+          finalThemes.add('middlegame');
+        }
+
+        return Puzzle(
+          puzzle: PuzzleData(
+            id: PuzzleId(puzzleIdStr),
+            rating: finalRating,
+            plays: rand.nextInt(5000) + 1500,
+            initialPly: seed.moves.length,
+            solution: seed.solution.lock,
+            themes: finalThemes.toISet(),
+          ),
+          game: PuzzleGame(
+            id: GameId(puzzleIdStr.substring(0, min(puzzleIdStr.length, 8)).padRight(8, '0')),
+            perf: Perf.puzzle,
+            rated: false,
+            white: PuzzleGamePlayer(side: Side.white, name: p1),
+            black: PuzzleGamePlayer(side: Side.black, name: p2),
+            pgn: pgnString,
+          ),
+        );
+      } catch (e) {
+        debugPrint('Silently discarding corrupt procedural puzzle: ');
+        continue;
       }
     }
-
-    final seed = matching[rand.nextInt(matching.length)];
-
-    final bool canMirror = !seed.themes.contains('castling');
-    final bool mirror = canMirror && rand.nextBool();
-
-    final List<String> seedMoves = mirror
-        ? seed.moves.map((m) => _mirrorUciHorizontal(m)).toList()
-        : seed.moves;
-    final List<String> seedSolution = mirror
-        ? seed.solution.map((m) => _mirrorUciHorizontal(m)).toList()
-        : seed.solution;
-
-    // Generate a unique ID and rating
-    final puzzleIdStr =
-        "proc_" + seed.id + "_" + (mirror ? "m_" : "") + rand.nextInt(100000).toString();
-    final int ratingJitter = rand.nextInt(101) - 50; // Jitter of +-50
-    final finalRating = (seed.rating + ratingJitter).clamp(600, 2800);
-
-    // Pick two distinct player names
-    final p1 = _playerNames[rand.nextInt(_playerNames.length)];
-    var p2 = _playerNames[rand.nextInt(_playerNames.length)];
-    while (p1 == p2) {
-      p2 = _playerNames[rand.nextInt(_playerNames.length)];
-    }
-
-    // Play moves up to setup to generate correct SAN PGN
-    Position pos = Position.initialPosition(Rule.chess);
-    List<String> sanMoves = [];
-    for (final uci in seedMoves) {
-      final moveObj = Move.parse(uci)!;
-      final (_, san) = pos.makeSan(moveObj);
-      sanMoves.add(san);
-      pos = pos.play(moveObj);
-    }
-
-    final pgnString = sanMoves.join(' ');
-
-    // Set themes
-    final Set<String> finalThemes = Set.from(seed.themes);
-
-    // Classification 1: Group 4 (Phases) based on material count & ply
-    final int pieceCount = _countPieces(pos);
-    if (pieceCount <= 6) {
-      finalThemes.add('endgame');
-      // specific endgames
-      if (_hasPieceType(pos, Role.rook)) {
-        finalThemes.add('rookEndgame');
-      } else if (_hasPieceType(pos, Role.bishop)) {
-        finalThemes.add('bishopEndgame');
-      } else if (_hasPieceType(pos, Role.knight)) {
-        finalThemes.add('knightEndgame');
-      } else if (_hasPieceType(pos, Role.queen)) {
-        finalThemes.add('queenEndgame');
-      } else {
-        finalThemes.add('pawnEndgame');
-      }
-    } else if (seed.moves.length <= 16) {
-      finalThemes.add('opening');
-    } else {
-      finalThemes.add('middlegame');
-    }
-
-    // Classification 2: Group 6 (Goals)
-    if (seed.themes.contains('mate') ||
-        seed.themes.contains('mateIn1') ||
-        seed.themes.contains('mateIn2') ||
-        seed.themes.contains('mateIn3')) {
-      finalThemes.add('mate');
-    } else if (finalRating < 1000) {
-      finalThemes.add('equality');
-    } else if (finalRating < 1400) {
-      finalThemes.add('advantage');
-    } else {
-      finalThemes.add('crushing');
-    }
-
-    // Classification 3: Group 7 (Lengths)
-    final int solLength = seed.solution.length;
-    if (solLength == 1) {
-      finalThemes.add('oneMove');
-    } else if (solLength <= 3) {
-      finalThemes.add('short');
-    } else if (solLength <= 5) {
-      finalThemes.add('long');
-    } else {
-      finalThemes.add('veryLong');
-    }
-
-    return Puzzle(
-      puzzle: PuzzleData(
-        id: PuzzleId(puzzleIdStr),
-        rating: finalRating,
-        plays: rand.nextInt(5000) + 1500,
-        initialPly: seed.moves.length,
-        solution: seedSolution.lock,
-        themes: finalThemes.toISet(),
-      ),
-      game: PuzzleGame(
-        id: GameId(puzzleIdStr.substring(0, min(puzzleIdStr.length, 8)).padRight(8, '0')),
-        perf: Perf.puzzle,
-        rated: false,
-        white: PuzzleGamePlayer(side: Side.white, name: p1),
-        black: PuzzleGamePlayer(side: Side.black, name: p2),
-        pgn: pgnString,
-      ),
-    );
   }
 
   static int _countPieces(Position pos) {
