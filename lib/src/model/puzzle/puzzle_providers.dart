@@ -1,3 +1,4 @@
+import "package:lichess_mobile/src/model/puzzle/procedural_generator.dart";
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lichess_mobile/src/model/auth/auth_controller.dart';
@@ -52,7 +53,26 @@ final puzzleReplayProvider = FutureProvider.autoDispose
 
 /// Fetches a storm of puzzles.
 final stormProvider = FutureProvider.autoDispose<PuzzleStormResponse>((Ref ref) {
-  return ref.read(puzzleRepositoryProvider).storm();
+  final List<LitePuzzle> litePuzzles = [];
+  for (int i = 0; i < 100; i++) {
+    final puzzle = ProceduralPuzzleGenerator.generatePuzzle(PuzzleThemeKey.mix);
+    final preview = PuzzlePreview.fromPuzzle(puzzle);
+    litePuzzles.add(
+      LitePuzzle(
+        id: puzzle.puzzle.id,
+        fen: preview.initialFen,
+        solution: puzzle.puzzle.solution,
+        rating: puzzle.puzzle.rating,
+      ),
+    );
+  }
+
+  return PuzzleStormResponse(
+    puzzles: IList(litePuzzles),
+    key: 'offline-storm-key',
+    highscore: const PuzzleStormHighScore(allTime: 0, day: 0, month: 0, week: 0),
+    timestamp: DateTime.now(),
+  );
 }, name: 'StormProvider');
 
 /// Fetches a puzzle from the local storage if available, otherwise fetches it from the server.
