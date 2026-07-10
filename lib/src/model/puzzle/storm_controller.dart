@@ -10,8 +10,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:lichess_mobile/src/model/auth/auth_controller.dart';
 import 'package:lichess_mobile/src/model/common/chess.dart';
+import 'package:lichess_mobile/src/model/common/node.dart';
 import 'package:lichess_mobile/src/model/common/service/move_feedback.dart';
 import 'package:lichess_mobile/src/model/common/service/sound_service.dart';
+import 'package:lichess_mobile/src/model/puzzle/procedural_generator.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_repository.dart';
 import 'package:lichess_mobile/src/model/puzzle/storm.dart';
@@ -38,10 +40,17 @@ class StormController extends Notifier<StormState> {
 
   Timer? _firstMoveTimer;
 
-  IList<LitePuzzle> get _puzzles => params.$1;
+  late final List<LitePuzzle> _puzzlesList;
+  final Set<String> _seenIds = {};
+
+  IList<LitePuzzle> get _puzzles => IList(_puzzlesList);
 
   @override
   StormState build() {
+    _puzzlesList = List<LitePuzzle>.from(params.$1);
+    _seenIds.clear();
+    _seenIds.addAll(_puzzlesList.map((p) => p.id.value));
+
     final pov = Chess.fromSetup(Setup.parseFen(_puzzles.first.fen));
     final clock = StormClock();
 
@@ -87,7 +96,9 @@ class StormController extends Notifier<StormState> {
   }
 
   Future<void> onUserMove(Move move) async {
-    if (state.clock.endAt != null || state.mode == StormMode.ended || state.position.isGameOver) {
+    if (state.clock.endAt != null ||
+        state.mode == StormMode.ended ||
+        state.position.isGameOver) {
       return;
     }
     if (!state.position.isLegal(move)) return;
@@ -113,7 +124,12 @@ class StormController extends Notifier<StormState> {
       }
 
       await Future<void>.delayed(moveDelay);
-      _addMove(state.expectedMove!, ComboState.increase, runStarted: true, userMove: false);
+      _addMove(
+        state.expectedMove!,
+        ComboState.increase,
+        runStarted: true,
+        userMove: false,
+      );
     } else {
       state = state.copyWith(errors: state.errors + 1);
       ref.read(soundServiceProvider).play(Sound.error);
@@ -139,7 +155,10 @@ class StormController extends Notifier<StormState> {
     final authUser = ref.read(authControllerProvider);
     if (authUser != null) {
       final res = await Result.capture(
-        ref.read(puzzleRepositoryProvider).postStormRun(stats).timeout(const Duration(seconds: 2)),
+        ref
+            .read(puzzleRepositoryProvider)
+            .postStormRun(stats)
+            .timeout(const Duration(seconds: 2)),
       );
 
       final newState = state.copyWith(stats: stats, mode: StormMode.ended);
@@ -187,7 +206,12 @@ class StormController extends Notifier<StormState> {
       ),
     );
     await Future<void>.delayed(moveDelay);
-    _addMove(state.expectedMove!, ComboState.noChange, runStarted: true, userMove: false);
+    _addMove(
+      state.expectedMove!,
+      ComboState.noChange,
+      runStarted: true,
+      userMove: false,
+    );
   }
 
   void _addMove(
@@ -217,16 +241,21 @@ class StormController extends Notifier<StormState> {
         best: math.max(state.combo.best, state.combo.current + 1),
       ),
     );
-    Future<void>.delayed(userMove ? Duration.zero : const Duration(milliseconds: 250), () {
-      if (!ref.mounted) return;
-      if (pos.board.pieceAt(move.to) != null) {
-        ref
-            .read(moveFeedbackServiceProvider)
-            .captureFeedback(Variant.standard, check: state.position.isCheck);
-      } else {
-        ref.read(moveFeedbackServiceProvider).moveFeedback(check: state.position.isCheck);
-      }
-    });
+    Future<void>.delayed(
+      userMove ? Duration.zero : const Duration(milliseconds: 250),
+      () {
+        if (!ref.mounted) return;
+        if (pos.board.pieceAt(move.to) != null) {
+          ref
+              .read(moveFeedbackServiceProvider)
+              .captureFeedback(Variant.standard, check: state.position.isCheck);
+        } else {
+          ref
+              .read(moveFeedbackServiceProvider)
+              .moveFeedback(check: state.position.isCheck);
+        }
+      },
+    );
   }
 
   StormRunStats _getStats() {
@@ -244,7 +273,10 @@ class StormController extends Notifier<StormState> {
       highest: wins.isNotEmpty
           ? wins
                 .map((e) => e.rating)
-                .reduce((maxRating, rating) => rating > maxRating ? rating : maxRating)
+                .reduce(
+                  (maxRating, rating) =>
+                      rating > maxRating ? rating : maxRating,
+                )
           : 0,
       history: state.history,
       slowPuzzleIds: state.history
@@ -266,7 +298,36 @@ class StormController extends Notifier<StormState> {
   }
 
   bool _isNextPuzzleAvailable() {
-    return state.puzzleIndex + 1 < _puzzles.length;
+    _refillPuzzlesIfNeeded();
+    return true;
+  }
+
+  void _refillPuzzlesIfNeeded() {
+    if (state.puzzleIndex + 5 >= _puzzlesList.length) {
+      for (int i = 0; i < 10; i++) {
+        Puzzle puzzle;
+        while (true) {
+          puzzle = ProceduralPuzzleGenerator.generatePuzzle(PuzzleThemeKey.mix);
+          if (!_seenIds.contains(puzzle.puzzle.id.value)) {
+            _seenIds.add(puzzle.puzzle.id.value);
+            break;
+          }
+        }
+
+        final root = Root.fromPgnMoves(puzzle.game.pgn);
+        final node = root.nodeAt(root.mainlinePath);
+        final fen = node.position.fen;
+
+        _puzzlesList.add(
+          LitePuzzle(
+            id: puzzle.puzzle.id,
+            fen: fen,
+            solution: puzzle.puzzle.solution,
+            rating: puzzle.puzzle.rating,
+          ),
+        );
+      }
+    }
   }
 }
 
@@ -323,7 +384,8 @@ sealed class StormState with _$StormState {
 
   Move? get expectedMove => Move.parse(puzzle.solution[moveIndex + 1]);
 
-  Move? get lastMove => moveIndex == -1 ? null : Move.parse(puzzle.solution[moveIndex]);
+  Move? get lastMove =>
+      moveIndex == -1 ? null : Move.parse(puzzle.solution[moveIndex]);
 
   bool get isOver => moveIndex >= puzzle.solution.length - 1;
 }
@@ -337,7 +399,8 @@ enum ComboState { increase, reset, noChange }
 sealed class StormCombo with _$StormCombo {
   const StormCombo._();
 
-  const factory StormCombo({required int current, required int best}) = _StormCombo;
+  const factory StormCombo({required int current, required int best}) =
+      _StormCombo;
 
   /// List representing the bonus awared at each level
   static const levelBonus = [3, 5, 6, 10];
@@ -358,7 +421,9 @@ sealed class StormCombo with _$StormCombo {
 
   /// Returns the level of the `current + 1` combo count
   int nextLevel() {
-    final lvl = levelsAndBonus.indexWhere((element) => element.level > current + 1);
+    final lvl = levelsAndBonus.indexWhere(
+      (element) => element.level > current + 1,
+    );
     return lvl >= 0 ? lvl - 1 : levelsAndBonus.length - 1;
   }
 
@@ -370,7 +435,8 @@ sealed class StormCombo with _$StormCombo {
     final lvl = getNext ? nextLevel() : currentLevel();
     final lastLevel = levelsAndBonus.last;
     if (lvl >= levelsAndBonus.length - 1) {
-      final range = lastLevel.level - levelsAndBonus[levelsAndBonus.length - 2].level;
+      final range =
+          lastLevel.level - levelsAndBonus[levelsAndBonus.length - 2].level;
       return (((currentCombo - lastLevel.level) / range) * 100) % 100;
     }
     final bounds = [levelsAndBonus[lvl].level, levelsAndBonus[lvl + 1].level];
