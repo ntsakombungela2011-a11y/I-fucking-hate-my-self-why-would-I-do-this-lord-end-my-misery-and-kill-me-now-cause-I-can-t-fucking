@@ -177,6 +177,8 @@ class ProceduralPuzzleGenerator {
     ),
   ];
 
+  static List<ProceduralPuzzleSeed> get seeds => _seeds;
+
   static final List<String> _playerNames = [
     'Kasparov',
     'Carlsen',

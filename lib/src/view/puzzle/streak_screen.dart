@@ -493,13 +493,13 @@ class _BottomBar extends ConsumerWidget {
         if (!streak.finished)
           BottomBarButton(
             icon: Icons.skip_next,
-            label: context.l10n.skipThisMove,
+            label: 'Skip & End Run',
             showLabel: true,
-            onTap: streak.hasSkipped || puzzleState.mode == PuzzleMode.view
+            onTap: puzzleState.mode == PuzzleMode.view
                 ? null
                 : () {
-                    ref.read(ctrlProvider.notifier).skipMove();
-                    ref.read(puzzleStreakControllerProvider.notifier).skipMove();
+                    ref.read(ctrlProvider.notifier).viewSolution();
+                    ref.read(puzzleStreakControllerProvider.notifier).gameOver();
                   },
           ),
         if (streak.finished)

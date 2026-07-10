@@ -105,6 +105,9 @@ class PuzzleController extends Notifier<PuzzleState> {
   }
 
   Future<void> onUserMove(Move move) async {
+    if (!state.currentPosition.isLegal(move)) {
+      return;
+    }
     _addMove(move);
 
     if (state.mode == PuzzleMode.play) {

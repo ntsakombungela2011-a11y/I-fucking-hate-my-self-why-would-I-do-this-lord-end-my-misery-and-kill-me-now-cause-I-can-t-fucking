@@ -1,4 +1,6 @@
 import "package:lichess_mobile/src/model/puzzle/procedural_generator.dart";
+import 'package:dartchess/dartchess.dart';
+import 'dart:math';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lichess_mobile/src/model/auth/auth_controller.dart';
@@ -54,15 +56,25 @@ final puzzleReplayProvider = FutureProvider.autoDispose
 /// Fetches a storm of puzzles.
 final stormProvider = FutureProvider.autoDispose<PuzzleStormResponse>((Ref ref) {
   final List<LitePuzzle> litePuzzles = [];
+  final rand = Random();
+  final seeds = ProceduralPuzzleGenerator.seeds;
+
   for (int i = 0; i < 100; i++) {
-    final puzzle = ProceduralPuzzleGenerator.generatePuzzle(PuzzleThemeKey.mix);
-    final preview = PuzzlePreview.fromPuzzle(puzzle);
+    final seed = seeds[rand.nextInt(seeds.length)];
+    Position pos = Position.initialPosition(Rule.chess);
+    for (final uci in seed.moves) {
+      final moveObj = Move.parse(uci);
+      if (moveObj != null) {
+        pos = pos.play(moveObj);
+      }
+    }
+
     litePuzzles.add(
       LitePuzzle(
-        id: puzzle.puzzle.id,
-        fen: preview.initialFen,
-        solution: puzzle.puzzle.solution,
-        rating: puzzle.puzzle.rating,
+        id: PuzzleId('proc_storm_' + seed.id + '_' + rand.nextInt(100000).toString()),
+        fen: pos.fen,
+        solution: IList(seed.solution.map((m) => UCIMove(m))),
+        rating: (seed.rating + rand.nextInt(101) - 50).clamp(600, 2800),
       ),
     );
   }

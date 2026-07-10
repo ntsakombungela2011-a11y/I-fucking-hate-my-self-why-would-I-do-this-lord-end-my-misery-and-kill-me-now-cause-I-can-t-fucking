@@ -88,6 +88,7 @@ class StormController extends Notifier<StormState> {
 
   Future<void> onUserMove(Move move) async {
     if (state.clock.endAt != null) return;
+    if (!state.position.isLegal(move)) return;
     state.clock.start();
 
     final expected = state.expectedMove;
