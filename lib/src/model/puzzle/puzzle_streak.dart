@@ -1,3 +1,4 @@
+import "package:lichess_mobile/src/model/puzzle/puzzle_theme.dart";
 import "package:lichess_mobile/src/model/puzzle/procedural_generator.dart";
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
