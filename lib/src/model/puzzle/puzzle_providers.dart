@@ -1,6 +1,3 @@
-import "package:lichess_mobile/src/model/puzzle/procedural_generator.dart";
-import 'package:dartchess/dartchess.dart';
-import 'dart:math';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lichess_mobile/src/model/auth/auth_controller.dart';
@@ -55,36 +52,7 @@ final puzzleReplayProvider = FutureProvider.autoDispose
 
 /// Fetches a storm of puzzles.
 final stormProvider = FutureProvider.autoDispose<PuzzleStormResponse>((Ref ref) {
-  final List<LitePuzzle> litePuzzles = [];
-  final rand = Random();
-  final seeds = ProceduralPuzzleGenerator.seeds;
-
-  for (int i = 0; i < 100; i++) {
-    final seed = seeds[rand.nextInt(seeds.length)];
-    Position pos = Position.initialPosition(Rule.chess);
-    for (final uci in seed.moves) {
-      final moveObj = Move.parse(uci);
-      if (moveObj != null) {
-        pos = pos.play(moveObj);
-      }
-    }
-
-    litePuzzles.add(
-      LitePuzzle(
-        id: PuzzleId('proc_storm_' + seed.id + '_' + rand.nextInt(100000).toString()),
-        fen: pos.fen,
-        solution: IList(seed.solution),
-        rating: (seed.rating + rand.nextInt(101) - 50).clamp(600, 2800),
-      ),
-    );
-  }
-
-  return PuzzleStormResponse(
-    puzzles: IList(litePuzzles),
-    key: 'offline-storm-key',
-    highscore: const PuzzleStormHighScore(allTime: 0, day: 0, month: 0, week: 0),
-    timestamp: DateTime.now(),
-  );
+  return ref.read(puzzleRepositoryProvider).storm();
 }, name: 'StormProvider');
 
 /// Fetches a puzzle from the local storage if available, otherwise fetches it from the server.

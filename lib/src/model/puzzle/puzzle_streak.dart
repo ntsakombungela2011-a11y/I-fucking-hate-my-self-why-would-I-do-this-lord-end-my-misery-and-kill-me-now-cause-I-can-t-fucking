@@ -1,5 +1,3 @@
-import "package:lichess_mobile/src/model/puzzle/puzzle_theme.dart";
-import "package:lichess_mobile/src/model/puzzle/procedural_generator.dart";
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -46,8 +44,9 @@ final puzzleStreakControllerProvider =
 class PuzzleStreakController extends AsyncNotifier<StreakState> {
   @override
   Future<StreakState> build() async {
-    final puzzle = ProceduralPuzzleGenerator.generatePuzzle(PuzzleThemeKey.mix);
-    final nextPuzzle = ProceduralPuzzleGenerator.generatePuzzle(PuzzleThemeKey.mix);
+    final response = await ref.read(puzzleRepositoryProvider).streak();
+    final puzzle = response.puzzle;
+    final nextPuzzle = await ref.read(puzzleRepositoryProvider).fetch(response.streak[1]);
 
     return (
       streak: PuzzleStreak(
@@ -81,7 +80,7 @@ class PuzzleStreakController extends AsyncNotifier<StreakState> {
 
     final currentStreak = state.requireValue.streak;
     final currentPuzzle = state.requireValue.nextPuzzle!;
-    final nextPuzzle = ProceduralPuzzleGenerator.generatePuzzle(PuzzleThemeKey.mix);
+    final nextPuzzle = await ref.read(puzzleRepositoryProvider).streak().then((response) => response.puzzle);
 
     state = AsyncData((
       streak: currentStreak.copyWith(

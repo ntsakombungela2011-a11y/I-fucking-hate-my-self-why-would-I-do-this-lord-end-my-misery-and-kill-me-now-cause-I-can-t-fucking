@@ -12,7 +12,6 @@ import 'package:lichess_mobile/src/model/puzzle/puzzle_preferences.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_repository.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_storage.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_theme.dart';
-import 'package:lichess_mobile/src/model/puzzle/procedural_generator.dart';
 import 'package:lichess_mobile/src/network/http.dart';
 import 'package:logging/logging.dart';
 import 'package:result_extensions/result_extensions.dart';
@@ -91,14 +90,21 @@ class PuzzleService {
     required UserId? userId,
     PuzzleAngle angle = const PuzzleTheme(PuzzleThemeKey.mix),
   }) async {
-    final themeKey = angle is PuzzleTheme ? angle.themeKey : PuzzleThemeKey.mix;
-    final puzzle = ProceduralPuzzleGenerator.generatePuzzle(themeKey);
-    return PuzzleContext(
-      puzzle: puzzle,
-      angle: angle,
-      userId: userId,
-      glicko: const PuzzleGlicko(rating: 1500, deviation: 350),
-      rounds: const IListConst([]),
+    final result = await _syncAndLoadData(userId, angle);
+    return result.fold(
+      (data) {
+        final (batch, glicko, rounds) = data;
+        final puzzle = batch == null || batch.unsolved.isEmpty ? null : batch.unsolved.first;
+        if (puzzle == null) return null;
+        return PuzzleContext(
+          puzzle: puzzle,
+          angle: angle,
+          userId: userId,
+          glicko: glicko,
+          rounds: rounds,
+        );
+      },
+      (_, _) => null,
     );
   }
 
