@@ -50,9 +50,34 @@ final puzzleReplayProvider = FutureProvider.autoDispose
       );
     }, name: 'PuzzleReplayProvider');
 
-/// Fetches a storm of puzzles.
-final stormProvider = FutureProvider.autoDispose<PuzzleStormResponse>((Ref ref) {
-  return ref.read(puzzleRepositoryProvider).storm();
+/// Fetches a storm of puzzles from the local offline puzzle queue.
+final stormProvider = FutureProvider.autoDispose<PuzzleStormResponse>((Ref ref) async {
+  final authUser = ref.watch(authControllerProvider);
+  final puzzleService = await ref.read(puzzleServiceFactoryProvider)(
+    queueLength: kPuzzleLocalQueueLength,
+  );
+
+  // Align Puzzle Storm with the offline Puzzle Themes data path: populate/read
+  // the local mix queue instead of loading the removed lichess WebView/HTML path.
+  await puzzleService.nextPuzzle(
+    userId: authUser?.user.id,
+    angle: const PuzzleTheme(PuzzleThemeKey.mix),
+  );
+  final batch = await puzzleService.batchStorage.fetch(
+    userId: authUser?.user.id,
+    angle: const PuzzleTheme(PuzzleThemeKey.mix),
+  );
+  final puzzles = batch?.unsolved.map(LitePuzzle.fromPuzzle).toIList() ?? const IList.empty();
+  if (puzzles.isEmpty) {
+    throw const FormatException('No offline puzzles available for Puzzle Storm.');
+  }
+
+  return PuzzleStormResponse(
+    puzzles: puzzles,
+    highscore: const PuzzleStormHighScore(allTime: 0, day: 0, month: 0, week: 0),
+    key: null,
+    timestamp: DateTime.now(),
+  );
 }, name: 'StormProvider');
 
 /// Fetches a puzzle from the local storage if available, otherwise fetches it from the server.

@@ -5,10 +5,9 @@ import 'package:lichess_mobile/src/model/auth/auth_controller.dart';
 import 'package:lichess_mobile/src/model/common/id.dart';
 import 'package:lichess_mobile/src/model/common/service/sound_service.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle.dart';
-import 'package:lichess_mobile/src/model/puzzle/puzzle_repository.dart';
-import 'package:lichess_mobile/src/model/puzzle/streak_storage.dart';
-import 'package:lichess_mobile/src/tab_scaffold.dart' show currentNavigatorKeyProvider;
-import 'package:lichess_mobile/src/widgets/feedback.dart';
+import 'package:lichess_mobile/src/model/puzzle/puzzle_batch_storage.dart';
+import 'package:lichess_mobile/src/model/puzzle/puzzle_service.dart';
+import 'package:lichess_mobile/src/model/puzzle/puzzle_theme.dart';
 
 part 'puzzle_streak.freezed.dart';
 part 'puzzle_streak.g.dart';
@@ -44,9 +43,9 @@ final puzzleStreakControllerProvider =
 class PuzzleStreakController extends AsyncNotifier<StreakState> {
   @override
   Future<StreakState> build() async {
-    final response = await ref.read(puzzleRepositoryProvider).streak();
-    final puzzle = response.puzzle;
-    final nextPuzzle = await ref.read(puzzleRepositoryProvider).fetch(response.streak[1]);
+    final authUser = ref.read(authControllerProvider);
+    final puzzle = await _loadPuzzleAt(0, userId: authUser?.user.id);
+    final nextPuzzle = await _loadPuzzleAt(1, userId: authUser?.user.id);
 
     return (
       streak: PuzzleStreak(
@@ -78,9 +77,10 @@ class PuzzleStreakController extends AsyncNotifier<StreakState> {
     }
     ref.read(soundServiceProvider).play(Sound.confirmation);
 
+    final authUser = ref.read(authControllerProvider);
     final currentStreak = state.requireValue.streak;
     final currentPuzzle = state.requireValue.nextPuzzle!;
-    final nextPuzzle = await ref.read(puzzleRepositoryProvider).streak().then((response) => response.puzzle);
+    final nextPuzzle = await _loadPuzzleAt(currentStreak.index + 2, userId: authUser?.user.id);
 
     state = AsyncData((
       streak: currentStreak.copyWith(
@@ -90,6 +90,27 @@ class PuzzleStreakController extends AsyncNotifier<StreakState> {
       puzzle: currentPuzzle,
       nextPuzzle: nextPuzzle,
     ));
+  }
+
+  Future<Puzzle> _loadPuzzleAt(int index, {required UserId? userId}) async {
+    final puzzleService = await ref.read(puzzleServiceFactoryProvider)(
+      queueLength: kPuzzleLocalQueueLength,
+    );
+
+    // Align Puzzle Streak with the offline Puzzle Themes data path: populate/read
+    // the local mix queue instead of calling the removed network streak endpoint.
+    await puzzleService.nextPuzzle(
+      userId: userId,
+      angle: const PuzzleTheme(PuzzleThemeKey.mix),
+    );
+    final batch = await ref.read(puzzleBatchStorageProvider.future).then(
+      (storage) => storage.fetch(userId: userId, angle: const PuzzleTheme(PuzzleThemeKey.mix)),
+    );
+    final puzzle = batch?.unsolved.getOrNull(index);
+    if (puzzle == null) {
+      throw const FormatException('No offline puzzles available for Puzzle Streak.');
+    }
+    return puzzle;
   }
 
   Future<void> gameOver() async {
