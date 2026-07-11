@@ -1,0 +1,95 @@
+name: Curate puzzle data
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: 'Target number of puzzles to keep'
+        required: false
+        default: '100000'
+      sample_limit:
+        description: 'Optional CSV row limit for dry runs'
+        required: false
+        default: ''
+      min_popularity:
+        description: 'Optional explicit minimum Lichess popularity threshold'
+        required: false
+        default: ''
+      min_nb_plays:
+        description: 'Optional explicit minimum Lichess nbPlays threshold'
+        required: false
+        default: ''
+  schedule:
+    - cron: '17 3 1 * *'
+
+permissions: read-all
+
+jobs:
+  curate:
+    name: Curate Lichess puzzle SQLite asset
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6.0.3
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2.23.0
+        with:
+          cache: true
+          flutter-version-file: pubspec.yaml
+
+      - name: Install curation tools
+        run: sudo apt-get update && sudo apt-get install -y sqlite3 zstd
+
+      - name: Install Dart dependencies
+        run: flutter pub get
+
+      - name: Download Lichess puzzle CSV
+        run: |
+          mkdir -p build/puzzle-curation
+          curl --fail --location --retry 5 --retry-delay 10 \
+            --output build/puzzle-curation/lichess_db_puzzle.csv.zst \
+            https://database.lichess.org/lichess_db_puzzle.csv.zst
+          zstd -d --stdout build/puzzle-curation/lichess_db_puzzle.csv.zst \
+            > build/puzzle-curation/lichess_db_puzzle.csv
+
+      - name: Curate and validate puzzle database with dartchess
+        env:
+          TARGET: ${{ github.event.inputs.target || '100000' }}
+          SAMPLE_LIMIT: ${{ github.event.inputs.sample_limit }}
+          MIN_POPULARITY: ${{ github.event.inputs.min_popularity }}
+          MIN_NB_PLAYS: ${{ github.event.inputs.min_nb_plays }}
+        run: |
+          args=(
+            --input build/puzzle-curation/lichess_db_puzzle.csv
+            --output build/puzzle-curation/puzzles.db
+            --report build/puzzle-curation/curation-report.json
+            --target "$TARGET"
+            --validator "dart run tool/validate_puzzle_data.dart"
+          )
+          if [ -n "$SAMPLE_LIMIT" ]; then args+=(--sample-limit "$SAMPLE_LIMIT"); fi
+          if [ -n "$MIN_POPULARITY" ]; then args+=(--min-popularity "$MIN_POPULARITY"); fi
+          if [ -n "$MIN_NB_PLAYS" ]; then args+=(--min-nb-plays "$MIN_NB_PLAYS"); fi
+          python3 scripts/curate_puzzle_data.py "${args[@]}"
+
+      - name: Verify SQLite schema
+        run: |
+          sqlite3 build/puzzle-curation/puzzles.db '.schema'
+          sqlite3 build/puzzle-curation/puzzles.db 'PRAGMA integrity_check;'
+
+      - name: Publish curation summary
+        run: |
+          {
+            echo '## Puzzle curation report'
+            echo '```json'
+            cat build/puzzle-curation/curation-report.json
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload curated puzzle artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: puzzles-db
+          path: |
+            build/puzzle-curation/puzzles.db
+            build/puzzle-curation/curation-report.json
+          if-no-files-found: error
