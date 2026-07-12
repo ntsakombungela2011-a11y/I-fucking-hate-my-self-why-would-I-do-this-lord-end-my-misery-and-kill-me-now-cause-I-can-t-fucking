@@ -80,21 +80,18 @@ class PuzzleService {
     PuzzleAngle angle = const PuzzleTheme(PuzzleThemeKey.mix),
   }) async {
     final result = await _syncAndLoadData(userId, angle);
-    return result.fold(
-      (data) {
-        final (batch, glicko, rounds) = data;
-        final puzzle = batch == null || batch.unsolved.isEmpty ? null : batch.unsolved.first;
-        if (puzzle == null) return null;
-        return PuzzleContext(
-          puzzle: puzzle,
-          angle: angle,
-          userId: userId,
-          glicko: glicko,
-          rounds: rounds,
-        );
-      },
-      (_, _) => null,
-    );
+    return result.fold((data) {
+      final (batch, glicko, rounds) = data;
+      final puzzle = batch == null || batch.unsolved.isEmpty ? null : batch.unsolved.first;
+      if (puzzle == null) return null;
+      return PuzzleContext(
+        puzzle: puzzle,
+        angle: angle,
+        userId: userId,
+        glicko: glicko,
+        rounds: rounds,
+      );
+    }, (_, _) => null);
   }
 
   /// Updates local puzzle history and returns the next offline puzzle if available.
@@ -104,7 +101,7 @@ class PuzzleService {
     required Puzzle puzzle,
     PuzzleAngle angle = const PuzzleTheme(PuzzleThemeKey.mix),
   }) async {
-    puzzleStorage.save(puzzle: puzzle);
+    await puzzleStorage.save(puzzle: puzzle);
     return nextPuzzle(userId: userId, angle: angle);
   }
 
@@ -112,7 +109,7 @@ class PuzzleService {
   Future<PuzzleContext?> resetBatch({
     required UserId? userId,
     PuzzleAngle angle = const PuzzleTheme(PuzzleThemeKey.mix),
-  }) async {
+  }) {
     return nextPuzzle(userId: userId, angle: angle);
   }
 

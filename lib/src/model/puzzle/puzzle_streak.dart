@@ -98,13 +98,12 @@ class PuzzleStreakController extends AsyncNotifier<StreakState> {
       queueLength: kPuzzleLocalQueueLength,
     );
 
-    await puzzleService.nextPuzzle(
-      userId: userId,
-      angle: const PuzzleTheme(PuzzleThemeKey.mix),
-    );
-    final batch = await ref.read(puzzleBatchStorageProvider.future).then(
-      (storage) => storage.fetch(userId: userId, angle: const PuzzleTheme(PuzzleThemeKey.mix)),
-    );
+    await puzzleService.nextPuzzle(userId: userId, angle: const PuzzleTheme(PuzzleThemeKey.mix));
+    final batch = await ref
+        .read(puzzleBatchStorageProvider.future)
+        .then(
+          (storage) => storage.fetch(userId: userId, angle: const PuzzleTheme(PuzzleThemeKey.mix)),
+        );
     final puzzle = batch?.unsolved.getOrNull(index);
     if (puzzle == null) {
       throw const FormatException('No puzzles available in this category yet.');
