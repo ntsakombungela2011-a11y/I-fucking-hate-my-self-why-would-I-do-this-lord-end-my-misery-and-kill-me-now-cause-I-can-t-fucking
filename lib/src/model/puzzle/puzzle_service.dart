@@ -89,19 +89,22 @@ class PuzzleService {
   Future<PuzzleContext?> nextPuzzle({
     required UserId? userId,
     PuzzleAngle angle = const PuzzleTheme(PuzzleThemeKey.mix),
-  }) {
-    return Result.release(
-      _syncAndLoadData(userId, angle).map(
-        (data) => data.$1 != null && data.$1!.unsolved.isNotEmpty
-            ? PuzzleContext(
-                puzzle: data.$1!.unsolved[0],
-                angle: angle,
-                userId: userId,
-                glicko: data.$2,
-                rounds: data.$3,
-              )
-            : null,
-      ),
+  }) async {
+    final result = await _syncAndLoadData(userId, angle);
+    return result.fold(
+      (data) {
+        final (batch, glicko, rounds) = data;
+        final puzzle = batch == null || batch.unsolved.isEmpty ? null : batch.unsolved.first;
+        if (puzzle == null) return null;
+        return PuzzleContext(
+          puzzle: puzzle,
+          angle: angle,
+          userId: userId,
+          glicko: glicko,
+          rounds: rounds,
+        );
+      },
+      (_, _) => null,
     );
   }
 
@@ -116,16 +119,6 @@ class PuzzleService {
     PuzzleAngle angle = const PuzzleTheme(PuzzleThemeKey.mix),
   }) async {
     puzzleStorage.save(puzzle: puzzle);
-    const emptyBatch = PuzzleBatch(solved: IListConst([]), unsolved: IListConst([]));
-    final data = await batchStorage.fetch(userId: userId, angle: angle) ?? emptyBatch;
-    await batchStorage.save(
-      userId: userId,
-      angle: angle,
-      data: PuzzleBatch(
-        solved: IList([...data.solved, solution]),
-        unsolved: data.unsolved.removeWhere((e) => e.puzzle.id == solution.id),
-      ),
-    );
     return nextPuzzle(userId: userId, angle: angle);
   }
 
@@ -134,7 +127,6 @@ class PuzzleService {
     required UserId? userId,
     PuzzleAngle angle = const PuzzleTheme(PuzzleThemeKey.mix),
   }) async {
-    await batchStorage.delete(userId: userId, angle: angle);
     return nextPuzzle(userId: userId, angle: angle);
   }
 

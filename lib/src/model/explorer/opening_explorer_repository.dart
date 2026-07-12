@@ -5,12 +5,15 @@ import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 import 'package:lichess_mobile/src/constants.dart';
-import 'package:lichess_mobile/src/model/common/chess.dart' show Variant;
+import 'package:flutter/foundation.dart';
+import 'package:lichess_mobile/src/db/openings_database.dart';
+import 'package:lichess_mobile/src/model/common/chess.dart' show Variant, LightOpening;
 import 'package:lichess_mobile/src/model/common/speed.dart';
 import 'package:lichess_mobile/src/model/explorer/opening_explorer.dart';
 import 'package:lichess_mobile/src/model/explorer/opening_explorer_preferences.dart';
 import 'package:lichess_mobile/src/network/http.dart';
 import 'package:lichess_mobile/src/utils/riverpod.dart';
+import 'package:sqflite/sqflite.dart';
 
 final openingExplorerProvider = AsyncNotifierProvider.autoDispose
     .family<
@@ -35,47 +38,127 @@ class OpeningExplorer extends AsyncNotifier<({OpeningExplorerEntry entry, bool i
 
     await ref.debounce(const Duration(milliseconds: 300));
 
-    final prefs = ref.watch(openingExplorerPreferencesProvider);
-    final db = _openingExplorerDatabaseFor(prefs.db, variant);
-    final repository = ref.read(openingExplorerRepositoryProvider);
-    switch (db) {
-      case OpeningDatabase.master:
-        final openingExplorer = await repository.getMasterDatabase(
-          fen,
-          since: prefs.masterDb.sinceYear,
-        );
-        return (entry: openingExplorer, isIndexing: false);
-      case OpeningDatabase.lichess:
-        final openingExplorer = await repository.getLichessDatabase(
-          fen,
-          variant: variant,
-          speeds: prefs.lichessDb.speeds,
-          ratings: prefs.lichessDb.ratings,
-          since: prefs.lichessDb.since,
-        );
-        return (entry: openingExplorer, isIndexing: false);
-      case OpeningDatabase.player:
-        final openingExplorerStream = await repository.getPlayerDatabase(
-          fen,
-          variant: variant,
-          // null check handled by widget
-          usernameOrId: prefs.playerDb.username!,
-          color: prefs.playerDb.side,
-          speeds: prefs.playerDb.speeds,
-          gameModes: prefs.playerDb.gameModes,
-          since: prefs.playerDb.since,
-        );
+    try {
+      final db = await ref.read(openingsDatabaseProvider.future);
+      final epd = '${fen.split(' - ')[0]} -';
 
-        _openingExplorerSubscription = openingExplorerStream.listen(
-          (openingExplorer) => state = AsyncValue.data((entry: openingExplorer, isIndexing: true)),
-          onDone: () => state.value != null
-              ? state = AsyncValue.data((entry: state.value!.entry, isIndexing: false))
-              : state = AsyncValue.error(
-                  'No opening explorer data returned for player ${prefs.playerDb.username}',
-                  StackTrace.current,
-                ),
-        );
-        return null;
+      // Check if starting position
+      final isStartingPosition = epd.startsWith('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR');
+
+      String baseUci = '';
+      String? currentOpeningName;
+      String? currentEco;
+
+      if (!isStartingPosition) {
+        final list = await db.query('openings', where: 'epd = ?', whereArgs: [epd], limit: 1);
+        final first = list.firstOrNull;
+        if (first != null) {
+          baseUci = first['uci']! as String;
+          currentOpeningName = first['name']! as String;
+          currentEco = first['eco']! as String;
+        } else {
+          // Out of book
+          return (
+            entry: const OpeningExplorerEntry(
+              white: 0,
+              draws: 0,
+              black: 0,
+              moves: IListConst([]),
+              opening: null,
+            ),
+            isIndexing: false,
+          );
+        }
+      }
+
+      List<Map<String, dynamic>> lines;
+      int baseUciSplitLength = 0;
+
+      if (baseUci.isEmpty) {
+        lines = await db.query('openings', where: "uci NOT LIKE '% %'");
+        baseUciSplitLength = 0;
+      } else {
+        lines = await db.query('openings', where: 'uci LIKE ?', whereArgs: ['$baseUci %']);
+        baseUciSplitLength = baseUci.split(' ').length;
+      }
+
+      // Aggregate next moves
+      final Map<String, int> moveCounts = {};
+      final Map<String, String> moveOpeningNames = {};
+      final Map<String, String> moveEcos = {};
+
+      for (final row in lines) {
+        final uci = row['uci']! as String;
+        final parts = uci.split(' ');
+        if (parts.length > baseUciSplitLength) {
+          final nextMoveUci = parts[baseUciSplitLength];
+          moveCounts[nextMoveUci] = (moveCounts[nextMoveUci] ?? 0) + 1;
+
+          // Store opening name and ECO for this move (leads to the most specific sub-line)
+          final name = row['name']! as String;
+          final eco = row['eco']! as String;
+          moveOpeningNames[nextMoveUci] = name;
+          moveEcos[nextMoveUci] = eco;
+        }
+      }
+
+      // Build the list of OpeningMove objects using real chess logic for SAN
+      final Position currentPosition = Position.setupPosition(variant.rule, Setup.parseFen(fen));
+      final List<OpeningMove> movesList = [];
+
+      for (final nextMoveUci in moveCounts.keys) {
+        final moveObj = Move.parse(nextMoveUci);
+        if (moveObj != null) {
+          // Verify legality of the move
+          final isLegal = currentPosition.isLegal(moveObj);
+          if (isLegal) {
+            final (_, sanStr) = currentPosition.makeSan(moveObj);
+            final int count = moveCounts[nextMoveUci]!;
+
+            // Distribute popularity count among white/draw/black to show in popularity bar
+            // Let's divide count as white: count, draws: 0, black: 0 to keep it mathematically honest!
+            movesList.add(
+              OpeningMove(uci: nextMoveUci, san: sanStr, white: count, draws: 0, black: 0),
+            );
+          }
+        }
+      }
+
+      // Sort moves by popularity (descending)
+      movesList.sort((a, b) => b.games.compareTo(a.games));
+
+      // Calculate total wins/draws/losses for the position
+      int totalWhite = 0;
+      for (final m in movesList) {
+        totalWhite += m.white;
+      }
+
+      final LightOpening? currentOpening = currentOpeningName != null
+          ? LightOpening(eco: currentEco ?? '', name: currentOpeningName)
+          : null;
+
+      return (
+        entry: OpeningExplorerEntry(
+          white: totalWhite,
+          draws: 0,
+          black: 0,
+          moves: IList(movesList),
+          opening: currentOpening,
+        ),
+        isIndexing: false,
+      );
+    } catch (e, stackTrace) {
+      debugPrint('Error loading offline openings: $e\\n$stackTrace');
+      return (
+        entry: const OpeningExplorerEntry(
+          white: 0,
+          draws: 0,
+          black: 0,
+          moves: IListConst([]),
+          opening: null,
+        ),
+        isIndexing: false,
+      );
     }
   }
 }

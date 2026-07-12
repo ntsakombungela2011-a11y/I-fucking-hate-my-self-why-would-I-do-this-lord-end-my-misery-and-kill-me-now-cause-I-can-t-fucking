@@ -135,6 +135,9 @@ class MainTabScaffold extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentTab = ref.watch(currentBottomTabProvider);
+    final displayedTabs = BottomTab.values
+        .where((t) => t != BottomTab.watch && t != BottomTab.learn)
+        .toList();
 
     final extendBody = Theme.of(context).platform == TargetPlatform.iOS;
 
@@ -150,9 +153,9 @@ class MainTabScaffold extends ConsumerWidget {
                   backgroundColor: NavigationBarTheme.of(context).backgroundColor,
                   border: const Border(top: BorderSide(color: Colors.transparent)),
                   activeColor: ColorScheme.of(context).onSurface,
-                  currentIndex: currentTab.index,
+                  currentIndex: displayedTabs.indexOf(currentTab),
                   items: [
-                    for (final tab in BottomTab.values)
+                    for (final tab in displayedTabs)
                       BottomNavigationBarItem(
                         icon: Icon(tab.icon, fill: tab == currentTab ? 1 : 0),
                         label: tab.label(context.l10n),
@@ -161,9 +164,9 @@ class MainTabScaffold extends ConsumerWidget {
                   onTap: (i) => _onItemTapped(ref, i),
                 )
               : NavigationBar(
-                  selectedIndex: currentTab.index,
+                  selectedIndex: displayedTabs.indexOf(currentTab),
                   destinations: [
-                    for (final tab in BottomTab.values)
+                    for (final tab in displayedTabs)
                       NavigationDestination(
                         icon: Icon(tab.icon, fill: tab == currentTab ? 1 : 0),
                         label: tab.label(context.l10n),
@@ -183,7 +186,10 @@ class MainTabScaffold extends ConsumerWidget {
   /// Otherwise, switch to the tapped tab.
   void _onItemTapped(WidgetRef ref, int index) {
     final curTab = ref.read(currentBottomTabProvider);
-    final tappedTab = BottomTab.values[index];
+    final displayedTabs = BottomTab.values
+        .where((t) => t != BottomTab.watch && t != BottomTab.learn)
+        .toList();
+    final tappedTab = displayedTabs[index];
 
     if (tappedTab == curTab) {
       final navState = ref.read(currentNavigatorKeyProvider).currentState;

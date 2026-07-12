@@ -138,6 +138,17 @@ sealed class LitePuzzle with _$LitePuzzle {
 
   factory LitePuzzle.fromJson(Map<String, dynamic> json) => _$LitePuzzleFromJson(json);
 
+  factory LitePuzzle.fromPuzzle(Puzzle puzzle) {
+    final root = Root.fromPgnMoves(puzzle.game.pgn);
+    final initialNode = root.nodeAt(root.mainlinePath.penultimate) as Branch;
+    return LitePuzzle(
+      id: puzzle.puzzle.id,
+      fen: initialNode.position.fen,
+      solution: puzzle.puzzle.solution,
+      rating: puzzle.puzzle.rating,
+    );
+  }
+
   (Side, String, Move) get preview {
     final pos1 = Chess.fromSetup(Setup.parseFen(fen));
     final move = Move.parse(solution.first);
