@@ -57,8 +57,6 @@ final stormProvider = FutureProvider.autoDispose<PuzzleStormResponse>((Ref ref) 
     queueLength: kPuzzleLocalQueueLength,
   );
 
-  // Align Puzzle Storm with the offline Puzzle Themes data path: populate/read
-  // the local mix queue instead of loading the removed lichess WebView/HTML path.
   await puzzleService.nextPuzzle(
     userId: authUser?.user.id,
     angle: const PuzzleTheme(PuzzleThemeKey.mix),
@@ -69,7 +67,7 @@ final stormProvider = FutureProvider.autoDispose<PuzzleStormResponse>((Ref ref) 
   );
   final puzzles = batch?.unsolved.map(LitePuzzle.fromPuzzle).toIList() ?? const IList.empty();
   if (puzzles.isEmpty) {
-    throw const FormatException('No offline puzzles available for Puzzle Storm.');
+    throw const FormatException('No puzzles available for Puzzle Storm yet.');
   }
 
   return PuzzleStormResponse(
@@ -80,7 +78,7 @@ final stormProvider = FutureProvider.autoDispose<PuzzleStormResponse>((Ref ref) 
   );
 }, name: 'StormProvider');
 
-/// Fetches a puzzle from the local storage if available, otherwise fetches it from the server.
+/// Fetches a puzzle from local storage.
 final puzzleProvider = FutureProvider.autoDispose.family<Puzzle, PuzzleId>((
   Ref ref,
   PuzzleId id,
@@ -88,7 +86,7 @@ final puzzleProvider = FutureProvider.autoDispose.family<Puzzle, PuzzleId>((
   final puzzleStorage = await ref.watch(puzzleStorageProvider.future);
   final puzzle = await puzzleStorage.fetch(puzzleId: id);
   if (puzzle != null) return puzzle;
-  return ref.read(puzzleRepositoryProvider).fetch(id);
+  throw const FormatException('Puzzle is not available offline.');
 }, name: 'PuzzleProvider');
 
 /// Fetches the daily puzzle.

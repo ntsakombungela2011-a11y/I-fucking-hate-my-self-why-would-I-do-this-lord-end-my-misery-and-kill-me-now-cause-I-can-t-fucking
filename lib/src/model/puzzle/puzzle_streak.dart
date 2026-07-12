@@ -98,8 +98,6 @@ class PuzzleStreakController extends AsyncNotifier<StreakState> {
       queueLength: kPuzzleLocalQueueLength,
     );
 
-    // Align Puzzle Streak with the offline Puzzle Themes data path: populate/read
-    // the local mix queue instead of calling the removed network streak endpoint.
     await puzzleService.nextPuzzle(
       userId: userId,
       angle: const PuzzleTheme(PuzzleThemeKey.mix),
@@ -109,7 +107,7 @@ class PuzzleStreakController extends AsyncNotifier<StreakState> {
     );
     final puzzle = batch?.unsolved.getOrNull(index);
     if (puzzle == null) {
-      throw const FormatException('No offline puzzles available for Puzzle Streak.');
+      throw const FormatException('No puzzles available in this category yet.');
     }
     return puzzle;
   }

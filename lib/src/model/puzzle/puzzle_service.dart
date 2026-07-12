@@ -1,5 +1,3 @@
-import 'dart:math' show max;
-
 import 'package:async/async.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,12 +6,8 @@ import 'package:lichess_mobile/src/model/common/id.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_angle.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_batch_storage.dart';
-import 'package:lichess_mobile/src/model/puzzle/puzzle_preferences.dart';
-import 'package:lichess_mobile/src/model/puzzle/puzzle_repository.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_storage.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_theme.dart';
-import 'package:lichess_mobile/src/network/http.dart';
-import 'package:logging/logging.dart';
 import 'package:result_extensions/result_extensions.dart';
 
 part 'puzzle_service.freezed.dart';
@@ -38,7 +32,6 @@ class PuzzleServiceFactory {
 
   Future<PuzzleService> call({required int queueLength}) async {
     return PuzzleService(
-      _ref,
       batchStorage: await _ref.read(puzzleBatchStorageProvider.future),
       puzzleStorage: await _ref.read(puzzleStorageProvider.future),
       queueLength: queueLength,
@@ -69,23 +62,19 @@ sealed class PuzzleContext with _$PuzzleContext {
 }
 
 class PuzzleService {
-  PuzzleService(
-    this._ref, {
+  PuzzleService({
     required this.batchStorage,
     required this.puzzleStorage,
     required this.queueLength,
   });
 
-  final Ref _ref;
   final int queueLength;
   final PuzzleBatchStorage batchStorage;
   final PuzzleStorage puzzleStorage;
-  final Logger _log = Logger('PuzzleService');
 
-  /// Loads the next puzzle from database and the glicko rating if available.
+  /// Loads the next puzzle from the offline local queue if available.
   ///
-  /// Will sync with server if necessary.
-  /// This future should never fail on network errors.
+  /// This future returns `null` when the curated offline queue is empty.
   Future<PuzzleContext?> nextPuzzle({
     required UserId? userId,
     PuzzleAngle angle = const PuzzleTheme(PuzzleThemeKey.mix),
@@ -108,10 +97,7 @@ class PuzzleService {
     );
   }
 
-  /// Update puzzle queue with the solved puzzle, sync with server and returns
-  /// the next puzzle with the glicko rating if available.
-  ///
-  /// This future should never fail on network errors.
+  /// Updates local puzzle history and returns the next offline puzzle if available.
   Future<PuzzleContext?> solve({
     required UserId? userId,
     required PuzzleSolution solution,
@@ -135,67 +121,16 @@ class PuzzleService {
     await batchStorage.delete(userId: userId, angle: angle);
   }
 
-  /// Synchronize offline puzzle queue with server and gets latest data.
+  /// Loads the already-curated offline puzzle queue from local storage.
   ///
-  /// This task will fetch missing puzzles so the queue length is always equal to
-  /// `queueLength`.
-  /// It will call [PuzzleRepository.solveBatch] if necessary.
-  ///
-  /// This method should never fail, as if the network is down it will fallback
-  /// to the local database.
+  /// Network puzzle refills were removed with the offline pivot. If no curated
+  /// batch exists for [angle], callers receive an empty result and show an
+  /// honest offline empty state.
   FutureResult<(PuzzleBatch?, PuzzleGlicko?, IList<PuzzleRound>?)> _syncAndLoadData(
     UserId? userId,
     PuzzleAngle angle,
   ) async {
     final data = await batchStorage.fetch(userId: userId, angle: angle);
-
-    final unsolved = data?.unsolved ?? IList(const []);
-    final solved = data?.solved ?? IList(const []);
-
-    final deficit = max(0, queueLength - unsolved.length);
-
-    if (deficit > 0 || solved.isNotEmpty) {
-      _log.fine('Will sync puzzles with lichess (deficit: $deficit, solved: ${solved.length})');
-
-      final difficulty = _ref.read(puzzlePreferencesProvider).difficulty;
-
-      // anonymous users can't solve puzzles so we just download the deficit
-      final batchResponse = _ref.withClient(
-        (client) => Result.capture(
-          solved.isNotEmpty && userId != null
-              ? PuzzleRepository(
-                  client,
-                ).solveBatch(nb: deficit, solved: solved, angle: angle, difficulty: difficulty)
-              : PuzzleRepository(
-                  client,
-                ).selectBatch(nb: deficit, angle: angle, difficulty: difficulty),
-        ),
-      );
-
-      return batchResponse
-          .fold(
-            (value) => Result.value((
-              PuzzleBatch(
-                solved: IList(const []),
-                unsolved: IList([...unsolved, ...value.puzzles]),
-              ),
-              value.glicko,
-              value.rounds,
-              true, // should save the batch
-            )),
-
-            // we don't need to save the batch if the request failed
-            (_, _) => Result.value((data, null, null, false)),
-          )
-          .flatMap((tuple) async {
-            final (newBatch, glicko, rounds, shouldSave) = tuple;
-            if (newBatch != null && shouldSave) {
-              await batchStorage.save(userId: userId, angle: angle, data: newBatch);
-            }
-            return Result.value((newBatch, glicko, rounds));
-          });
-    }
-
     return Result.value((data, null, null));
   }
 }

@@ -578,7 +578,7 @@ class PuzzleAnglePreview extends ConsumerWidget {
                           )
                         else
                           const Flexible(
-                            child: Text('No puzzles available, please go online to fetch them.'),
+                            child: Text('No puzzles available in this category yet.'),
                           ),
                       ],
                     ),
