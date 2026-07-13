@@ -31,17 +31,15 @@ jobs:
     steps:
       - uses: actions/checkout@v6.0.3
 
-      - name: Install Flutter
-        uses: subosito/flutter-action@v2.23.0
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          cache: true
-          flutter-version-file: pubspec.yaml
+          python-version: '3.10'
 
-      - name: Install curation tools
-        run: sudo apt-get update && sudo apt-get install -y sqlite3 zstd
-
-      - name: Install Dart dependencies
-        run: flutter pub get
+      - name: Install curation tools and Python dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y sqlite3 zstd
+          pip install chess
 
       - name: Download Lichess puzzle CSV
         run: |
@@ -52,7 +50,7 @@ jobs:
           zstd -d --stdout build/puzzle-curation/lichess_db_puzzle.csv.zst \
             > build/puzzle-curation/lichess_db_puzzle.csv
 
-      - name: Curate and validate puzzle database with dartchess
+      - name: Curate and validate puzzle database with python-chess
         env:
           TARGET: ${{ github.event.inputs.target || '100000' }}
           SAMPLE_LIMIT: ${{ github.event.inputs.sample_limit }}
@@ -64,7 +62,6 @@ jobs:
             --output build/puzzle-curation/puzzles.db
             --report build/puzzle-curation/curation-report.json
             --target "$TARGET"
-            --validator "dart run tool/validate_puzzle_data.dart"
           )
           if [ -n "$SAMPLE_LIMIT" ]; then args+=(--sample-limit "$SAMPLE_LIMIT"); fi
           if [ -n "$MIN_POPULARITY" ]; then args+=(--min-popularity "$MIN_POPULARITY"); fi
