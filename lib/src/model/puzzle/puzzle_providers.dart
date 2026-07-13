@@ -4,6 +4,7 @@ import 'package:lichess_mobile/src/model/auth/auth_controller.dart';
 import 'package:lichess_mobile/src/model/common/id.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_angle.dart';
+import 'package:lichess_mobile/src/model/puzzle/offline_puzzle_repository.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_batch_storage.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_opening.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_repository.dart';
@@ -52,22 +53,11 @@ final puzzleReplayProvider = FutureProvider.autoDispose
 
 /// Fetches a storm of puzzles from the local offline puzzle queue.
 final stormProvider = FutureProvider.autoDispose<PuzzleStormResponse>((Ref ref) async {
-  final authUser = ref.watch(authControllerProvider);
-  final puzzleService = await ref.read(puzzleServiceFactoryProvider)(
-    queueLength: kPuzzleLocalQueueLength,
-  );
-
-  // Align Puzzle Storm with the offline Puzzle Themes data path: populate/read
-  // the local mix queue instead of loading the removed lichess WebView/HTML path.
-  await puzzleService.nextPuzzle(
-    userId: authUser?.user.id,
+  final repository = await ref.watch(offlinePuzzleRepositoryProvider.future);
+  final puzzles = (await repository.selectPuzzles(
     angle: const PuzzleTheme(PuzzleThemeKey.mix),
-  );
-  final batch = await puzzleService.batchStorage.fetch(
-    userId: authUser?.user.id,
-    angle: const PuzzleTheme(PuzzleThemeKey.mix),
-  );
-  final puzzles = batch?.unsolved.map(LitePuzzle.fromPuzzle).toIList() ?? const IList.empty();
+    limit: kPuzzleLocalQueueLength,
+  )).map(LitePuzzle.fromPuzzle).toIList();
   if (puzzles.isEmpty) {
     throw const FormatException('No offline puzzles available for Puzzle Storm.');
   }
@@ -88,7 +78,10 @@ final puzzleProvider = FutureProvider.autoDispose.family<Puzzle, PuzzleId>((
   final puzzleStorage = await ref.watch(puzzleStorageProvider.future);
   final puzzle = await puzzleStorage.fetch(puzzleId: id);
   if (puzzle != null) return puzzle;
-  return ref.read(puzzleRepositoryProvider).fetch(id);
+  final repository = await ref.watch(offlinePuzzleRepositoryProvider.future);
+  final offlinePuzzle = await repository.fetch(id);
+  if (offlinePuzzle != null) return offlinePuzzle;
+  throw StateError('Offline puzzle $id was not found.');
 }, name: 'PuzzleProvider');
 
 /// Fetches the daily puzzle.

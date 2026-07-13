@@ -13,6 +13,7 @@ import 'package:lichess_mobile/src/model/common/service/move_feedback.dart';
 import 'package:lichess_mobile/src/model/common/service/sound_service.dart';
 import 'package:lichess_mobile/src/model/common/uci.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle.dart';
+import 'package:lichess_mobile/src/model/puzzle/offline_puzzle_repository.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_difficulty.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_preferences.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_repository.dart';
@@ -50,12 +51,6 @@ class PuzzleController extends Notifier<PuzzleState> {
       _viewSolutionTimer?.cancel();
     });
 
-    // we might not have the user rating yet so let's update it now
-    // then it will be updated on each puzzle completion
-    if (initialContext.userId != null) {
-      _updateUserRating();
-    }
-
     _replayRemaining = initialContext.replayRemaining;
 
     return _loadNewContext(initialContext);
@@ -63,19 +58,24 @@ class PuzzleController extends Notifier<PuzzleState> {
 
   PuzzleRepository get _repository => ref.read(puzzleRepositoryProvider);
 
-  Future<void> _updateUserRating() async {
-    try {
-      final data = await _repository.selectBatch(nb: 0);
-      final glicko = data.glicko;
-      if (glicko != null) {
-        state = state.copyWith(glicko: glicko);
-      }
-    } catch (_) {}
-  }
-
   PuzzleState _loadNewContext(PuzzleContext context) {
-    final root = Root.fromPgnMoves(context.puzzle.game.pgn);
-    _gameTree = root.nodeAt(root.mainlinePath.penultimate) as Branch;
+    if (isOfflinePuzzleAssetPgn(context.puzzle.game.pgn)) {
+      final position = Chess.fromSetup(
+        Setup.parseFen(offlinePuzzleAssetFen(context.puzzle.game.pgn)),
+      );
+      final root = Branch(
+        position: position,
+        sanMove: SanMove('', Move.parse(context.puzzle.puzzle.solution.first)!),
+      );
+      root.addMovesAt(
+        UciPath.empty,
+        context.puzzle.puzzle.solution.map((uci) => Move.parse(uci)!),
+      );
+      _gameTree = root;
+    } else {
+      final root = Root.fromPgnMoves(context.puzzle.game.pgn);
+      _gameTree = root.nodeAt(root.mainlinePath.penultimate) as Branch;
+    }
 
     // update puzzles that are remaining in replay
     _replayRemaining = context.replayRemaining;

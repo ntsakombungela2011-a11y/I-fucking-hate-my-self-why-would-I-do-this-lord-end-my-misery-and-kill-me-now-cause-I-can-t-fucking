@@ -5,6 +5,7 @@ import 'package:lichess_mobile/src/model/common/chess.dart';
 import 'package:lichess_mobile/src/model/common/id.dart';
 import 'package:lichess_mobile/src/model/common/node.dart';
 import 'package:lichess_mobile/src/model/common/perf.dart';
+import 'package:lichess_mobile/src/model/puzzle/offline_puzzle_repository.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_theme.dart';
 
 part 'puzzle.freezed.dart';
@@ -115,6 +116,14 @@ sealed class PuzzlePreview with _$PuzzlePreview {
   }) = _PuzzlePreview;
 
   factory PuzzlePreview.fromPuzzle(Puzzle puzzle) {
+    if (isOfflinePuzzleAssetPgn(puzzle.game.pgn)) {
+      final position = Chess.fromSetup(Setup.parseFen(offlinePuzzleAssetFen(puzzle.game.pgn)));
+      return PuzzlePreview(
+        orientation: position.turn,
+        initialFen: position.fen,
+        initialMove: Move.parse(puzzle.puzzle.solution.first)!,
+      );
+    }
     final root = Root.fromPgnMoves(puzzle.game.pgn);
     final node = root.nodeAt(root.mainlinePath) as Branch;
     return PuzzlePreview(
@@ -139,6 +148,14 @@ sealed class LitePuzzle with _$LitePuzzle {
   factory LitePuzzle.fromJson(Map<String, dynamic> json) => _$LitePuzzleFromJson(json);
 
   factory LitePuzzle.fromPuzzle(Puzzle puzzle) {
+    if (isOfflinePuzzleAssetPgn(puzzle.game.pgn)) {
+      return LitePuzzle(
+        id: puzzle.puzzle.id,
+        fen: offlinePuzzleAssetFen(puzzle.game.pgn),
+        solution: puzzle.puzzle.solution,
+        rating: puzzle.puzzle.rating,
+      );
+    }
     final root = Root.fromPgnMoves(puzzle.game.pgn);
     final initialNode = root.nodeAt(root.mainlinePath.penultimate) as Branch;
     return LitePuzzle(

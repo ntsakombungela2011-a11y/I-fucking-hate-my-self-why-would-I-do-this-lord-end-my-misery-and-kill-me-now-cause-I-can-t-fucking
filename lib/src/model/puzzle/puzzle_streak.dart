@@ -6,8 +6,7 @@ import 'package:lichess_mobile/src/model/common/id.dart';
 import 'package:lichess_mobile/src/model/common/service/sound_service.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_angle.dart';
-import 'package:lichess_mobile/src/model/puzzle/puzzle_batch_storage.dart';
-import 'package:lichess_mobile/src/model/puzzle/puzzle_service.dart';
+import 'package:lichess_mobile/src/model/puzzle/offline_puzzle_repository.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_theme.dart';
 
 part 'puzzle_streak.freezed.dart';
@@ -94,20 +93,13 @@ class PuzzleStreakController extends AsyncNotifier<StreakState> {
   }
 
   Future<Puzzle> _loadPuzzleAt(int index, {required UserId? userId}) async {
-    final puzzleService = await ref.read(puzzleServiceFactoryProvider)(
-      queueLength: kPuzzleLocalQueueLength,
-    );
-
-    // Align Puzzle Streak with the offline Puzzle Themes data path: populate/read
-    // the local mix queue instead of calling the removed network streak endpoint.
-    await puzzleService.nextPuzzle(
-      userId: userId,
+    final repository = await ref.read(offlinePuzzleRepositoryProvider.future);
+    final puzzles = await repository.selectPuzzles(
       angle: const PuzzleTheme(PuzzleThemeKey.mix),
+      limit: 1,
+      offset: index,
     );
-    final batch = await ref.read(puzzleBatchStorageProvider.future).then(
-      (storage) => storage.fetch(userId: userId, angle: const PuzzleTheme(PuzzleThemeKey.mix)),
-    );
-    final puzzle = batch?.unsolved.getOrNull(index);
+    final puzzle = puzzles.getOrNull(0);
     if (puzzle == null) {
       throw const FormatException('No offline puzzles available for Puzzle Streak.');
     }

@@ -100,6 +100,7 @@ flutter:
 
   assets:
     - assets/chess_openings.db
+    - assets/puzzles.db
     - assets/images/
     - assets/images/stockfish/
     - assets/images/fide-fed/
