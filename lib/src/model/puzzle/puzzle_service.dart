@@ -2,13 +2,12 @@ import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:lichess_mobile/src/model/common/id.dart';
+import 'package:lichess_mobile/src/model/puzzle/offline_puzzle_repository.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_angle.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_batch_storage.dart';
-import 'package:lichess_mobile/src/model/puzzle/offline_puzzle_repository.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_storage.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_theme.dart';
-
 part 'puzzle_service.freezed.dart';
 
 /// Size of puzzle local cache
@@ -111,7 +110,7 @@ class PuzzleService {
   Future<PuzzleContext?> resetBatch({
     required UserId? userId,
     PuzzleAngle angle = const PuzzleTheme(PuzzleThemeKey.mix),
-  }) async {
+  }) {
     return nextPuzzle(userId: userId, angle: angle);
   }
 

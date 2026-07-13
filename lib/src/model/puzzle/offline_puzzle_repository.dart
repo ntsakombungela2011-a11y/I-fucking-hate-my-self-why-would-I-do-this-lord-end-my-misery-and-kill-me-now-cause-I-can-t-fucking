@@ -1,10 +1,9 @@
-import 'dart:io';
+import 'dart:io' as io;
 
 import 'package:dartchess/dartchess.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lichess_mobile/src/model/common/chess.dart';
 import 'package:lichess_mobile/src/model/common/id.dart';
 import 'package:lichess_mobile/src/model/common/perf.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle.dart';
@@ -30,7 +29,7 @@ Future<Database> _openDb(String path) async {
   final exists = await databaseExists(path);
 
   if (!exists) {
-    final directory = Directory(p.dirname(path));
+    final directory = io.Directory(p.dirname(path));
 
     try {
       await directory.create(recursive: true);
@@ -45,7 +44,7 @@ Future<Database> _openDb(String path) async {
     final ByteData data = await rootBundle.load(p.url.join('assets', 'puzzles.db'));
     final List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
 
-    await File(path).writeAsBytes(bytes, flush: true);
+    await io.File(path).writeAsBytes(bytes, flush: true);
   }
 
   return databaseFactory.openDatabase(path, options: OpenDatabaseOptions(readOnly: true));
@@ -61,7 +60,8 @@ class OfflinePuzzleRepository {
     int limit = 50,
     int offset = 0,
   }) async {
-    final rows = await _db.rawQuery('''
+    final rows = await _db.rawQuery(
+      '''
       SELECT p.id, p.fen, p.moves, p.rating, p.popularity, group_concat(t.name) AS themes
       FROM puzzles p
       JOIN puzzle_themes pt ON pt.puzzle_id = p.id
@@ -70,17 +70,16 @@ class OfflinePuzzleRepository {
       GROUP BY p.id
       ORDER BY p.id
       LIMIT ? OFFSET ?
-      ''', [
-      if (angle.key != PuzzleThemeKey.mix.name) angle.key,
-      limit,
-      offset,
-    ]);
+      ''',
+      [if (angle.key != PuzzleThemeKey.mix.name) angle.key, limit, offset],
+    );
 
     return rows.map(_puzzleFromRow).toIList();
   }
 
   Future<Puzzle?> fetch(PuzzleId puzzleId) async {
-    final rows = await _db.rawQuery('''
+    final rows = await _db.rawQuery(
+      '''
       SELECT p.id, p.fen, p.moves, p.rating, p.popularity, group_concat(t.name) AS themes
       FROM puzzles p
       JOIN puzzle_themes pt ON pt.puzzle_id = p.id
@@ -88,7 +87,9 @@ class OfflinePuzzleRepository {
       WHERE p.id = ?
       GROUP BY p.id
       LIMIT 1
-      ''', [int.tryParse(puzzleId.value) ?? -1]);
+      ''',
+      [int.tryParse(puzzleId.value) ?? -1],
+    );
     return rows.isEmpty ? null : _puzzleFromRow(rows.first);
   }
 
@@ -101,16 +102,19 @@ class OfflinePuzzleRepository {
       ''');
     final counts = <PuzzleThemeKey, int>{};
     for (final row in rows) {
-      final key = puzzleThemeNameMap[row['name'] as String];
-      if (key != null) counts[key] = row['count'] as int;
+      final key = puzzleThemeNameMap[row['name']! as String];
+      if (key != null) counts[key] = row['count']! as int;
     }
     return counts.lock;
   }
 
   Puzzle _puzzleFromRow(Map<String, Object?> row) {
-    final id = row['id'] as int;
-    final fen = row['fen'] as String;
-    final solution = (row['moves'] as String).split(' ').where((move) => move.isNotEmpty).toIList();
+    final id = row['id']! as int;
+    final fen = row['fen']! as String;
+    final solution = (row['moves']! as String)
+        .split(' ')
+        .where((move) => move.isNotEmpty)
+        .toIList();
     final themes = ((row['themes'] as String?) ?? '')
         .split(',')
         .where((theme) => theme.isNotEmpty)
@@ -122,8 +126,8 @@ class OfflinePuzzleRepository {
     return Puzzle(
       puzzle: PuzzleData(
         id: PuzzleId(id.toString()),
-        rating: row['rating'] as int,
-        plays: row['popularity'] as int,
+        rating: row['rating']! as int,
+        plays: row['popularity']! as int,
         initialPly: position.ply,
         solution: solution,
         themes: themes,

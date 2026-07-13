@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:dartchess/dartchess.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
@@ -12,15 +11,14 @@ import 'package:lichess_mobile/src/model/common/node.dart';
 import 'package:lichess_mobile/src/model/common/service/move_feedback.dart';
 import 'package:lichess_mobile/src/model/common/service/sound_service.dart';
 import 'package:lichess_mobile/src/model/common/uci.dart';
-import 'package:lichess_mobile/src/model/puzzle/puzzle.dart';
 import 'package:lichess_mobile/src/model/puzzle/offline_puzzle_repository.dart';
+import 'package:lichess_mobile/src/model/puzzle/puzzle.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_difficulty.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_preferences.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_repository.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_service.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_session.dart';
 import 'package:lichess_mobile/src/network/http.dart';
-
 part 'puzzle_controller.freezed.dart';
 
 final puzzleControllerProvider = NotifierProvider.autoDispose
@@ -67,10 +65,7 @@ class PuzzleController extends Notifier<PuzzleState> {
         position: position,
         sanMove: SanMove('', Move.parse(context.puzzle.puzzle.solution.first)!),
       );
-      root.addMovesAt(
-        UciPath.empty,
-        context.puzzle.puzzle.solution.map((uci) => Move.parse(uci)!),
-      );
+      root.addMovesAt(UciPath.empty, context.puzzle.puzzle.solution.map((uci) => Move.parse(uci)!));
       _gameTree = root;
     } else {
       final root = Root.fromPgnMoves(context.puzzle.game.pgn);

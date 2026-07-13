@@ -12,7 +12,9 @@ import 'package:lichess_mobile/src/widgets/list.dart';
 import 'package:lichess_mobile/src/widgets/platform.dart';
 import 'package:lichess_mobile/src/widgets/platform_search_bar.dart';
 
-final _themesProvider = FutureProvider.autoDispose<IMap<PuzzleThemeKey, int>>((ref) async {
+final _themesProvider = FutureProvider.autoDispose<IMap<PuzzleThemeKey, int>>((
+  ref,
+) async {
   final repository = await ref.watch(offlinePuzzleRepositoryProvider.future);
   return repository.themeCounts();
 });
@@ -77,8 +79,16 @@ class _BodyState extends ConsumerState<_Body> {
           final matched = [
             for (final (_, categoryThemes) in list)
               for (final theme in categoryThemes)
-                if (theme.l10n(context.l10n).name.toLowerCase().contains(query) ||
-                    theme.l10n(context.l10n).description.toLowerCase().contains(query))
+                if (theme
+                        .l10n(context.l10n)
+                        .name
+                        .toLowerCase()
+                        .contains(query) ||
+                    theme
+                        .l10n(context.l10n)
+                        .description
+                        .toLowerCase()
+                        .contains(query))
                   theme,
           ];
 
@@ -99,16 +109,14 @@ class _BodyState extends ConsumerState<_Body> {
           children: [
             searchBar,
             for (final category in list)
-              _Category(
-                category: category,
-                savedThemes: savedThemes,
-              ),
+              _Category(category: category, savedThemes: savedThemes),
           ],
         );
       },
       loading: () => const Center(child: CircularProgressIndicator.adaptive()),
-      error: (error, stack) =>
-          const Center(child: Text('No offline puzzles are available for these themes.')),
+      error: (error, stack) => const Center(
+        child: Text('No offline puzzles are available for these themes.'),
+      ),
     );
   }
 }
