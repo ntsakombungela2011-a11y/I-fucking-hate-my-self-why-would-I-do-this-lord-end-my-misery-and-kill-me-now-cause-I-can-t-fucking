@@ -16,6 +16,8 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Iterable
 
+import chess
+
 CURATED_THEME_MAP = {
     "fork": {"fork"},
     "pin": {"pin"},
@@ -73,13 +75,42 @@ def curated_categories(raw_themes: str) -> list[str]:
     return categories
 
 
-def read_rows(csv_path: Path, sample_limit: int | None) -> Iterable[dict[str, str]]:
-    with csv_path.open(newline="", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
-        for i, row in enumerate(reader):
-            if sample_limit is not None and i >= sample_limit:
-                break
-            yield row
+def validate_with_python_chess(
+    rows: list[dict[str, object]]
+) -> tuple[dict[str, dict[str, str]], int, int]:
+    valid: dict[str, dict[str, str]] = {}
+    pass_count = 0
+    fail_count = 0
+    for row in rows:
+        puzzle_id = str(row["id"])
+        fen = str(row["fen"])
+        moves_str = str(row["moves"])
+        moves = moves_str.split()
+        try:
+            if len(moves) < 2:
+                raise ValueError("missing solution after first move")
+            
+            # 1. Full validation of the moves sequence (fast and robust)
+            board = chess.Board(fen)
+            for m_uci in moves:
+                m = chess.Move.from_uci(m_uci)
+                if m not in board.legal_moves:
+                    raise ValueError(f"illegal move {m_uci}")
+                board.push(m)
+            
+            # 2. Extract play-from position (after first opponent's move)
+            board = chess.Board(fen)
+            first_move = chess.Move.from_uci(moves[0])
+            board.push(first_move)
+            new_fen = board.fen()
+            solution = " ".join(moves[1:])
+            
+            valid[puzzle_id] = {"fen": new_fen, "moves": solution}
+            pass_count += 1
+        except Exception as e:
+            fail_count += 1
+            
+    return valid, pass_count, fail_count
 
 
 def validate_with_dart(
@@ -185,7 +216,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
-    parser.add_argument("--validator", default="dart run tool/validate_puzzle_data.dart")
+    parser.add_argument("--validator", default=None)
     parser.add_argument("--target", type=int, default=100_000)
     parser.add_argument("--sample-limit", type=int)
     parser.add_argument("--min-popularity", type=int)
@@ -195,43 +226,37 @@ def main() -> int:
 
     popularity_values: list[int] = []
     nb_plays_values: list[int] = []
-    candidate_rows: list[dict[str, object]] = []
     scanned = 0
     skipped_empty_themes = 0
-    skipped_unmapped_themes = 0
 
-    for row in read_rows(args.input, args.sample_limit):
-        scanned += 1
-        themes_raw = row.get("Themes", "").strip()
-        if not themes_raw:
-            skipped_empty_themes += 1
-            continue
+    # Fast first pass using csv.reader to gather distribution stats and scanned totals
+    with args.input.open(newline="", encoding="utf-8") as f:
+        reader = csv.reader(f)
         try:
-            popularity = int(row["Popularity"])
-            nb_plays = int(row["NbPlays"])
-            rating = int(row["Rating"])
-        except (KeyError, ValueError):
-            continue
-        popularity_values.append(popularity)
-        nb_plays_values.append(nb_plays)
-        themes = curated_categories(themes_raw)
-        if not themes:
-            skipped_unmapped_themes += 1
-            continue
-        candidate_rows.append(
-            {
-                "id": row["PuzzleId"],
-                "fen": row["FEN"],
-                "moves": row["Moves"],
-                "rating": rating,
-                "popularity": popularity,
-                "nb_plays": nb_plays,
-                "raw_themes": themes_raw.split(),
-                "themes": list(dict.fromkeys(themes_raw.split() + themes)),
-                "curated_themes": themes,
-                "band": band_for(rating),
-            }
-        )
+            header = next(reader)
+            col_themes = header.index("Themes")
+            col_popularity = header.index("Popularity")
+            col_nb_plays = header.index("NbPlays")
+            col_rating = header.index("Rating")
+        except (ValueError, IndexError) as e:
+            raise RuntimeError(f"Invalid input CSV schema: {e}")
+
+        for i, row_cells in enumerate(reader):
+            if args.sample_limit is not None and i >= args.sample_limit:
+                break
+            scanned += 1
+            try:
+                themes_raw = row_cells[col_themes].strip()
+                if not themes_raw:
+                    skipped_empty_themes += 1
+                    continue
+                popularity = int(row_cells[col_popularity])
+                nb_plays = int(row_cells[col_nb_plays])
+                _ = int(row_cells[col_rating])
+                popularity_values.append(popularity)
+                nb_plays_values.append(nb_plays)
+            except (IndexError, ValueError):
+                continue
 
     # Empirical thresholds: start from the observed candidate distribution and
     # keep the upper-quality half, but never below practical floors. This is
@@ -247,14 +272,61 @@ def main() -> int:
         else max(50, percentile(nb_plays_values, 50))
     )
 
-    filtered = [
-        row
-        for row in candidate_rows
-        if int(row["popularity"]) >= min_popularity and int(row["nb_plays"]) >= min_nb_plays
-    ]
+    candidate_rows: list[dict[str, object]] = []
+    skipped_unmapped_themes = 0
+
+    # Second pass: stream, filter, and extract candidate details efficiently
+    with args.input.open(newline="", encoding="utf-8") as f:
+        reader = csv.reader(f)
+        header = next(reader)
+        col_puzzle_id = header.index("PuzzleId")
+        col_fen = header.index("FEN")
+        col_moves = header.index("Moves")
+        col_rating = header.index("Rating")
+        col_popularity = header.index("Popularity")
+        col_nb_plays = header.index("NbPlays")
+        col_themes = header.index("Themes")
+
+        for i, row_cells in enumerate(reader):
+            if args.sample_limit is not None and i >= args.sample_limit:
+                break
+            try:
+                popularity = int(row_cells[col_popularity])
+                nb_plays = int(row_cells[col_nb_plays])
+                
+                # Filter early to keep memory consumption low
+                if popularity < min_popularity or nb_plays < min_nb_plays:
+                    continue
+
+                themes_raw = row_cells[col_themes].strip()
+                if not themes_raw:
+                    continue
+
+                themes = curated_categories(themes_raw)
+                if not themes:
+                    skipped_unmapped_themes += 1
+                    continue
+
+                rating = int(row_cells[col_rating])
+                candidate_rows.append(
+                    {
+                        "id": row_cells[col_puzzle_id],
+                        "fen": row_cells[col_fen],
+                        "moves": row_cells[col_moves],
+                        "rating": rating,
+                        "popularity": popularity,
+                        "nb_plays": nb_plays,
+                        "raw_themes": themes_raw.split(),
+                        "themes": list(dict.fromkeys(themes_raw.split() + themes)),
+                        "curated_themes": themes,
+                        "band": band_for(rating),
+                    }
+                )
+            except (IndexError, ValueError):
+                continue
 
     by_band: dict[str, list[dict[str, object]]] = defaultdict(list)
-    for row in filtered:
+    for row in candidate_rows:
         by_band[str(row["band"])].append(row)
     for rows in by_band.values():
         rows.sort(
@@ -274,12 +346,16 @@ def main() -> int:
 
     if len(selected) < args.target:
         selected_ids = {row["id"] for row in selected}
-        remainder = [row for row in filtered if row["id"] not in selected_ids]
+        remainder = [row for row in candidate_rows if row["id"] not in selected_ids]
         remainder.sort(key=lambda r: (int(r["popularity"]), int(r["nb_plays"])), reverse=True)
         selected.extend(remainder[: args.target - len(selected)])
     selected = selected[: args.target]
 
-    valid, pass_count, fail_count = validate_with_dart(selected, args.validator)
+    if args.validator:
+        valid, pass_count, fail_count = validate_with_dart(selected, args.validator)
+    else:
+        valid, pass_count, fail_count = validate_with_python_chess(selected)
+
     survivors: list[dict[str, object]] = []
     for idx, row in enumerate(selected, start=1):
         if row["id"] not in valid:
