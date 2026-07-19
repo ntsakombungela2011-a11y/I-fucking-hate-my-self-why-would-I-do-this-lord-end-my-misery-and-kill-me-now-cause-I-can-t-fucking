@@ -98,14 +98,9 @@ def validate_with_python_chess(
                     raise ValueError(f"illegal move {m_uci}")
                 board.push(m)
             
-            # 2. Extract play-from position (after first opponent's move)
-            board = chess.Board(fen)
-            first_move = chess.Move.from_uci(moves[0])
-            board.push(first_move)
-            new_fen = board.fen()
-            solution = " ".join(moves[1:])
-            
-            valid[puzzle_id] = {"fen": new_fen, "moves": solution}
+            # 2. Preserve the raw Lichess puzzle format: FEN before the
+            # opponent's first move, followed by the full UCI move sequence.
+            valid[puzzle_id] = {"fen": fen, "moves": moves_str}
             pass_count += 1
         except Exception as e:
             fail_count += 1
@@ -274,6 +269,7 @@ def main() -> int:
 
     candidate_rows: list[dict[str, object]] = []
     skipped_unmapped_themes = 0
+    skipped_short_moves = 0
 
     # Second pass: stream, filter, and extract candidate details efficiently
     with args.input.open(newline="", encoding="utf-8") as f:
@@ -302,6 +298,11 @@ def main() -> int:
                 if not themes_raw:
                     continue
 
+                moves_str = row_cells[col_moves]
+                if len(moves_str.split()) < 2:
+                    skipped_short_moves += 1
+                    continue
+
                 themes = curated_categories(themes_raw)
                 if not themes:
                     skipped_unmapped_themes += 1
@@ -312,7 +313,7 @@ def main() -> int:
                     {
                         "id": row_cells[col_puzzle_id],
                         "fen": row_cells[col_fen],
-                        "moves": row_cells[col_moves],
+                        "moves": moves_str,
                         "rating": rating,
                         "popularity": popularity,
                         "nb_plays": nb_plays,
@@ -374,6 +375,7 @@ def main() -> int:
         "scanned": scanned,
         "empty_themes_dropped": skipped_empty_themes,
         "unmapped_themes_dropped": skipped_unmapped_themes,
+        "short_moves_dropped": skipped_short_moves,
         "popularity_distribution": {
             "min": min(popularity_values) if popularity_values else None,
             "p50": percentile(popularity_values, 50),
@@ -398,7 +400,7 @@ def main() -> int:
         "asset_size_bytes": asset_size,
         "rating_bands": Counter(str(row["band"]) for row in survivors),
         "curated_theme_map": {k: sorted(v) for k, v in CURATED_THEME_MAP.items()},
-        "fen_handling": "Applied the first UCI move from Lichess Moves to the source FEN, then stored that solve-from FEN with remaining solution moves.",
+        "fen_handling": "Preserved the original Lichess FEN and full Moves string; moves[0] remains the opponent's first move.",
     }
     text = json.dumps(report, indent=2, sort_keys=True)
     print(text)
