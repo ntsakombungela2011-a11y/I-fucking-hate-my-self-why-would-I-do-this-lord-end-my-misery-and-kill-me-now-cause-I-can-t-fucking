@@ -35,7 +35,7 @@ class PuzzleController extends Notifier<PuzzleState> {
 
   static final Uri socketUri = Uri(path: '/analysis/socket/v5');
 
-  late Node _gameTree;
+  late Branch _gameTree;
   Timer? _firstMoveTimer;
   Timer? _viewSolutionTimer;
   IList<PuzzleId>? _replayRemaining;
@@ -75,7 +75,7 @@ class PuzzleController extends Notifier<PuzzleState> {
 
   PuzzleState _loadNewContext(PuzzleContext context) {
     final root = Root.fromPgnGame(PgnGame.parsePgn(context.puzzle.game.pgn));
-    _gameTree = root.nodeAt(root.mainlinePath.penultimate);
+    _gameTree = root.branchAt(root.mainlinePath.penultimate)!;
 
     // update puzzles that are remaining in replay
     _replayRemaining = context.replayRemaining;
@@ -169,7 +169,7 @@ class PuzzleController extends Notifier<PuzzleState> {
 
     _mergeSolution();
 
-    state = state.copyWith(root: _gameTree.view, node: _gameTree.branchAt(state.currentPath).view);
+    state = state.copyWith(root: _gameTree.view, node: _gameTree.branchAt(state.currentPath)!.view);
 
     _onFailOrWin(PuzzleResult.lose);
 
@@ -264,7 +264,7 @@ class PuzzleController extends Notifier<PuzzleState> {
         state = state.copyWith(
           mode: PuzzleMode.view,
           root: _gameTree.view,
-          node: _gameTree.branchAt(state.currentPath).view,
+          node: _gameTree.branchAt(state.currentPath)!.view,
         );
       }
     } else {
@@ -339,7 +339,7 @@ class PuzzleController extends Notifier<PuzzleState> {
   }
 
   void _setPath(UciPath path, {bool isNavigating = false, bool firstMove = false}) {
-    final newNode = _gameTree.branchAt(path).view;
+    final newNode = _gameTree.branchAt(path)!.view;
     final sanMove = newNode.sanMove;
     if (!isNavigating) {
       final isForward = path.size > state.currentPath.size;
