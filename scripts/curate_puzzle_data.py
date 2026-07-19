@@ -98,14 +98,9 @@ def validate_with_python_chess(
                     raise ValueError(f"illegal move {m_uci}")
                 board.push(m)
             
-            # 2. Extract play-from position (after first opponent's move)
-            board = chess.Board(fen)
-            first_move = chess.Move.from_uci(moves[0])
-            board.push(first_move)
-            new_fen = board.fen()
-            solution = " ".join(moves[1:])
-            
-            valid[puzzle_id] = {"fen": new_fen, "moves": solution}
+            # 2. Preserve the raw Lichess puzzle format: FEN before the
+            # opponent's first move, followed by the full UCI move sequence.
+            valid[puzzle_id] = {"fen": fen, "moves": moves_str}
             pass_count += 1
         except Exception as e:
             fail_count += 1
@@ -398,7 +393,7 @@ def main() -> int:
         "asset_size_bytes": asset_size,
         "rating_bands": Counter(str(row["band"]) for row in survivors),
         "curated_theme_map": {k: sorted(v) for k, v in CURATED_THEME_MAP.items()},
-        "fen_handling": "Applied the first UCI move from Lichess Moves to the source FEN, then stored that solve-from FEN with remaining solution moves.",
+        "fen_handling": "Preserved the original Lichess FEN and full Moves string; moves[0] remains the opponent's first move.",
     }
     text = json.dumps(report, indent=2, sort_keys=True)
     print(text)
