@@ -35,7 +35,7 @@ class PuzzleController extends Notifier<PuzzleState> {
 
   static final Uri socketUri = Uri(path: '/analysis/socket/v5');
 
-  late Branch _gameTree;
+  late Node _gameTree;
   Timer? _firstMoveTimer;
   Timer? _viewSolutionTimer;
   IList<PuzzleId>? _replayRemaining;
@@ -74,8 +74,8 @@ class PuzzleController extends Notifier<PuzzleState> {
   }
 
   PuzzleState _loadNewContext(PuzzleContext context) {
-    final root = Root.fromPgnMoves(context.puzzle.game.pgn);
-    _gameTree = root.nodeAt(root.mainlinePath.penultimate) as Branch;
+    final root = Root.fromPgnGame(PgnGame.parsePgn(context.puzzle.game.pgn));
+    _gameTree = root.nodeAt(root.mainlinePath.penultimate);
 
     // update puzzles that are remaining in replay
     _replayRemaining = context.replayRemaining;

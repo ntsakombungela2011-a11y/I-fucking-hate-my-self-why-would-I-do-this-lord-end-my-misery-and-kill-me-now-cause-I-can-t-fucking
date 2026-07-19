@@ -115,7 +115,7 @@ sealed class PuzzlePreview with _$PuzzlePreview {
   }) = _PuzzlePreview;
 
   factory PuzzlePreview.fromPuzzle(Puzzle puzzle) {
-    final root = Root.fromPgnMoves(puzzle.game.pgn);
+    final root = Root.fromPgnGame(PgnGame.parsePgn(puzzle.game.pgn));
     final node = root.nodeAt(root.mainlinePath) as Branch;
     return PuzzlePreview(
       orientation: node.position.ply.isEven ? Side.white : Side.black,
@@ -139,8 +139,8 @@ sealed class LitePuzzle with _$LitePuzzle {
   factory LitePuzzle.fromJson(Map<String, dynamic> json) => _$LitePuzzleFromJson(json);
 
   factory LitePuzzle.fromPuzzle(Puzzle puzzle) {
-    final root = Root.fromPgnMoves(puzzle.game.pgn);
-    final initialNode = root.nodeAt(root.mainlinePath.penultimate) as Branch;
+    final root = Root.fromPgnGame(PgnGame.parsePgn(puzzle.game.pgn));
+    final initialNode = root.nodeAt(root.mainlinePath.penultimate);
     return LitePuzzle(
       id: puzzle.puzzle.id,
       fen: initialNode.position.fen,

@@ -191,7 +191,7 @@ class _LoadNextPuzzle extends ConsumerWidget {
             angle: angle,
             initialPuzzleContext: null,
             body: const PuzzleErrorBoardWidget(
-              errorMessage: 'No more puzzles. Go online to get more.',
+              errorMessage: 'No offline puzzles are available for this theme.',
             ),
           );
         } else {

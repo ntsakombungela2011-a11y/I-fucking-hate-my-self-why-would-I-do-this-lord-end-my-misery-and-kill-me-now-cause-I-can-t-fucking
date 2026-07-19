@@ -5,6 +5,7 @@ import 'package:lichess_mobile/src/model/common/id.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_angle.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_batch_storage.dart';
+import 'package:lichess_mobile/src/model/puzzle/offline_puzzle_repository.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_opening.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_repository.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_service.dart';
@@ -52,22 +53,8 @@ final puzzleReplayProvider = FutureProvider.autoDispose
 
 /// Fetches a storm of puzzles from the local offline puzzle queue.
 final stormProvider = FutureProvider.autoDispose<PuzzleStormResponse>((Ref ref) async {
-  final authUser = ref.watch(authControllerProvider);
-  final puzzleService = await ref.read(puzzleServiceFactoryProvider)(
-    queueLength: kPuzzleLocalQueueLength,
-  );
-
-  // Align Puzzle Storm with the offline Puzzle Themes data path: populate/read
-  // the local mix queue instead of loading the removed lichess WebView/HTML path.
-  await puzzleService.nextPuzzle(
-    userId: authUser?.user.id,
-    angle: const PuzzleTheme(PuzzleThemeKey.mix),
-  );
-  final batch = await puzzleService.batchStorage.fetch(
-    userId: authUser?.user.id,
-    angle: const PuzzleTheme(PuzzleThemeKey.mix),
-  );
-  final puzzles = batch?.unsolved.map(LitePuzzle.fromPuzzle).toIList() ?? const IList.empty();
+  final offlineRepository = await ref.watch(offlinePuzzleRepositoryProvider.future);
+  final puzzles = await offlineRepository.randomLitePuzzles(limit: kPuzzleLocalQueueLength);
   if (puzzles.isEmpty) {
     throw const FormatException('No offline puzzles available for Puzzle Storm.');
   }
@@ -152,11 +139,15 @@ final stormDashboardProvider = FutureProvider.autoDispose.family<StormDashboard?
 /// Fetches available puzzle themes.
 final puzzleThemesProvider = FutureProvider.autoDispose<IMap<PuzzleThemeKey, PuzzleThemeData>>((
   Ref ref,
-) {
-  return ref.withClientCacheFor(
-    (client) => PuzzleRepository(client).puzzleThemes(),
-    const Duration(days: 1),
-  );
+) async {
+  final offlineRepository = await ref.watch(offlinePuzzleRepositoryProvider.future);
+  final counts = await offlineRepository.themeCounts();
+  return counts.map((theme, count) {
+    return MapEntry(
+      theme,
+      PuzzleThemeData(count: count, desc: null, key: theme, name: theme.name),
+    );
+  });
 }, name: 'PuzzleThemesProvider');
 
 /// Fetches available puzzle openings.
