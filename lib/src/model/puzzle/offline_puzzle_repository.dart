@@ -52,11 +52,23 @@ class OfflinePuzzleRepository {
   }
 
   Future<IList<LitePuzzle>> randomLitePuzzles({required int limit}) async {
-    final rows = await _db.rawQuery(
-      'SELECT id, fen, moves, rating FROM puzzles ORDER BY RANDOM() LIMIT ?',
-      [limit],
+    final firstRow = await _db.rawQuery(
+      'SELECT id, fen, moves, rating FROM puzzles ORDER BY RANDOM() LIMIT 1',
     );
-    return rows.map(_litePuzzleFromRow).toIList();
+    if (firstRow.isEmpty) {
+      return const IList.empty();
+    }
+    final firstFen = firstRow.first['fen']! as String;
+    final isWhite = firstFen.contains(' w ');
+    final sidePattern = isWhite ? '% w %' : '% b %';
+
+    final remainingRows = await _db.rawQuery(
+      'SELECT id, fen, moves, rating FROM puzzles WHERE fen LIKE ? AND id != ? ORDER BY RANDOM() LIMIT ?',
+      [sidePattern, firstRow.first['id']! as int, limit - 1],
+    );
+
+    final allRows = [...firstRow, ...remainingRows];
+    return allRows.map(_litePuzzleFromRow).toIList();
   }
 
   Future<IMap<PuzzleThemeKey, int>> themeCounts() async {
