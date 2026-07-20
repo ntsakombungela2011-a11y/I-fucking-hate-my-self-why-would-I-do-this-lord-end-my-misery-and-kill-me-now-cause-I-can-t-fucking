@@ -15,7 +15,7 @@ final palettesProvider = FutureProvider<List<AppPalette>>((ref) async {
 });
 
 final activePaletteProvider = Provider<AppPalette?>((ref) {
-  final palettes = ref.watch(palettesProvider).valueOrNull;
+  final palettes = ref.watch(palettesProvider).value;
   if (palettes == null || palettes.isEmpty) return null;
   final selectedName = ref.watch(themePalettePreferenceProvider);
   return palettes.firstWhere(
