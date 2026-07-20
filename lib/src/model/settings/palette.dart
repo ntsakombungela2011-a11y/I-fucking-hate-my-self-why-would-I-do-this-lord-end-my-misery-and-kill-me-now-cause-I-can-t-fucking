@@ -15,7 +15,7 @@ final palettesProvider = FutureProvider<List<AppPalette>>((ref) async {
 });
 
 final activePaletteProvider = Provider<AppPalette?>((ref) {
-  final palettes = ref.watch(palettesProvider).valueOrNull;
+  final palettes = ref.watch(palettesProvider).value;
   if (palettes == null || palettes.isEmpty) return null;
   final selectedName = ref.watch(themePalettePreferenceProvider);
   return palettes.firstWhere(
@@ -42,11 +42,11 @@ class ThemePalettePreferenceNotifier extends Notifier<String> {
   }
 
   Future<void> setPalette(String paletteName) async {
+    state = paletteName;
     await LichessBinding.instance.sharedPreferences.setString(
       PrefCategory.themePalette.storageKey,
       paletteName,
     );
-    state = paletteName;
   }
 }
 
@@ -54,6 +54,7 @@ class ThemePalettePreferenceNotifier extends Notifier<String> {
 class AppPalette {
   const AppPalette({
     required this.name,
+    required this.category,
     required this.primary,
     required this.accent,
     required this.background,
@@ -65,6 +66,7 @@ class AppPalette {
   factory AppPalette.fromJson(Map<String, dynamic> json) {
     return AppPalette(
       name: json['name'] as String,
+      category: json['category'] as String,
       primary: _parseColor(json['primary'] as String),
       accent: _parseColor(json['accent'] as String),
       background: _parseColor(json['background'] as String),
@@ -75,6 +77,7 @@ class AppPalette {
   }
 
   final String name;
+  final String category;
   final Color primary;
   final Color accent;
   final Color background;
