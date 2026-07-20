@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lichess_mobile/src/model/settings/palette.dart';
@@ -35,8 +37,7 @@ class PalettePickerScreen extends ConsumerWidget {
                     title: Text(entry.key),
                     initiallyExpanded: entry.value.any((palette) => palette.name == selectedName),
                     children: [
-                      for (final palette in entry.value)
-                        _PaletteTile(palette: palette, selectedName: selectedName),
+                      _PaletteSectionList(palettes: entry.value, selectedName: selectedName),
                     ],
                   ),
                 ],
@@ -46,6 +47,34 @@ class PalettePickerScreen extends ConsumerWidget {
         },
         error: (error, stackTrace) => Center(child: Text('Could not load themes: $error')),
         loading: () => const Center(child: CircularProgressIndicator.adaptive()),
+      ),
+    );
+  }
+}
+
+class _PaletteSectionList extends StatelessWidget {
+  const _PaletteSectionList({required this.palettes, required this.selectedName});
+
+  static const _tileExtent = 80.0;
+
+  final List<AppPalette> palettes;
+  final String selectedName;
+
+  @override
+  Widget build(BuildContext context) {
+    final maxHeight = MediaQuery.sizeOf(context).height * 0.6;
+    final listHeight = math.min(palettes.length * _tileExtent, maxHeight);
+
+    return SizedBox(
+      height: listHeight,
+      child: ListView.builder(
+        primary: false,
+        itemExtent: _tileExtent,
+        itemCount: palettes.length,
+        itemBuilder: (context, index) => _PaletteTile(
+          palette: palettes[index],
+          selectedName: selectedName,
+        ),
       ),
     );
   }
