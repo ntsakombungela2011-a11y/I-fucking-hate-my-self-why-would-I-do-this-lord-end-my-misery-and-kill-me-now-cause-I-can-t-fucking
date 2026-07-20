@@ -1,0 +1,2970 @@
+[
+  {
+    "name": "Electric",
+    "primary": "#1B4FE4",
+    "accent": "#FF4757",
+    "background": "#FFE100",
+    "surface": "#00E59B",
+    "text": "#0D0D0D",
+    "_meta": "A1a requester-supplied five-color palette; roles mapped by relative lightness/darkness."
+  },
+  {
+    "name": "Wabi-Sabi",
+    "primary": "#F4EEE0",
+    "accent": "#9E7B5A",
+    "background": "#F4EEE0",
+    "surface": "#EAE0D5",
+    "text": "#2F2B24",
+    "_meta": "A1a requester-supplied five-color palette; roles mapped by relative lightness/darkness."
+  },
+  {
+    "name": "Coastal Edit",
+    "primary": "#E8D5B7",
+    "accent": "#2A7B9B",
+    "background": "#F2F7F5",
+    "surface": "#E8D5B7",
+    "text": "#2A7B9B",
+    "_meta": "A1a requester-supplied five-color palette; roles mapped by relative lightness/darkness."
+  },
+  {
+    "name": "Luxury Noir",
+    "primary": "#1A1A1A",
+    "accent": "#D4AF37",
+    "background": "#F8F4E3",
+    "surface": "#E5E5E5",
+    "text": "#1A1A1A",
+    "_meta": "A1a requester-supplied five-color palette; roles mapped by relative lightness/darkness."
+  },
+  {
+    "name": "Sage & Clay",
+    "primary": "#B2C5A8",
+    "accent": "#C4785A",
+    "background": "#F5F0E8",
+    "surface": "#B2C5A8",
+    "text": "#5C4A3A",
+    "_meta": "A1a requester-supplied five-color palette; roles mapped by relative lightness/darkness."
+  },
+  {
+    "name": "Velvet Noir",
+    "primary": "#1C1C1E",
+    "accent": "#6E1423",
+    "background": "#F2F0EB",
+    "surface": "#E8D9B5",
+    "text": "#1C1C1E",
+    "_meta": "A1a requester-supplied five-color palette; roles mapped by relative lightness/darkness."
+  },
+  {
+    "name": "Citrus Grove",
+    "primary": "#FF8A1E",
+    "accent": "#B6D94C",
+    "background": "#FFF6E0",
+    "surface": "#B6D94C",
+    "text": "#262220",
+    "_meta": "A1a requester-supplied five-color palette; roles mapped by relative lightness/darkness."
+  },
+  {
+    "name": "Monsoon",
+    "primary": "#2C3E76",
+    "accent": "#6E7B8B",
+    "background": "#EDF1F2",
+    "surface": "#6E7B8B",
+    "text": "#1A1F26",
+    "_meta": "A1a requester-supplied five-color palette; roles mapped by relative lightness/darkness."
+  },
+  {
+    "name": "Harvest Table",
+    "primary": "#D9762B",
+    "accent": "#E8C77E",
+    "background": "#FAF3E3",
+    "surface": "#E8C77E",
+    "text": "#3B2A21",
+    "_meta": "A1a requester-supplied five-color palette; roles mapped by relative lightness/darkness."
+  },
+  {
+    "name": "Royal Court",
+    "primary": "#6A2C91",
+    "accent": "#D7A33E",
+    "background": "#F4EFE2",
+    "surface": "#D7A33E",
+    "text": "#1B1620",
+    "_meta": "A1a requester-supplied five-color palette; roles mapped by relative lightness/darkness."
+  },
+  {
+    "name": "Tidewater",
+    "primary": "#0E5C5C",
+    "accent": "#8FD9C4",
+    "background": "#E8DCC0",
+    "surface": "#8FD9C4",
+    "text": "#102A3B",
+    "_meta": "A1a requester-supplied five-color palette; roles mapped by relative lightness/darkness."
+  },
+  {
+    "name": "Ashfall",
+    "primary": "#8A8784",
+    "accent": "#D9612B",
+    "background": "#EDE6DA",
+    "surface": "#8A8784",
+    "text": "#211E1C",
+    "_meta": "A1a requester-supplied five-color palette; roles mapped by relative lightness/darkness."
+  },
+  {
+    "name": "Lush Canopy",
+    "primary": "#1F4D2C",
+    "accent": "#7C9070",
+    "background": "#F1EEDE",
+    "surface": "#A9C49A",
+    "text": "#3E2F25",
+    "_meta": "A1a requester-supplied five-color palette; roles mapped by relative lightness/darkness."
+  },
+  {
+    "name": "Marigold Dusk",
+    "primary": "#E8A33D",
+    "accent": "#5B3A5C",
+    "background": "#F7EBD8",
+    "surface": "#E8A33D",
+    "text": "#2A2420",
+    "_meta": "A1a requester-supplied five-color palette; roles mapped by relative lightness/darkness."
+  },
+  {
+    "name": "Frostline",
+    "primary": "#C9E4F2",
+    "accent": "#4F6B7A",
+    "background": "#F7FAFB",
+    "surface": "#C9E4F2",
+    "text": "#2C3A42",
+    "_meta": "A1a requester-supplied five-color palette; roles mapped by relative lightness/darkness."
+  },
+  {
+    "name": "Solar Flare",
+    "primary": "#FFAA00",
+    "accent": "#E8003A",
+    "background": "#68001A",
+    "surface": "#970026",
+    "text": "#FFE7B8",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Neon Tide",
+    "primary": "#00F5AA",
+    "accent": "#3B00FF",
+    "background": "#1B0073",
+    "surface": "#2600A6",
+    "text": "#B8FCE7",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Arctic",
+    "primary": "#E8F5FF",
+    "accent": "#0050D8",
+    "background": "#F7FCFF",
+    "surface": "#FBFDFF",
+    "text": "#0050D8",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Dusk",
+    "primary": "#FF5CBA",
+    "accent": "#2B00FF",
+    "background": "#130073",
+    "surface": "#1C00A6",
+    "text": "#FFD1EC",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Berry Glow",
+    "primary": "#9333EA",
+    "accent": "#FB7185",
+    "background": "#421769",
+    "surface": "#602198",
+    "text": "#FED7DD",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Cotton Candy",
+    "primary": "#7AA8FF",
+    "accent": "#FF9AEF",
+    "background": "#374C73",
+    "surface": "#4F6DA6",
+    "text": "#FFE3FB",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Golden Ember",
+    "primary": "#FACC15",
+    "accent": "#F97316",
+    "background": "#70340A",
+    "surface": "#A24B0E",
+    "text": "#FEF1BD",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Aqua Depth",
+    "primary": "#0F766E",
+    "accent": "#22D3EE",
+    "background": "#073531",
+    "surface": "#0A4D48",
+    "text": "#C1F3FA",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Royal Flame",
+    "primary": "#DB2777",
+    "accent": "#DC2626",
+    "background": "#631111",
+    "surface": "#8F1919",
+    "text": "#F5C3D9",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Dark Scarlet / Antique Ruby",
+    "primary": "#4F0715",
+    "accent": "#781728",
+    "background": "#240309",
+    "surface": "#33050E",
+    "text": "#D9BEC3",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Japanese Carmine / Dark Slate Gray",
+    "primary": "#982930",
+    "accent": "#39544B",
+    "background": "#1A2622",
+    "surface": "#253731",
+    "text": "#E2C3C5",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Slate Blue / Glacier",
+    "primary": "#619BB6",
+    "accent": "#BAD7E1",
+    "background": "#2C4652",
+    "surface": "#3F6576",
+    "text": "#ECF4F7",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Thistle / Liberty",
+    "primary": "#DEC2DB",
+    "accent": "#5B62B3",
+    "background": "#292C51",
+    "surface": "#3B4074",
+    "text": "#F6EEF5",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Stormy Teal / Oxidized Iron / Pale Oak",
+    "primary": "#32707C",
+    "accent": "#A8371C",
+    "background": "#4C190D",
+    "surface": "#6D2412",
+    "text": "#F3EEEB",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Luxury Noir / Soft Oat",
+    "primary": "#060D0C",
+    "accent": "#F0EDE5",
+    "background": "#FAF9F6",
+    "surface": "#FCFCFA",
+    "text": "#060D0C",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Liver / Tan",
+    "primary": "#6A3428",
+    "accent": "#CFB882",
+    "background": "#301712",
+    "surface": "#45221A",
+    "text": "#F2EBDC",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Bistre / Brown Sugar",
+    "primary": "#3D2C22",
+    "accent": "#BB734B",
+    "background": "#1B140F",
+    "surface": "#281D16",
+    "text": "#ECD8CD",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Dark Gray / Vivid Yellow",
+    "primary": "#323232",
+    "accent": "#FFDB00",
+    "background": "#161616",
+    "surface": "#202020",
+    "text": "#FFF5B8",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Jasmine / Dark Graphite",
+    "primary": "#F8DE7F",
+    "accent": "#3A393F",
+    "background": "#1A1A1C",
+    "surface": "#262529",
+    "text": "#FDF6DB",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Deep Dark Blue / Warm Yellow Orange",
+    "primary": "#001F7B",
+    "accent": "#FFBA09",
+    "background": "#000E37",
+    "surface": "#001450",
+    "text": "#FFECBA",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Dark Green / Neon Green",
+    "primary": "#01210A",
+    "accent": "#A8FF00",
+    "background": "#E1FFA6",
+    "surface": "#EFFFD1",
+    "text": "#01210A",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Dark Rich Green / Golden Yellow",
+    "primary": "#014726",
+    "accent": "#FFCF00",
+    "background": "#002011",
+    "surface": "#012E19",
+    "text": "#FFF2B8",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Deep Rich Red / Soft Yellow",
+    "primary": "#AB1509",
+    "accent": "#FFF8D2",
+    "background": "#FFFDEF",
+    "surface": "#FFFEF7",
+    "text": "#AB1509",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Dark Red / Bright Warm Yellow",
+    "primary": "#A01717",
+    "accent": "#FFE162",
+    "background": "#FFF4C8",
+    "surface": "#FFFAE3",
+    "text": "#A01717",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Matcha Cream / Milky Honey",
+    "primary": "#9CA763",
+    "accent": "#F1E8C7",
+    "background": "#FAF7EB",
+    "surface": "#FCFBF5",
+    "text": "#1A1A1A",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Coffee Bean / Almond",
+    "primary": "#2E0D14",
+    "accent": "#EFE1D5",
+    "background": "#F9F4F0",
+    "surface": "#FCFAF7",
+    "text": "#2E0D14",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Mocha Berry / Soft Vanilla",
+    "primary": "#784955",
+    "accent": "#FAEDDB",
+    "background": "#FDF9F2",
+    "surface": "#FEFCF9",
+    "text": "#784955",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Twilight",
+    "primary": "#564A96",
+    "accent": "#B75F67",
+    "background": "#272144",
+    "surface": "#383062",
+    "text": "#EBD2D4",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Blacklist Purple / Transparent Pink",
+    "primary": "#240A30",
+    "accent": "#FFDCF0",
+    "background": "#FFF3FA",
+    "surface": "#FFF9FC",
+    "text": "#240A30",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Magenta",
+    "primary": "#4B0C37",
+    "accent": "#C8005A",
+    "background": "#220519",
+    "surface": "#310824",
+    "text": "#F0B8D1",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Muted Blue Green / Fresh Green",
+    "primary": "#162531",
+    "accent": "#9AF376",
+    "background": "#0A1116",
+    "surface": "#0E1820",
+    "text": "#E3FCD9",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Deep Rich Purple / Light Cream",
+    "primary": "#720065",
+    "accent": "#FDF9B6",
+    "background": "#FEFDE5",
+    "surface": "#FFFEF2",
+    "text": "#720065",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Deep Royal Purple / Soft Snow White",
+    "primary": "#460B6A",
+    "accent": "#FFFBFF",
+    "background": "#FFFEFF",
+    "surface": "#FFFEFF",
+    "text": "#460B6A",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Deep Navy / Vibrant Cyan",
+    "primary": "#001935",
+    "accent": "#2FE8FF",
+    "background": "#000B18",
+    "surface": "#001022",
+    "text": "#C5F9FF",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Vanilla Latte / Teal Forest",
+    "primary": "#184E50",
+    "accent": "#184E50",
+    "background": "#0B2324",
+    "surface": "#103334",
+    "text": "#BECDCE",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Sage / Black Olive",
+    "primary": "#B2B49C",
+    "accent": "#B2B49C",
+    "background": "#505146",
+    "surface": "#747565",
+    "text": "#E9EAE3",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Old Rose / Seashell / Sky Reflection",
+    "primary": "#E19AA6",
+    "accent": "#FAF0EA",
+    "background": "#FDFAF8",
+    "surface": "#FEFCFB",
+    "text": "#1A1A1A",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Soft Fawn / Carbon Black / Ivory Mist",
+    "primary": "#D5B572",
+    "accent": "#201F14",
+    "background": "#FDFAF4",
+    "surface": "#FEFDFA",
+    "text": "#201F14",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Onyx / Olive / Desert",
+    "primary": "#13140E",
+    "accent": "#838236",
+    "background": "#090906",
+    "surface": "#0C0D09",
+    "text": "#F6F5F2",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Fiery Rose / Black Pearl",
+    "primary": "#FF4D73",
+    "accent": "#00181B",
+    "background": "#000B0C",
+    "surface": "#001012",
+    "text": "#FFCDD8",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Tranquil Orange / Maastricht Blue",
+    "primary": "#FFB268",
+    "accent": "#001E37",
+    "background": "#000D19",
+    "surface": "#001424",
+    "text": "#FFE9D5",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Sangria",
+    "primary": "#C0392B",
+    "accent": "#080205",
+    "background": "#040102",
+    "surface": "#050103",
+    "text": "#EDC8C4",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Forest Night",
+    "primary": "#0A1200",
+    "accent": "#BD5E85",
+    "background": "#040800",
+    "surface": "#060C00",
+    "text": "#EDD2DD",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Burgundy",
+    "primary": "#4A1528",
+    "accent": "#4A1528",
+    "background": "#210912",
+    "surface": "#300E1A",
+    "text": "#CCBDC3",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Navy",
+    "primary": "#292F91",
+    "accent": "#292F91",
+    "background": "#121541",
+    "surface": "#1B1F5E",
+    "text": "#C3C5E0",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Cyan Spark",
+    "primary": "#00D4FF",
+    "accent": "#00D4FF",
+    "background": "#005F73",
+    "surface": "#008AA6",
+    "text": "#B8F3FF",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Near Black",
+    "primary": "#1A0508",
+    "accent": "#1A0508",
+    "background": "#0C0204",
+    "surface": "#110305",
+    "text": "#BFB9BA",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Copper Blaze",
+    "primary": "#B5651D",
+    "accent": "#3A1A0A",
+    "background": "#1A0C04",
+    "surface": "#261106",
+    "text": "#EAD4C0",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Polar Night",
+    "primary": "#1B2735",
+    "accent": "#090A0F",
+    "background": "#040407",
+    "surface": "#06060A",
+    "text": "#BFC3C6",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Mango Tango",
+    "primary": "#FFB347",
+    "accent": "#FF6F3C",
+    "background": "#73321B",
+    "surface": "#A64827",
+    "text": "#FFEACB",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Velvet Plum",
+    "primary": "#5A2A5C",
+    "accent": "#1A0E1C",
+    "background": "#0C060D",
+    "surface": "#110912",
+    "text": "#D1C3D1",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Seaglass Drift",
+    "primary": "#6FBFA0",
+    "accent": "#1C3D3A",
+    "background": "#0D1B1A",
+    "surface": "#122826",
+    "text": "#D7EDE4",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Crimson Veil",
+    "primary": "#8B1E3F",
+    "accent": "#2B0A12",
+    "background": "#130408",
+    "surface": "#1C060C",
+    "text": "#DFC0C9",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Honeycomb",
+    "primary": "#F4B400",
+    "accent": "#7A4E00",
+    "background": "#372300",
+    "surface": "#4F3300",
+    "text": "#FCEAB8",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Inkwell",
+    "primary": "#2E2B5F",
+    "accent": "#0B0A1A",
+    "background": "#05040C",
+    "surface": "#070611",
+    "text": "#C4C4D2",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Rosewater Fog",
+    "primary": "#E8B4BC",
+    "accent": "#5C3A40",
+    "background": "#291A1D",
+    "surface": "#3C262A",
+    "text": "#F9EAEC",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Verdant Spark",
+    "primary": "#2E8B57",
+    "accent": "#0D2914",
+    "background": "#061209",
+    "surface": "#081B0D",
+    "text": "#C4DFD0",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Amber Trail",
+    "primary": "#C8851A",
+    "accent": "#4A2E0A",
+    "background": "#211504",
+    "surface": "#301E06",
+    "text": "#F0DDBF",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Glacier Pulse",
+    "primary": "#7FB3D5",
+    "accent": "#1A3A4A",
+    "background": "#0C1A21",
+    "surface": "#112630",
+    "text": "#DBEAF3",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Wildfire",
+    "primary": "#FF4E00",
+    "accent": "#8E0000",
+    "background": "#400000",
+    "surface": "#5C0000",
+    "text": "#FFCDB8",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Lagoon Drift",
+    "primary": "#00A8A8",
+    "accent": "#003C3C",
+    "background": "#001B1B",
+    "surface": "#002727",
+    "text": "#B8E7E7",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Plumeria",
+    "primary": "#FFD6E8",
+    "accent": "#7A2E5C",
+    "background": "#FFF1F7",
+    "surface": "#FFF8FB",
+    "text": "#7A2E5C",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Stormfront",
+    "primary": "#4A5A6A",
+    "accent": "#0E141A",
+    "background": "#06090C",
+    "surface": "#090D11",
+    "text": "#CCD1D5",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Sunburst Clay",
+    "primary": "#E89A3C",
+    "accent": "#6B3A1E",
+    "background": "#301A0D",
+    "surface": "#462614",
+    "text": "#F9E3C8",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Midnight Garnet",
+    "primary": "#6B0F1A",
+    "accent": "#19060C",
+    "background": "#0B0305",
+    "surface": "#100408",
+    "text": "#D6BCBF",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Frosted Lilac",
+    "primary": "#C9B6E4",
+    "accent": "#3A2C5C",
+    "background": "#1A1429",
+    "surface": "#261D3C",
+    "text": "#F0EBF7",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Brass & Ink",
+    "primary": "#B08D57",
+    "accent": "#1A1A2E",
+    "background": "#0C0C15",
+    "surface": "#11111E",
+    "text": "#E9DFD0",
+    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
+  },
+  {
+    "name": "Night Freight",
+    "primary": "#1B2A4A",
+    "accent": "#E8622C",
+    "background": "#0C1220",
+    "surface": "#16223B",
+    "text": "#F2EFE6"
+  },
+  {
+    "name": "Platform 9",
+    "primary": "#2C3E6B",
+    "accent": "#F2A93B",
+    "background": "#F4F1EA",
+    "surface": "#FFFFFF",
+    "text": "#1A1F2E"
+  },
+  {
+    "name": "Diesel Smoke",
+    "primary": "#4A4A4F",
+    "accent": "#D9762B",
+    "background": "#1C1C1E",
+    "surface": "#2A2A2D",
+    "text": "#EDEAE4"
+  },
+  {
+    "name": "Rail Spike",
+    "primary": "#7A1F2B",
+    "accent": "#E8B93B",
+    "background": "#F7F2E9",
+    "surface": "#FFFFFF",
+    "text": "#2B1418"
+  },
+  {
+    "name": "Overhead Line",
+    "primary": "#1E5C8A",
+    "accent": "#F2D93B",
+    "background": "#0D1B26",
+    "surface": "#153347",
+    "text": "#EAF2F7"
+  },
+  {
+    "name": "Ballast Gray",
+    "primary": "#5A5F63",
+    "accent": "#C8481E",
+    "background": "#F0EFEC",
+    "surface": "#FFFFFF",
+    "text": "#232527"
+  },
+  {
+    "name": "Third Rail",
+    "primary": "#C8102E",
+    "accent": "#1B2A4A",
+    "background": "#F7EDEC",
+    "surface": "#FFFFFF",
+    "text": "#2A0A0F"
+  },
+  {
+    "name": "Sleeper Car Navy",
+    "primary": "#16264A",
+    "accent": "#D4A94E",
+    "background": "#0A1226",
+    "surface": "#131F3D",
+    "text": "#EFE9DC"
+  },
+  {
+    "name": "Whistle Stop",
+    "primary": "#2E7D5B",
+    "accent": "#F0A83A",
+    "background": "#F3F5EE",
+    "surface": "#FFFFFF",
+    "text": "#16241C"
+  },
+  {
+    "name": "Coach Class Cream",
+    "primary": "#8A6A3E",
+    "accent": "#4E6B5C",
+    "background": "#F7F1E3",
+    "surface": "#FFFFFF",
+    "text": "#2B2013"
+  },
+  {
+    "name": "Signal Amber",
+    "primary": "#E8952C",
+    "accent": "#1B3350",
+    "background": "#1A1508",
+    "surface": "#26200F",
+    "text": "#F7EDD8"
+  },
+  {
+    "name": "Freight Yard Rust",
+    "primary": "#9C4B24",
+    "accent": "#5C6B5A",
+    "background": "#F5EFE6",
+    "surface": "#FFFFFF",
+    "text": "#2A1409"
+  },
+  {
+    "name": "Bullet Nose White",
+    "primary": "#E8E9EB",
+    "accent": "#E8622C",
+    "background": "#14161C",
+    "surface": "#1F222B",
+    "text": "#F5F6F8"
+  },
+  {
+    "name": "Underground Line",
+    "primary": "#2B2E7A",
+    "accent": "#E8B93B",
+    "background": "#0C0D1A",
+    "surface": "#15172D",
+    "text": "#EAEAF5"
+  },
+  {
+    "name": "Level Crossing",
+    "primary": "#D9B300",
+    "accent": "#1A1A1A",
+    "background": "#0D0D0D",
+    "surface": "#1C1C1C",
+    "text": "#F5F1DC"
+  },
+  {
+    "name": "Concourse Marble",
+    "primary": "#7A8B9B",
+    "accent": "#C8481E",
+    "background": "#F2F3F5",
+    "surface": "#FFFFFF",
+    "text": "#1E2530"
+  },
+  {
+    "name": "Timetable Ink",
+    "primary": "#2A2A2A",
+    "accent": "#D4AF37",
+    "background": "#F5F3EC",
+    "surface": "#FFFFFF",
+    "text": "#151515"
+  },
+  {
+    "name": "Boarding Ramp Teal",
+    "primary": "#1E6B6B",
+    "accent": "#F2A93B",
+    "background": "#0A1A1A",
+    "surface": "#123333",
+    "text": "#E7F5F2"
+  },
+  {
+    "name": "Freight Container Red",
+    "primary": "#B5291F",
+    "accent": "#2C4A6B",
+    "background": "#F7EDEA",
+    "surface": "#FFFFFF",
+    "text": "#2A0D0A"
+  },
+  {
+    "name": "Night Express Indigo",
+    "primary": "#2E2B5F",
+    "accent": "#F0A83A",
+    "background": "#0B0A1A",
+    "surface": "#141230",
+    "text": "#E9E7F5"
+  },
+  {
+    "name": "Locomotive Black",
+    "primary": "#1A1A1A",
+    "accent": "#C8481E",
+    "background": "#0D0D0D",
+    "surface": "#1E1E1E",
+    "text": "#F2EFE9"
+  },
+  {
+    "name": "Wagon Wood",
+    "primary": "#6A4B2E",
+    "accent": "#8B9E7C",
+    "background": "#F5EEE1",
+    "surface": "#FFFFFF",
+    "text": "#2B1E10"
+  },
+  {
+    "name": "Departure Amber",
+    "primary": "#E8A23B",
+    "accent": "#1B3350",
+    "background": "#F7F1E1",
+    "surface": "#FFFFFF",
+    "text": "#2B1E08"
+  },
+  {
+    "name": "Track Ballast Blue",
+    "primary": "#3B5E8A",
+    "accent": "#E8B93B",
+    "background": "#0F1A26",
+    "surface": "#182B3D",
+    "text": "#EAF0F5"
+  },
+  {
+    "name": "Overnight Slate",
+    "primary": "#4A5A6A",
+    "accent": "#E8622C",
+    "background": "#14181C",
+    "surface": "#1F262C",
+    "text": "#EEF0F2"
+  },
+  {
+    "name": "Cargo Hold Olive",
+    "primary": "#5C6B3A",
+    "accent": "#D9762B",
+    "background": "#F3F2E6",
+    "surface": "#FFFFFF",
+    "text": "#1D2211"
+  },
+  {
+    "name": "Junction Red",
+    "primary": "#A0201E",
+    "accent": "#2C3E6B",
+    "background": "#F7ECEB",
+    "surface": "#FFFFFF",
+    "text": "#2A0908"
+  },
+  {
+    "name": "Terminal Glass",
+    "primary": "#9BB3C8",
+    "accent": "#E8622C",
+    "background": "#101820",
+    "surface": "#1A2530",
+    "text": "#EDF2F6"
+  },
+  {
+    "name": "Steel Wheel Gray",
+    "primary": "#6B6F73",
+    "accent": "#F2A93B",
+    "background": "#F1F1F0",
+    "surface": "#FFFFFF",
+    "text": "#242526"
+  },
+  {
+    "name": "Platform Lantern",
+    "primary": "#E8B93B",
+    "accent": "#1E3350",
+    "background": "#141008",
+    "surface": "#211B0E",
+    "text": "#F7F1D8"
+  },
+  {
+    "name": "Commuter Blue Line",
+    "primary": "#1E5C9B",
+    "accent": "#F2D93B",
+    "background": "#F0F4F8",
+    "surface": "#FFFFFF",
+    "text": "#0F1E2E"
+  },
+  {
+    "name": "Rail Tie Brown",
+    "primary": "#4A3524",
+    "accent": "#8B9E7C",
+    "background": "#F5F0E5",
+    "surface": "#FFFFFF",
+    "text": "#211609"
+  },
+  {
+    "name": "Express Emerald",
+    "primary": "#1E6B4A",
+    "accent": "#E8B93B",
+    "background": "#0A1A12",
+    "surface": "#123322",
+    "text": "#E7F5EC"
+  },
+  {
+    "name": "Sidewinder Silver",
+    "primary": "#B8BCC0",
+    "accent": "#C8481E",
+    "background": "#14161A",
+    "surface": "#1F2226",
+    "text": "#F0F1F2"
+  },
+  {
+    "name": "Depot Copper",
+    "primary": "#A0521F",
+    "accent": "#2C4A5A",
+    "background": "#F7EFE6",
+    "surface": "#FFFFFF",
+    "text": "#2B1206"
+  },
+  {
+    "name": "Signal Box Green",
+    "primary": "#2B5C3A",
+    "accent": "#E8952C",
+    "background": "#0A1A0F",
+    "surface": "#123321",
+    "text": "#E7F2E9"
+  },
+  {
+    "name": "First Class Maroon",
+    "primary": "#5C1A2A",
+    "accent": "#D4AF37",
+    "background": "#1A0A0F",
+    "surface": "#291320",
+    "text": "#F2E5E8"
+  },
+  {
+    "name": "Track Switch Gold",
+    "primary": "#C89B2C",
+    "accent": "#1B2A4A",
+    "background": "#F7F1DE",
+    "surface": "#FFFFFF",
+    "text": "#2B2008"
+  },
+  {
+    "name": "Overhead Wire Gray",
+    "primary": "#5A6570",
+    "accent": "#F2A93B",
+    "background": "#F0F1F2",
+    "surface": "#FFFFFF",
+    "text": "#20242A"
+  },
+  {
+    "name": "Boiler Room Rust",
+    "primary": "#8A3A1E",
+    "accent": "#4A5A6A",
+    "background": "#F5EBE4",
+    "surface": "#FFFFFF",
+    "text": "#2A0F06"
+  },
+  {
+    "name": "Rapid Transit Cyan",
+    "primary": "#1E8A9B",
+    "accent": "#F2D93B",
+    "background": "#0A1E22",
+    "surface": "#123840",
+    "text": "#E7F5F7"
+  },
+  {
+    "name": "Waiting Room Cream",
+    "primary": "#B08D57",
+    "accent": "#3B5E6B",
+    "background": "#F7F2E5",
+    "surface": "#FFFFFF",
+    "text": "#2B2010"
+  },
+  {
+    "name": "Night Signal Violet",
+    "primary": "#4A2B6B",
+    "accent": "#E8B93B",
+    "background": "#12081A",
+    "surface": "#1F1230",
+    "text": "#EFE7F5"
+  },
+  {
+    "name": "Coal Tender Black",
+    "primary": "#141414",
+    "accent": "#B5291F",
+    "background": "#0A0A0A",
+    "surface": "#1C1C1C",
+    "text": "#EFEFEF"
+  },
+  {
+    "name": "Passenger Deck Blue",
+    "primary": "#2C4A7A",
+    "accent": "#F0A83A",
+    "background": "#F0F3F7",
+    "surface": "#FFFFFF",
+    "text": "#131E30"
+  },
+  {
+    "name": "Route Map Ochre",
+    "primary": "#C87A2C",
+    "accent": "#2C4A5A",
+    "background": "#F7EFE1",
+    "surface": "#FFFFFF",
+    "text": "#2A1608"
+  },
+  {
+    "name": "Electric Third Line",
+    "primary": "#2C9BE8",
+    "accent": "#E8B93B",
+    "background": "#081826",
+    "surface": "#0F2A3D",
+    "text": "#E5F2FA"
+  },
+  {
+    "name": "Guard's Van Green",
+    "primary": "#2B4A2E",
+    "accent": "#D9A23B",
+    "background": "#0D1A0E",
+    "surface": "#152A17",
+    "text": "#E9F0E9"
+  },
+  {
+    "name": "Ticket Booth Brass",
+    "primary": "#A8863B",
+    "accent": "#1E3350",
+    "background": "#F7F0DE",
+    "surface": "#FFFFFF",
+    "text": "#2B2008"
+  },
+  {
+    "name": "Nightliner Charcoal",
+    "primary": "#2A2E33",
+    "accent": "#E8622C",
+    "background": "#111316",
+    "surface": "#1C1F23",
+    "text": "#EEEFF0"
+  },
+  {
+    "name": "Semaphore Red",
+    "primary": "#B5201E",
+    "accent": "#1B3350",
+    "background": "#F7EBE9",
+    "surface": "#FFFFFF",
+    "text": "#2A0906"
+  },
+  {
+    "name": "Carriage Roof Silver",
+    "primary": "#A8ACB0",
+    "accent": "#C8481E",
+    "background": "#16181A",
+    "surface": "#212427",
+    "text": "#EEEFF0"
+  },
+  {
+    "name": "Yard Light Amber",
+    "primary": "#E89B2C",
+    "accent": "#2C3E6B",
+    "background": "#1A1408",
+    "surface": "#26200F",
+    "text": "#F7F0D8"
+  },
+  {
+    "name": "Rail Bridge Teal",
+    "primary": "#1E6B7A",
+    "accent": "#F2A93B",
+    "background": "#081E22",
+    "surface": "#0F3540",
+    "text": "#E5F2F5"
+  },
+  {
+    "name": "Boarding Pass Cream",
+    "primary": "#D9C79E",
+    "accent": "#4A5A6A",
+    "background": "#F7F3E7",
+    "surface": "#FFFFFF",
+    "text": "#232016"
+  },
+  {
+    "name": "Track Bed Brown",
+    "primary": "#5A3E24",
+    "accent": "#7C8D6F",
+    "background": "#F5EEE1",
+    "surface": "#FFFFFF",
+    "text": "#211609"
+  },
+  {
+    "name": "Overpass Concrete",
+    "primary": "#8A8E92",
+    "accent": "#D9762B",
+    "background": "#F1F1F0",
+    "surface": "#FFFFFF",
+    "text": "#232527"
+  },
+  {
+    "name": "Late Night Platform",
+    "primary": "#2A3A5A",
+    "accent": "#E8B93B",
+    "background": "#0A1220",
+    "surface": "#132038",
+    "text": "#E9EEF7"
+  },
+  {
+    "name": "Freight Line Orange",
+    "primary": "#D9622C",
+    "accent": "#2C3E6B",
+    "background": "#1A0F08",
+    "surface": "#26170E",
+    "text": "#F7EAE1"
+  },
+  {
+    "name": "Handrail Steel",
+    "primary": "#6A7378",
+    "accent": "#F2A93B",
+    "background": "#F0F1F1",
+    "surface": "#FFFFFF",
+    "text": "#20242A"
+  },
+  {
+    "name": "Diesel Engine Green",
+    "primary": "#2B4A2E",
+    "accent": "#C8481E",
+    "background": "#0D1A0E",
+    "surface": "#152A17",
+    "text": "#E9F0E9"
+  },
+  {
+    "name": "Route 1 Crimson",
+    "primary": "#A0201E",
+    "accent": "#F2D93B",
+    "background": "#F7ECEB",
+    "surface": "#FFFFFF",
+    "text": "#2A0908"
+  },
+  {
+    "name": "Compartment Walnut",
+    "primary": "#4A3524",
+    "accent": "#B08D57",
+    "background": "#F5EEE1",
+    "surface": "#FFFFFF",
+    "text": "#211609"
+  },
+  {
+    "name": "Departure Gate Blue",
+    "primary": "#1E5C9B",
+    "accent": "#E8952C",
+    "background": "#0A1826",
+    "surface": "#12283D",
+    "text": "#E7F0F7"
+  },
+  {
+    "name": "Rail Yard Fog",
+    "primary": "#8A939B",
+    "accent": "#D9762B",
+    "background": "#14161A",
+    "surface": "#1F2226",
+    "text": "#EEEFF0"
+  },
+  {
+    "name": "Ticket Stamp Red",
+    "primary": "#B5291F",
+    "accent": "#1B2A4A",
+    "background": "#F7EDEA",
+    "surface": "#FFFFFF",
+    "text": "#2A0D0A"
+  },
+  {
+    "name": "Sunrise Commuter",
+    "primary": "#E8A23B",
+    "accent": "#2C4A6B",
+    "background": "#F7F1E1",
+    "surface": "#FFFFFF",
+    "text": "#2B1E08"
+  },
+  {
+    "name": "Iron Rail Black",
+    "primary": "#1A1A1A",
+    "accent": "#D4AF37",
+    "background": "#0D0D0D",
+    "surface": "#1E1E1E",
+    "text": "#F2EFE9"
+  },
+  {
+    "name": "Platform Puddle",
+    "primary": "#3B5E6B",
+    "accent": "#E8B93B",
+    "background": "#0A1A1E",
+    "surface": "#123038",
+    "text": "#E5F0F2"
+  },
+  {
+    "name": "Baggage Car Tan",
+    "primary": "#A8863B",
+    "accent": "#4A5A6A",
+    "background": "#F7F0DE",
+    "surface": "#FFFFFF",
+    "text": "#2B2008"
+  },
+  {
+    "name": "Night Rail Sapphire",
+    "primary": "#1E3A8A",
+    "accent": "#F2D93B",
+    "background": "#080D1A",
+    "surface": "#0F1830",
+    "text": "#E5E9F5"
+  },
+  {
+    "name": "Grease & Steam",
+    "primary": "#3A3A3A",
+    "accent": "#C8481E",
+    "background": "#151515",
+    "surface": "#242424",
+    "text": "#EFEFEF"
+  },
+  {
+    "name": "Whistle Bright Red",
+    "primary": "#D9201E",
+    "accent": "#1B2A4A",
+    "background": "#F7E9E8",
+    "surface": "#FFFFFF",
+    "text": "#2A0806"
+  },
+  {
+    "name": "Track Marker Yellow",
+    "primary": "#E8C93B",
+    "accent": "#1E3350",
+    "background": "#1A1608",
+    "surface": "#26210F",
+    "text": "#F7F3D8"
+  },
+  {
+    "name": "Overnight Fog Blue",
+    "primary": "#4A6580",
+    "accent": "#E8952C",
+    "background": "#0F1A22",
+    "surface": "#182B38",
+    "text": "#E9F0F5"
+  },
+  {
+    "name": "Rusted Boxcar",
+    "primary": "#8A3A1E",
+    "accent": "#5C6B5A",
+    "background": "#F5EBE4",
+    "surface": "#FFFFFF",
+    "text": "#2A0F06"
+  },
+  {
+    "name": "Concourse Light",
+    "primary": "#E8E4D8",
+    "accent": "#C8481E",
+    "background": "#141210",
+    "surface": "#1F1C19",
+    "text": "#F5F3EC"
+  },
+  {
+    "name": "Rail Union Navy",
+    "primary": "#1B2A5A",
+    "accent": "#D4A94E",
+    "background": "#0A0F20",
+    "surface": "#131A38",
+    "text": "#E9EBF7"
+  },
+  {
+    "name": "Boarding Horn Amber",
+    "primary": "#E89B2C",
+    "accent": "#1B3350",
+    "background": "#F7F0DE",
+    "surface": "#FFFFFF",
+    "text": "#2B2008"
+  },
+  {
+    "name": "Steam Vent White",
+    "primary": "#E8E9EB",
+    "accent": "#5A6570",
+    "background": "#14161A",
+    "surface": "#1F2226",
+    "text": "#F5F6F8"
+  },
+  {
+    "name": "Points & Crossings",
+    "primary": "#5C1A2A",
+    "accent": "#8B9E7C",
+    "background": "#1A0A0F",
+    "surface": "#291320",
+    "text": "#F2E5E8"
+  },
+  {
+    "name": "Terminal Neon",
+    "primary": "#2C9BE8",
+    "accent": "#E8622C",
+    "background": "#08141E",
+    "surface": "#0F2434",
+    "text": "#E5F0FA"
+  },
+  {
+    "name": "Rail Depot Sand",
+    "primary": "#C8A96B",
+    "accent": "#3B5E6B",
+    "background": "#F7F1E1",
+    "surface": "#FFFFFF",
+    "text": "#2B2008"
+  },
+  {
+    "name": "Overhead Gantry",
+    "primary": "#5A6570",
+    "accent": "#E8B93B",
+    "background": "#F0F1F2",
+    "surface": "#FFFFFF",
+    "text": "#20242A"
+  },
+  {
+    "name": "Night Freight Amber",
+    "primary": "#D98A2C",
+    "accent": "#1E2A4A",
+    "background": "#1A1208",
+    "surface": "#26200F",
+    "text": "#F7F0D8"
+  },
+  {
+    "name": "Passenger Lounge Teal",
+    "primary": "#1E6B6B",
+    "accent": "#E8952C",
+    "background": "#0A1A1A",
+    "surface": "#123333",
+    "text": "#E7F5F2"
+  },
+  {
+    "name": "Rail Crossing Amber",
+    "primary": "#E8952C",
+    "accent": "#1B1B1B",
+    "background": "#F7F0DE",
+    "surface": "#FFFFFF",
+    "text": "#2B2008"
+  },
+  {
+    "name": "Coupling Steel",
+    "primary": "#6B7378",
+    "accent": "#D9762B",
+    "background": "#F1F1F0",
+    "surface": "#FFFFFF",
+    "text": "#232527"
+  },
+  {
+    "name": "Southbound Crimson",
+    "primary": "#8A1F1E",
+    "accent": "#2C4A6B",
+    "background": "#F7ECEB",
+    "surface": "#FFFFFF",
+    "text": "#2A0908"
+  },
+  {
+    "name": "Depot Fluorescent",
+    "primary": "#D9E8A3",
+    "accent": "#3B5E6B",
+    "background": "#12140E",
+    "surface": "#1E2117",
+    "text": "#EEF2E4"
+  },
+  {
+    "name": "Rail Grease Black",
+    "primary": "#161616",
+    "accent": "#B5291F",
+    "background": "#0A0A0A",
+    "surface": "#1E1E1E",
+    "text": "#EFEFEF"
+  },
+  {
+    "name": "Border Crossing Blue",
+    "primary": "#2C4A7A",
+    "accent": "#E8B93B",
+    "background": "#0A1424",
+    "surface": "#122438",
+    "text": "#E9EEF7"
+  },
+  {
+    "name": "Timetable Cream",
+    "primary": "#D9C79E",
+    "accent": "#2C3E6B",
+    "background": "#F7F3E7",
+    "surface": "#FFFFFF",
+    "text": "#232016"
+  },
+  {
+    "name": "Overhead Storm Line",
+    "primary": "#3B4A5A",
+    "accent": "#E8622C",
+    "background": "#0F1218",
+    "surface": "#181C24",
+    "text": "#EAECEE"
+  },
+  {
+    "name": "Golden Age Rail",
+    "primary": "#B08D3B",
+    "accent": "#1B2A4A",
+    "background": "#F7F1DE",
+    "surface": "#FFFFFF",
+    "text": "#2B2208"
+  },
+  {
+    "name": "Last Whistle",
+    "primary": "#4A1A1E",
+    "accent": "#D4AF37",
+    "background": "#140A0B",
+    "surface": "#241315",
+    "text": "#F0E6E7"
+  },
+  {
+    "name": "Rapid Line Violet",
+    "primary": "#4A2B7A",
+    "accent": "#F2D93B",
+    "background": "#0F0820",
+    "surface": "#1C1235",
+    "text": "#EFE9F7"
+  },
+  {
+    "name": "Station Clock Bronze",
+    "primary": "#A0692C",
+    "accent": "#2C3E4A",
+    "background": "#F7EFE1",
+    "surface": "#FFFFFF",
+    "text": "#2A1608"
+  },
+  {
+    "name": "Homebound Amber",
+    "primary": "#E8A23B",
+    "accent": "#1E2A4A",
+    "background": "#F7F1E1",
+    "surface": "#FFFFFF",
+    "text": "#2B1E08"
+  },
+  {
+    "name": "Rail Line 8",
+    "primary": "#1E7A5C",
+    "accent": "#E8B93B",
+    "background": "#081A14",
+    "surface": "#0F3325",
+    "text": "#E5F5EC"
+  },
+  {
+    "name": "Final Approach",
+    "primary": "#2A2E33",
+    "accent": "#D9622C",
+    "background": "#111316",
+    "surface": "#1C1F23",
+    "text": "#EEEFF0"
+  },
+  {
+    "name": "Bullet Express",
+    "primary": "#0D1B3E",
+    "accent": "#E8622C",
+    "background": "#F5F6F8",
+    "surface": "#FFFFFF",
+    "text": "#0A1226",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Maglev Midnight",
+    "primary": "#141A3D",
+    "accent": "#3BC8E8",
+    "background": "#0A0D1E",
+    "surface": "#161B36",
+    "text": "#E9ECF5",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Steel Rail",
+    "primary": "#5A6570",
+    "accent": "#D9762B",
+    "background": "#F1F1F0",
+    "surface": "#FFFFFF",
+    "text": "#20242A",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Platform Dusk",
+    "primary": "#3A3552",
+    "accent": "#E8A23B",
+    "background": "#141220",
+    "surface": "#201C33",
+    "text": "#EBE8F2",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Signal Red",
+    "primary": "#B5201E",
+    "accent": "#1B2A4A",
+    "background": "#F7EBE9",
+    "surface": "#FFFFFF",
+    "text": "#2A0906",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Departure Board",
+    "primary": "#E8952C",
+    "accent": "#1B1F26",
+    "background": "#0F1014",
+    "surface": "#1C1D22",
+    "text": "#F5F0E4",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Overnight Sleeper",
+    "primary": "#242A4A",
+    "accent": "#8B9EC8",
+    "background": "#0A0D1A",
+    "surface": "#151A30",
+    "text": "#E9ECF5",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Coastal Line",
+    "primary": "#2A7B9B",
+    "accent": "#E8A23B",
+    "background": "#F0F6F7",
+    "surface": "#FFFFFF",
+    "text": "#0F2530",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Tunnel Vision",
+    "primary": "#1A1A1E",
+    "accent": "#E8622C",
+    "background": "#0A0A0C",
+    "surface": "#1E1E22",
+    "text": "#EFEFF0",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Last Stop",
+    "primary": "#4A1520",
+    "accent": "#D4AF37",
+    "background": "#140A0C",
+    "surface": "#241315",
+    "text": "#F0E6E7",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Express Lane",
+    "primary": "#1E6B4A",
+    "accent": "#F2A93B",
+    "background": "#F1F5F1",
+    "surface": "#FFFFFF",
+    "text": "#0F2418",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Commuter Gray",
+    "primary": "#6B6F73",
+    "accent": "#2C4A6B",
+    "background": "#F1F1F0",
+    "surface": "#FFFFFF",
+    "text": "#242526",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Diesel Run",
+    "primary": "#3A3A3A",
+    "accent": "#D9762B",
+    "background": "#151515",
+    "surface": "#242424",
+    "text": "#EFEFEF",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Boarding Call",
+    "primary": "#E8B93B",
+    "accent": "#1E3350",
+    "background": "#F7F1DE",
+    "surface": "#FFFFFF",
+    "text": "#2B2208",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Track Switch",
+    "primary": "#2C6B4A",
+    "accent": "#E89B2C",
+    "background": "#0A1A12",
+    "surface": "#123322",
+    "text": "#E7F5EC",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Conductor's Brass",
+    "primary": "#A8863B",
+    "accent": "#1B2A4A",
+    "background": "#F7F0DE",
+    "surface": "#FFFFFF",
+    "text": "#2B2008",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Rail Yard",
+    "primary": "#5A5F63",
+    "accent": "#B5291F",
+    "background": "#F0EFEC",
+    "surface": "#FFFFFF",
+    "text": "#232527",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Crossing Light",
+    "primary": "#E8A23B",
+    "accent": "#1E1E1E",
+    "background": "#F7F1E1",
+    "surface": "#FFFFFF",
+    "text": "#2B1E08",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Terminus",
+    "primary": "#1B2A4A",
+    "accent": "#D4A94E",
+    "background": "#0A0F20",
+    "surface": "#131A38",
+    "text": "#E9EBF7",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "High-Speed Run",
+    "primary": "#2C9BE8",
+    "accent": "#E8622C",
+    "background": "#081826",
+    "surface": "#0F2A3D",
+    "text": "#E5F2FA",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Rose Gold",
+    "primary": "#C9807A",
+    "accent": "#D4AF37",
+    "background": "#FAF0EC",
+    "surface": "#FFFFFF",
+    "text": "#2A1512",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Sunset Boulevard",
+    "primary": "#E8622C",
+    "accent": "#5B3A5C",
+    "background": "#FCEFE6",
+    "surface": "#FFFFFF",
+    "text": "#2A1206",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Champagne Blush",
+    "primary": "#D9B98E",
+    "accent": "#B5677A",
+    "background": "#FBF3E9",
+    "surface": "#FFFFFF",
+    "text": "#2B2013",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Amber Glow",
+    "primary": "#E8A23B",
+    "accent": "#8A3A1E",
+    "background": "#FCF3E4",
+    "surface": "#FFFFFF",
+    "text": "#2B1E08",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Coral Reef",
+    "primary": "#FF6B5B",
+    "accent": "#2A7B9B",
+    "background": "#FDEEEA",
+    "surface": "#FFFFFF",
+    "text": "#2A0F0B",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Honey Bee",
+    "primary": "#F2B705",
+    "accent": "#1A1A1A",
+    "background": "#FCF6DE",
+    "surface": "#FFFFFF",
+    "text": "#2B2200",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Peach Fizz",
+    "primary": "#F2A488",
+    "accent": "#5C8D6F",
+    "background": "#FCEFE7",
+    "surface": "#FFFFFF",
+    "text": "#2A1710",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Terracotta",
+    "primary": "#C4653A",
+    "accent": "#7C8D6F",
+    "background": "#F7E9E0",
+    "surface": "#FFFFFF",
+    "text": "#2A1409",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Cherry Blossom",
+    "primary": "#E8A3B5",
+    "accent": "#5C4A3A",
+    "background": "#FCEFF2",
+    "surface": "#FFFFFF",
+    "text": "#2B1519",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Wine & Roses",
+    "primary": "#7A1F3A",
+    "accent": "#D4AF37",
+    "background": "#F7E9EC",
+    "surface": "#FFFFFF",
+    "text": "#2A0912",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Cinnamon Toast",
+    "primary": "#A0522D",
+    "accent": "#E8C77E",
+    "background": "#F7EEE3",
+    "surface": "#FFFFFF",
+    "text": "#2B1608",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Apricot Sun",
+    "primary": "#F2954A",
+    "accent": "#2A7B9B",
+    "background": "#FCF0E4",
+    "surface": "#FFFFFF",
+    "text": "#2B1A08",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Brick Oven",
+    "primary": "#8A3A24",
+    "accent": "#D9B98E",
+    "background": "#F5E9E3",
+    "surface": "#FFFFFF",
+    "text": "#2A0F06",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Maple Syrup",
+    "primary": "#B5731E",
+    "accent": "#5C3A24",
+    "background": "#F7EEE0",
+    "surface": "#FFFFFF",
+    "text": "#2B1A08",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Flamingo",
+    "primary": "#F26B8A",
+    "accent": "#3A7B7B",
+    "background": "#FCEEF0",
+    "surface": "#FFFFFF",
+    "text": "#2A0D14",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Paprika",
+    "primary": "#C4401E",
+    "accent": "#E8C77E",
+    "background": "#F7E9E3",
+    "surface": "#FFFFFF",
+    "text": "#2A0906",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Golden Hour",
+    "primary": "#E8B93B",
+    "accent": "#5C3A5C",
+    "background": "#FCF3DE",
+    "surface": "#FFFFFF",
+    "text": "#2B2208",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Burnt Sienna",
+    "primary": "#A0522D",
+    "accent": "#7C8D6F",
+    "background": "#F5EAE3",
+    "surface": "#FFFFFF",
+    "text": "#2A1409",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Marigold Field",
+    "primary": "#E8A23B",
+    "accent": "#2C4A2E",
+    "background": "#FCF1E1",
+    "surface": "#FFFFFF",
+    "text": "#2B1E08",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Ember Glow",
+    "primary": "#D9622C",
+    "accent": "#1A1A1A",
+    "background": "#F7EAE1",
+    "surface": "#FFFFFF",
+    "text": "#2A0F06",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Arctic Frost",
+    "primary": "#C9E4F2",
+    "accent": "#4F6B7A",
+    "background": "#F0F8FB",
+    "surface": "#FFFFFF",
+    "text": "#1A2A32",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Glacier Blue",
+    "primary": "#7FB3D5",
+    "accent": "#1A3A4A",
+    "background": "#EAF3F8",
+    "surface": "#FFFFFF",
+    "text": "#10222A",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Midnight Ocean",
+    "primary": "#0E2A4A",
+    "accent": "#3BC8E8",
+    "background": "#080E1A",
+    "surface": "#122238",
+    "text": "#E9EEF5",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Slate Storm",
+    "primary": "#4A5A6A",
+    "accent": "#E8622C",
+    "background": "#F0F1F2",
+    "surface": "#FFFFFF",
+    "text": "#20262C",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Mint Frost",
+    "primary": "#A8D8CF",
+    "accent": "#2A7B7B",
+    "background": "#EEF7F5",
+    "surface": "#FFFFFF",
+    "text": "#12251F",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Lavender Mist",
+    "primary": "#B6A8D8",
+    "accent": "#5B3A7A",
+    "background": "#F3F0F9",
+    "surface": "#FFFFFF",
+    "text": "#1E1530",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Steel Blue",
+    "primary": "#4682B4",
+    "accent": "#1A2A3A",
+    "background": "#EAF0F5",
+    "surface": "#FFFFFF",
+    "text": "#10202E",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Periwinkle",
+    "primary": "#8CA8E8",
+    "accent": "#2A2A6B",
+    "background": "#EEF1FB",
+    "surface": "#FFFFFF",
+    "text": "#151A3A",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Northern Lights",
+    "primary": "#2A9B8A",
+    "accent": "#8B5CC8",
+    "background": "#0A1A18",
+    "surface": "#123330",
+    "text": "#E5F5F0",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Deep Sea",
+    "primary": "#0A3A4A",
+    "accent": "#3BC8B5",
+    "background": "#050F14",
+    "surface": "#0E222A",
+    "text": "#E5F2F0",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Polar Cap",
+    "primary": "#E8F0F5",
+    "accent": "#2A5A7A",
+    "background": "#141A1E",
+    "surface": "#1E262B",
+    "text": "#F2F6F8",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Cobalt Deep",
+    "primary": "#1B3A9B",
+    "accent": "#E8B93B",
+    "background": "#0A0F20",
+    "surface": "#131A38",
+    "text": "#E9EBF7",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Winter Pine",
+    "primary": "#1F4D3A",
+    "accent": "#C9E4E8",
+    "background": "#0A1A14",
+    "surface": "#123328",
+    "text": "#E5F2EC",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Iceberg",
+    "primary": "#D8ECF2",
+    "accent": "#2A5A7A",
+    "background": "#F5FAFC",
+    "surface": "#FFFFFF",
+    "text": "#12222A",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Frosted Glass",
+    "primary": "#C0D8E0",
+    "accent": "#3A5A6A",
+    "background": "#F2F7F8",
+    "surface": "#FFFFFF",
+    "text": "#1A2A2E",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Moonlit Bay",
+    "primary": "#2A3A5A",
+    "accent": "#8FD9C4",
+    "background": "#0A0F1A",
+    "surface": "#131C30",
+    "text": "#E9EEF5",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Stormwatch",
+    "primary": "#3A4A5A",
+    "accent": "#D9762B",
+    "background": "#0F1418",
+    "surface": "#1A2126",
+    "text": "#EAEDF0",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Denim Drift",
+    "primary": "#4A6B8A",
+    "accent": "#E8B93B",
+    "background": "#EEF2F5",
+    "surface": "#FFFFFF",
+    "text": "#1A2733",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Glacial Teal",
+    "primary": "#3A9B9B",
+    "accent": "#1A2A4A",
+    "background": "#EAF6F5",
+    "surface": "#FFFFFF",
+    "text": "#10262A",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Cold Steel",
+    "primary": "#6B7378",
+    "accent": "#2C9BE8",
+    "background": "#F0F1F1",
+    "surface": "#FFFFFF",
+    "text": "#232527",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Obsidian",
+    "primary": "#1A1A1E",
+    "accent": "#8B5CC8",
+    "background": "#0A0A0C",
+    "surface": "#1E1E22",
+    "text": "#EFEFF0",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Charcoal Noir",
+    "primary": "#2A2A2D",
+    "accent": "#D4AF37",
+    "background": "#111113",
+    "surface": "#1D1D20",
+    "text": "#EFEFEE",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Blackout",
+    "primary": "#0D0D0D",
+    "accent": "#B5291F",
+    "background": "#050505",
+    "surface": "#161616",
+    "text": "#EEEEEE",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Graphite",
+    "primary": "#3A3A3C",
+    "accent": "#5A8FD9",
+    "background": "#151517",
+    "surface": "#222224",
+    "text": "#EEEEEF",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Shadow Walker",
+    "primary": "#242430",
+    "accent": "#8B5CC8",
+    "background": "#0C0C12",
+    "surface": "#1A1A24",
+    "text": "#EDEDF2",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Onyx Edge",
+    "primary": "#1B1B1E",
+    "accent": "#E8622C",
+    "background": "#090909",
+    "surface": "#1A1A1D",
+    "text": "#EEEEEE",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Eclipse",
+    "primary": "#16161C",
+    "accent": "#F2A93B",
+    "background": "#0A0A0E",
+    "surface": "#1C1C24",
+    "text": "#EFEFF3",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Storm Cloud",
+    "primary": "#3A3F45",
+    "accent": "#8FA8D9",
+    "background": "#141619",
+    "surface": "#20242A",
+    "text": "#EBECEE",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Iron Gate",
+    "primary": "#3A3D40",
+    "accent": "#B5291F",
+    "background": "#131415",
+    "surface": "#1F2022",
+    "text": "#EEEEEE",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Void",
+    "primary": "#0D0D0D",
+    "accent": "#00E59B",
+    "background": "#050505",
+    "surface": "#141414",
+    "text": "#EDEDED",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Pitch",
+    "primary": "#111111",
+    "accent": "#D4AF37",
+    "background": "#080808",
+    "surface": "#181818",
+    "text": "#EEEEEE",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Carbon Fiber",
+    "primary": "#242424",
+    "accent": "#2C9BE8",
+    "background": "#0F0F0F",
+    "surface": "#1C1C1C",
+    "text": "#EDEDED",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Midnight Vault",
+    "primary": "#1A1A2E",
+    "accent": "#D4A94E",
+    "background": "#0A0A16",
+    "surface": "#161628",
+    "text": "#EBEBF2",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Raven",
+    "primary": "#1C1C1E",
+    "accent": "#8B5CC8",
+    "background": "#0A0A0B",
+    "surface": "#1A1A1C",
+    "text": "#EEEEEF",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Tar Pit",
+    "primary": "#141414",
+    "accent": "#C8481E",
+    "background": "#080808",
+    "surface": "#191919",
+    "text": "#EDEDED",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Nightfall",
+    "primary": "#1E2438",
+    "accent": "#E8B93B",
+    "background": "#0A0D16",
+    "surface": "#161C2C",
+    "text": "#EAECF2",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Abyss",
+    "primary": "#0A1420",
+    "accent": "#2C9BE8",
+    "background": "#050A10",
+    "surface": "#101B28",
+    "text": "#E7EEF5",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Smoke Screen",
+    "primary": "#3A3A3D",
+    "accent": "#E8622C",
+    "background": "#151515",
+    "surface": "#232326",
+    "text": "#EDEDEE",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Coal Bed",
+    "primary": "#1A1714",
+    "accent": "#D9762B",
+    "background": "#0A0908",
+    "surface": "#1E1B18",
+    "text": "#EEECE9",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Dark Matter",
+    "primary": "#16161E",
+    "accent": "#8B5CC8",
+    "background": "#08080C",
+    "surface": "#18181F",
+    "text": "#EDEDF0",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Desert Sand",
+    "primary": "#D9B98E",
+    "accent": "#8A5A3A",
+    "background": "#F7F0E3",
+    "surface": "#FFFFFF",
+    "text": "#2B2013",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Olive Grove",
+    "primary": "#6B7C49",
+    "accent": "#B5731E",
+    "background": "#F0F2E6",
+    "surface": "#FFFFFF",
+    "text": "#1D2211",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Forest Floor",
+    "primary": "#3E2F25",
+    "accent": "#7C9070",
+    "background": "#EEEBE3",
+    "surface": "#FFFFFF",
+    "text": "#211609",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Cedar Wood",
+    "primary": "#8A5A3A",
+    "accent": "#5C6B5A",
+    "background": "#F5EEE3",
+    "surface": "#FFFFFF",
+    "text": "#2B1B0D",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Clay Pot",
+    "primary": "#B5673A",
+    "accent": "#7C8D6F",
+    "background": "#F7EDE4",
+    "surface": "#FFFFFF",
+    "text": "#2A1409",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Autumn Leaf",
+    "primary": "#C4651E",
+    "accent": "#5C6B3A",
+    "background": "#F7EBE0",
+    "surface": "#FFFFFF",
+    "text": "#2A1206",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Mossy Stone",
+    "primary": "#6B7C49",
+    "accent": "#8A8784",
+    "background": "#F0F2E6",
+    "surface": "#FFFFFF",
+    "text": "#1D2211",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Terra Firma",
+    "primary": "#8A5A3A",
+    "accent": "#6B7C49",
+    "background": "#F5EEE3",
+    "surface": "#FFFFFF",
+    "text": "#2B1B0D",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Walnut",
+    "primary": "#4A3524",
+    "accent": "#B08D57",
+    "background": "#EEE8DE",
+    "surface": "#FFFFFF",
+    "text": "#211609",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Harvest Gold",
+    "primary": "#D9A23B",
+    "accent": "#5C3A24",
+    "background": "#F7F1E1",
+    "surface": "#FFFFFF",
+    "text": "#2B1E08",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Canyon Ridge",
+    "primary": "#A0521F",
+    "accent": "#7A8B9B",
+    "background": "#F5EBE1",
+    "surface": "#FFFFFF",
+    "text": "#2A1206",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Driftclay",
+    "primary": "#8B6F47",
+    "accent": "#A8D8CF",
+    "background": "#F3EFE6",
+    "surface": "#FFFFFF",
+    "text": "#26200F",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Redwood",
+    "primary": "#7A3324",
+    "accent": "#5C6B49",
+    "background": "#F5E9E3",
+    "surface": "#FFFFFF",
+    "text": "#2A0D06",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Prairie Dust",
+    "primary": "#C4A56B",
+    "accent": "#6B7C49",
+    "background": "#F7F1E4",
+    "surface": "#FFFFFF",
+    "text": "#2B2308",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Loam",
+    "primary": "#3E2F25",
+    "accent": "#8A5A3A",
+    "background": "#EEEBE3",
+    "surface": "#FFFFFF",
+    "text": "#211609",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Stonewash",
+    "primary": "#8A8784",
+    "accent": "#4F6B7A",
+    "background": "#F0EFEC",
+    "surface": "#FFFFFF",
+    "text": "#232527",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Bark & Moss",
+    "primary": "#5A3E24",
+    "accent": "#7C9070",
+    "background": "#F0EEE1",
+    "surface": "#FFFFFF",
+    "text": "#211609",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Sienna Trail",
+    "primary": "#A0522D",
+    "accent": "#D9B98E",
+    "background": "#F5EAE3",
+    "surface": "#FFFFFF",
+    "text": "#2A1409",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Highland Peat",
+    "primary": "#4A3D2A",
+    "accent": "#6B7C49",
+    "background": "#EEEAE0",
+    "surface": "#FFFFFF",
+    "text": "#211D0D",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Sandstone",
+    "primary": "#C4A56B",
+    "accent": "#8A5A3A",
+    "background": "#F7F1E4",
+    "surface": "#FFFFFF",
+    "text": "#2B2308",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Electric Lime",
+    "primary": "#A8FF00",
+    "accent": "#1A1A1A",
+    "background": "#0D0D0D",
+    "surface": "#1C1C1C",
+    "text": "#EEFFCC",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Neon Pink",
+    "primary": "#FF2E9B",
+    "accent": "#00F5AA",
+    "background": "#100810",
+    "surface": "#20101C",
+    "text": "#FFE7F5",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Cyber Purple",
+    "primary": "#8B00FF",
+    "accent": "#00F5AA",
+    "background": "#0D081A",
+    "surface": "#1C1230",
+    "text": "#EEE0FF",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Tropic Punch",
+    "primary": "#FF6F3C",
+    "accent": "#00E59B",
+    "background": "#1A0F08",
+    "surface": "#26170E",
+    "text": "#F7EAE1",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Bubblegum",
+    "primary": "#FF6FCF",
+    "accent": "#7AA8FF",
+    "background": "#1A0F16",
+    "surface": "#261622",
+    "text": "#F7E5F2",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Laser Blue",
+    "primary": "#00AAFF",
+    "accent": "#FF2E5C",
+    "background": "#08141E",
+    "surface": "#0F2434",
+    "text": "#E5F2FA",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Hot Magenta",
+    "primary": "#E8007A",
+    "accent": "#00E5D9",
+    "background": "#1A0512",
+    "surface": "#280A1E",
+    "text": "#F7E0EE",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Acid Wash",
+    "primary": "#D9FF3B",
+    "accent": "#3A1A9B",
+    "background": "#0D0F08",
+    "surface": "#1C1F14",
+    "text": "#F5F7DE",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Retro Arcade",
+    "primary": "#FF3B5C",
+    "accent": "#3BC8E8",
+    "background": "#12081E",
+    "surface": "#1F1230",
+    "text": "#F5E7F0",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Volt Yellow",
+    "primary": "#F2E100",
+    "accent": "#1A1A1A",
+    "background": "#0D0D08",
+    "surface": "#1E1E14",
+    "text": "#F7F5D8",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Plasma Red",
+    "primary": "#FF1E3B",
+    "accent": "#00D4FF",
+    "background": "#1A0508",
+    "surface": "#280D12",
+    "text": "#F7E5E7",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Ultraviolet",
+    "primary": "#7A1EFF",
+    "accent": "#F2E100",
+    "background": "#0D0820",
+    "surface": "#1A1235",
+    "text": "#EEE5F7",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Highlighter Green",
+    "primary": "#39FF14",
+    "accent": "#1A1A1A",
+    "background": "#08140A",
+    "surface": "#122412",
+    "text": "#E5FAE0",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Synthwave Pink",
+    "primary": "#FF2EBF",
+    "accent": "#2E2EFF",
+    "background": "#12081E",
+    "surface": "#1F1230",
+    "text": "#F5E5F7",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Radioactive",
+    "primary": "#C6FF00",
+    "accent": "#2A2A2A",
+    "background": "#0A0D06",
+    "surface": "#181C10",
+    "text": "#F0F7D8",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Power Surge",
+    "primary": "#FFB300",
+    "accent": "#3B00FF",
+    "background": "#1A1408",
+    "surface": "#26200F",
+    "text": "#F7F0D8",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Neon Sign",
+    "primary": "#FF3CB0",
+    "accent": "#3CFFDA",
+    "background": "#100810",
+    "surface": "#20101C",
+    "text": "#FFE7F5",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Strobe Blue",
+    "primary": "#0080FF",
+    "accent": "#FF3B5C",
+    "background": "#08121E",
+    "surface": "#0F2030",
+    "text": "#E5EFFA",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Powder Blue",
+    "primary": "#B4D4E8",
+    "accent": "#5B7A9B",
+    "background": "#F2F7FA",
+    "surface": "#FFFFFF",
+    "text": "#1A2A33",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Buttercream",
+    "primary": "#F2E4B8",
+    "accent": "#B08D57",
+    "background": "#FCF8EC",
+    "surface": "#FFFFFF",
+    "text": "#2B2510",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Sage Whisper",
+    "primary": "#C4D4B8",
+    "accent": "#6B7C49",
+    "background": "#F3F5EE",
+    "surface": "#FFFFFF",
+    "text": "#1D2211",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Blush Pink",
+    "primary": "#F2C4CE",
+    "accent": "#B5677A",
+    "background": "#FCEFF1",
+    "surface": "#FFFFFF",
+    "text": "#2B1519",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Lilac Dream",
+    "primary": "#D8C4E8",
+    "accent": "#7A5B9B",
+    "background": "#F7F2FA",
+    "surface": "#FFFFFF",
+    "text": "#221833",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Vanilla Cream",
+    "primary": "#F2E8D0",
+    "accent": "#8A6A3E",
+    "background": "#FCFAF0",
+    "surface": "#FFFFFF",
+    "text": "#2B2313",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Seafoam",
+    "primary": "#B8E0D4",
+    "accent": "#2A7B7B",
+    "background": "#EFF8F5",
+    "surface": "#FFFFFF",
+    "text": "#12251F",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Dusty Rose",
+    "primary": "#D8A8B0",
+    "accent": "#5C4A3A",
+    "background": "#F7EEEF",
+    "surface": "#FFFFFF",
+    "text": "#2A1519",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Cloud Nine",
+    "primary": "#E0E8F0",
+    "accent": "#5B7A9B",
+    "background": "#F7FAFC",
+    "surface": "#FFFFFF",
+    "text": "#1A2530",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Cotton Sky",
+    "primary": "#C4DCF2",
+    "accent": "#3A5A8A",
+    "background": "#F2F8FC",
+    "surface": "#FFFFFF",
+    "text": "#12222E",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Mint Macaron",
+    "primary": "#C4E8D4",
+    "accent": "#3A8A6B",
+    "background": "#F0FAF5",
+    "surface": "#FFFFFF",
+    "text": "#12251C",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Soft Peach",
+    "primary": "#F2D0B8",
+    "accent": "#B5673A",
+    "background": "#FCF3EC",
+    "surface": "#FFFFFF",
+    "text": "#2B1E10",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Baby Lilac",
+    "primary": "#E0D0F0",
+    "accent": "#6A4B8A",
+    "background": "#F8F3FC",
+    "surface": "#FFFFFF",
+    "text": "#221833",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Pale Mimosa",
+    "primary": "#F2E8B8",
+    "accent": "#8A7A3A",
+    "background": "#FCFAE9",
+    "surface": "#FFFFFF",
+    "text": "#2B2610",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Whisper Gray",
+    "primary": "#D8DCE0",
+    "accent": "#5A6570",
+    "background": "#F5F6F7",
+    "surface": "#FFFFFF",
+    "text": "#20242A",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Petal Pink",
+    "primary": "#F0C8D4",
+    "accent": "#8A4A5C",
+    "background": "#FCEFF3",
+    "surface": "#FFFFFF",
+    "text": "#2A1519",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Boipelo's Pick",
+    "primary": "#1B3A7A",
+    "accent": "#3A6BD9",
+    "background": "#0A1226",
+    "surface": "#132038",
+    "text": "#E9EEF7",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Last Dance",
+    "primary": "#D4AF37",
+    "accent": "#1A1A1A",
+    "background": "#0D0D0D",
+    "surface": "#1E1B0F",
+    "text": "#F5EED8",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Apex Legend",
+    "primary": "#8A1414",
+    "accent": "#1A1A1A",
+    "background": "#0D0808",
+    "surface": "#1E1414",
+    "text": "#F0E4E4",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Minecraft Green",
+    "primary": "#3A6B2E",
+    "accent": "#5A3E24",
+    "background": "#0F1A0D",
+    "surface": "#1A2A16",
+    "text": "#E9F0E4",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Knight's Gambit",
+    "primary": "#F8F4E3",
+    "accent": "#4A3524",
+    "background": "#F5F0E5",
+    "surface": "#FFFFFF",
+    "text": "#2B2013",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Checkmate",
+    "primary": "#1A1A1A",
+    "accent": "#8B1E2A",
+    "background": "#0D0D0D",
+    "surface": "#1E1E1E",
+    "text": "#F0E4E6",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Endgame",
+    "primary": "#4A5A6A",
+    "accent": "#D4AF37",
+    "background": "#141618",
+    "surface": "#1F2226",
+    "text": "#EEF0F2",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Castling",
+    "primary": "#1B2A4A",
+    "accent": "#F5F0E5",
+    "background": "#0A0F1C",
+    "surface": "#131E33",
+    "text": "#E9ECF5",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Grayscale Pro",
+    "primary": "#5A5A5A",
+    "accent": "#1A1A1A",
+    "background": "#F2F2F2",
+    "surface": "#FFFFFF",
+    "text": "#1A1A1A",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Paper White",
+    "primary": "#EDEDED",
+    "accent": "#3A3A3A",
+    "background": "#F7F7F7",
+    "surface": "#FFFFFF",
+    "text": "#1F1F1F",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Ink Black",
+    "primary": "#141414",
+    "accent": "#8A8A8A",
+    "background": "#0A0A0A",
+    "surface": "#1E1E1E",
+    "text": "#EFEFEF",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Concrete",
+    "primary": "#8A8A8A",
+    "accent": "#3A3A3A",
+    "background": "#F0F0EF",
+    "surface": "#FFFFFF",
+    "text": "#222222",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Fog Bank",
+    "primary": "#C4C4C4",
+    "accent": "#5A5A5A",
+    "background": "#F5F5F5",
+    "surface": "#FFFFFF",
+    "text": "#242424",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Slate Mono",
+    "primary": "#4A4A4A",
+    "accent": "#9A9A9A",
+    "background": "#151515",
+    "surface": "#222222",
+    "text": "#EFEFEF",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Stone Gray",
+    "primary": "#6E6E6E",
+    "accent": "#2A2A2A",
+    "background": "#F1F1F0",
+    "surface": "#FFFFFF",
+    "text": "#232323",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Newsprint",
+    "primary": "#2A2A2A",
+    "accent": "#8A8A8A",
+    "background": "#EDEAE1",
+    "surface": "#F7F5EE",
+    "text": "#1A1A1A",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Sapphire Court",
+    "primary": "#0F52BA",
+    "accent": "#D4AF37",
+    "background": "#080D1A",
+    "surface": "#10193A",
+    "text": "#E9EEF7",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Emerald City",
+    "primary": "#0F7B4A",
+    "accent": "#D4AF37",
+    "background": "#081A12",
+    "surface": "#0F3325",
+    "text": "#E5F5EC",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Ruby Reign",
+    "primary": "#9B111E",
+    "accent": "#D4AF37",
+    "background": "#1A080A",
+    "surface": "#2A1013",
+    "text": "#F5E4E6",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Topaz Glow",
+    "primary": "#D9A23B",
+    "accent": "#1A2A4A",
+    "background": "#1A1408",
+    "surface": "#26200F",
+    "text": "#F7F0D8",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Amethyst Vault",
+    "primary": "#6A2C91",
+    "accent": "#D4AF37",
+    "background": "#12081A",
+    "surface": "#1F1230",
+    "text": "#EFE7F5",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Garnet Deep",
+    "primary": "#6B0F1A",
+    "accent": "#8A8784",
+    "background": "#140A0B",
+    "surface": "#241315",
+    "text": "#F0E6E7",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Citrine Spark",
+    "primary": "#E4D00A",
+    "accent": "#2A2A2A",
+    "background": "#1A1808",
+    "surface": "#26230F",
+    "text": "#F7F5D8",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  },
+  {
+    "name": "Tourmaline",
+    "primary": "#2A9B8A",
+    "accent": "#8B5CC8",
+    "background": "#081A18",
+    "surface": "#0F3330",
+    "text": "#E5F5F0",
+    "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
+  }
+]

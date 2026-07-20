@@ -19,6 +19,7 @@ import 'package:lichess_mobile/src/view/settings/app_log_settings_screen.dart';
 import 'package:lichess_mobile/src/view/settings/board_settings_screen.dart';
 import 'package:lichess_mobile/src/view/settings/engine_settings_screen.dart';
 import 'package:lichess_mobile/src/view/settings/http_log_screen.dart';
+import 'package:lichess_mobile/src/view/settings/palette_picker_screen.dart';
 import 'package:lichess_mobile/src/view/settings/sound_settings_screen.dart';
 import 'package:lichess_mobile/src/view/settings/theme_settings_screen.dart';
 import 'package:lichess_mobile/src/widgets/adaptive_action_sheet.dart';
@@ -96,6 +97,16 @@ class SettingsScreen extends ConsumerWidget {
                         .read(generalPreferencesProvider.notifier)
                         .setBackgroundThemeMode(value ?? BackgroundThemeMode.system),
                   );
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.color_lens_outlined),
+                title: const Text('Themes'),
+                trailing: Theme.of(context).platform == TargetPlatform.iOS
+                    ? const CupertinoListTileChevron()
+                    : null,
+                onTap: () {
+                  Navigator.of(context).push(PalettePickerScreen.buildRoute());
                 },
               ),
               ListTile(
