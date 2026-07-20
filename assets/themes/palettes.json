@@ -170,16 +170,6 @@
     "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
   },
   {
-    "name": "Arctic",
-    "category": "Duo/Gradient",
-    "primary": "#E8F5FF",
-    "accent": "#0050D8",
-    "background": "#F7FCFF",
-    "surface": "#FBFDFF",
-    "text": "#0050D8",
-    "_meta": "A1b derived roles: lighter supplied anchor tends toward surface/background, darker supplied anchor toward text/primary; contrast checked against a WCAG-AA-ish minimum."
-  },
-  {
     "name": "Dusk",
     "category": "Duo/Gradient",
     "primary": "#FF5CBA",
@@ -371,7 +361,7 @@
   },
   {
     "name": "Deep Rich Red / Soft Yellow",
-    "category": "Duo/Gradient",
+    "category": "Special",
     "primary": "#AB1509",
     "accent": "#FFF8D2",
     "background": "#FFFDEF",
@@ -2530,7 +2520,7 @@
   },
   {
     "name": "Desert Sand",
-    "category": "Earth",
+    "category": "Special",
     "primary": "#D9B98E",
     "accent": "#8A5A3A",
     "background": "#F7F0E3",
@@ -3071,11 +3061,11 @@
   {
     "name": "Boipelo's Pick",
     "category": "Special",
-    "primary": "#1B3A7A",
-    "accent": "#3A6BD9",
-    "background": "#0A1226",
-    "surface": "#132038",
-    "text": "#E9EEF7",
+    "primary": "#E8F5FF",
+    "accent": "#0050D8",
+    "background": "#F7FCFF",
+    "surface": "#FBFDFF",
+    "text": "#0050D8",
     "_meta": "A3 requester gave names; prior-session hex derivation used as supplied in Appendix A."
   },
   {
