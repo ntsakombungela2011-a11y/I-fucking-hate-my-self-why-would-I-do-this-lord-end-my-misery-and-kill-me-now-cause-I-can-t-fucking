@@ -101,7 +101,7 @@ class SettingsScreen extends ConsumerWidget {
               ),
               ListTile(
                 leading: const Icon(Icons.color_lens_outlined),
-                title: const Text('Themes'),
+                title: const Text('Palettes'),
                 trailing: Theme.of(context).platform == TargetPlatform.iOS
                     ? const CupertinoListTileChevron()
                     : null,

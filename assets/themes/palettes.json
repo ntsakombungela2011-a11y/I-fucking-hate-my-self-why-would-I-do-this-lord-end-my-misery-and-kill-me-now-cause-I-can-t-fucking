@@ -1,6 +1,7 @@
 [
   {
     "name": "Electric",
+    "category": "Named",
     "primary": "#1B4FE4",
     "accent": "#FF4757",
     "background": "#FFE100",
@@ -10,6 +11,7 @@
   },
   {
     "name": "Wabi-Sabi",
+    "category": "Named",
     "primary": "#F4EEE0",
     "accent": "#9E7B5A",
     "background": "#F4EEE0",
@@ -19,6 +21,7 @@
   },
   {
     "name": "Coastal Edit",
+    "category": "Named",
     "primary": "#E8D5B7",
     "accent": "#2A7B9B",
     "background": "#F2F7F5",
@@ -28,6 +31,7 @@
   },
   {
     "name": "Luxury Noir",
+    "category": "Named",
     "primary": "#1A1A1A",
     "accent": "#D4AF37",
     "background": "#F8F4E3",
@@ -37,6 +41,7 @@
   },
   {
     "name": "Sage & Clay",
+    "category": "Named",
     "primary": "#B2C5A8",
     "accent": "#C4785A",
     "background": "#F5F0E8",
@@ -46,6 +51,7 @@
   },
   {
     "name": "Velvet Noir",
+    "category": "Named",
     "primary": "#1C1C1E",
     "accent": "#6E1423",
     "background": "#F2F0EB",
@@ -55,6 +61,7 @@
   },
   {
     "name": "Citrus Grove",
+    "category": "Named",
     "primary": "#FF8A1E",
     "accent": "#B6D94C",
     "background": "#FFF6E0",
@@ -64,6 +71,7 @@
   },
   {
     "name": "Monsoon",
+    "category": "Named",
     "primary": "#2C3E76",
     "accent": "#6E7B8B",
     "background": "#EDF1F2",
@@ -73,6 +81,7 @@
   },
   {
     "name": "Harvest Table",
+    "category": "Named",
     "primary": "#D9762B",
     "accent": "#E8C77E",
     "background": "#FAF3E3",
@@ -82,6 +91,7 @@
   },
   {
     "name": "Royal Court",
+    "category": "Named",
     "primary": "#6A2C91",
     "accent": "#D7A33E",
     "background": "#F4EFE2",
@@ -91,6 +101,7 @@
   },
   {
     "name": "Tidewater",
+    "category": "Named",
     "primary": "#0E5C5C",
     "accent": "#8FD9C4",
     "background": "#E8DCC0",
@@ -100,6 +111,7 @@
   },
   {
     "name": "Ashfall",
+    "category": "Named",
     "primary": "#8A8784",
     "accent": "#D9612B",
     "background": "#EDE6DA",
@@ -109,6 +121,7 @@
   },
   {
     "name": "Lush Canopy",
+    "category": "Named",
     "primary": "#1F4D2C",
     "accent": "#7C9070",
     "background": "#F1EEDE",
@@ -118,6 +131,7 @@
   },
   {
     "name": "Marigold Dusk",
+    "category": "Named",
     "primary": "#E8A33D",
     "accent": "#5B3A5C",
     "background": "#F7EBD8",
@@ -127,6 +141,7 @@
   },
   {
     "name": "Frostline",
+    "category": "Named",
     "primary": "#C9E4F2",
     "accent": "#4F6B7A",
     "background": "#F7FAFB",
@@ -136,6 +151,7 @@
   },
   {
     "name": "Solar Flare",
+    "category": "Duo/Gradient",
     "primary": "#FFAA00",
     "accent": "#E8003A",
     "background": "#68001A",
@@ -145,6 +161,7 @@
   },
   {
     "name": "Neon Tide",
+    "category": "Duo/Gradient",
     "primary": "#00F5AA",
     "accent": "#3B00FF",
     "background": "#1B0073",
@@ -154,6 +171,7 @@
   },
   {
     "name": "Arctic",
+    "category": "Duo/Gradient",
     "primary": "#E8F5FF",
     "accent": "#0050D8",
     "background": "#F7FCFF",
@@ -163,6 +181,7 @@
   },
   {
     "name": "Dusk",
+    "category": "Duo/Gradient",
     "primary": "#FF5CBA",
     "accent": "#2B00FF",
     "background": "#130073",
@@ -172,6 +191,7 @@
   },
   {
     "name": "Berry Glow",
+    "category": "Duo/Gradient",
     "primary": "#9333EA",
     "accent": "#FB7185",
     "background": "#421769",
@@ -181,6 +201,7 @@
   },
   {
     "name": "Cotton Candy",
+    "category": "Duo/Gradient",
     "primary": "#7AA8FF",
     "accent": "#FF9AEF",
     "background": "#374C73",
@@ -190,6 +211,7 @@
   },
   {
     "name": "Golden Ember",
+    "category": "Duo/Gradient",
     "primary": "#FACC15",
     "accent": "#F97316",
     "background": "#70340A",
@@ -199,6 +221,7 @@
   },
   {
     "name": "Aqua Depth",
+    "category": "Duo/Gradient",
     "primary": "#0F766E",
     "accent": "#22D3EE",
     "background": "#073531",
@@ -208,6 +231,7 @@
   },
   {
     "name": "Royal Flame",
+    "category": "Duo/Gradient",
     "primary": "#DB2777",
     "accent": "#DC2626",
     "background": "#631111",
@@ -217,6 +241,7 @@
   },
   {
     "name": "Dark Scarlet / Antique Ruby",
+    "category": "Duo/Gradient",
     "primary": "#4F0715",
     "accent": "#781728",
     "background": "#240309",
@@ -226,6 +251,7 @@
   },
   {
     "name": "Japanese Carmine / Dark Slate Gray",
+    "category": "Duo/Gradient",
     "primary": "#982930",
     "accent": "#39544B",
     "background": "#1A2622",
@@ -235,6 +261,7 @@
   },
   {
     "name": "Slate Blue / Glacier",
+    "category": "Duo/Gradient",
     "primary": "#619BB6",
     "accent": "#BAD7E1",
     "background": "#2C4652",
@@ -244,6 +271,7 @@
   },
   {
     "name": "Thistle / Liberty",
+    "category": "Duo/Gradient",
     "primary": "#DEC2DB",
     "accent": "#5B62B3",
     "background": "#292C51",
@@ -253,6 +281,7 @@
   },
   {
     "name": "Stormy Teal / Oxidized Iron / Pale Oak",
+    "category": "Duo/Gradient",
     "primary": "#32707C",
     "accent": "#A8371C",
     "background": "#4C190D",
@@ -262,6 +291,7 @@
   },
   {
     "name": "Luxury Noir / Soft Oat",
+    "category": "Duo/Gradient",
     "primary": "#060D0C",
     "accent": "#F0EDE5",
     "background": "#FAF9F6",
@@ -271,6 +301,7 @@
   },
   {
     "name": "Liver / Tan",
+    "category": "Duo/Gradient",
     "primary": "#6A3428",
     "accent": "#CFB882",
     "background": "#301712",
@@ -280,6 +311,7 @@
   },
   {
     "name": "Bistre / Brown Sugar",
+    "category": "Duo/Gradient",
     "primary": "#3D2C22",
     "accent": "#BB734B",
     "background": "#1B140F",
@@ -289,6 +321,7 @@
   },
   {
     "name": "Dark Gray / Vivid Yellow",
+    "category": "Duo/Gradient",
     "primary": "#323232",
     "accent": "#FFDB00",
     "background": "#161616",
@@ -298,6 +331,7 @@
   },
   {
     "name": "Jasmine / Dark Graphite",
+    "category": "Duo/Gradient",
     "primary": "#F8DE7F",
     "accent": "#3A393F",
     "background": "#1A1A1C",
@@ -307,6 +341,7 @@
   },
   {
     "name": "Deep Dark Blue / Warm Yellow Orange",
+    "category": "Duo/Gradient",
     "primary": "#001F7B",
     "accent": "#FFBA09",
     "background": "#000E37",
@@ -316,6 +351,7 @@
   },
   {
     "name": "Dark Green / Neon Green",
+    "category": "Duo/Gradient",
     "primary": "#01210A",
     "accent": "#A8FF00",
     "background": "#E1FFA6",
@@ -325,6 +361,7 @@
   },
   {
     "name": "Dark Rich Green / Golden Yellow",
+    "category": "Duo/Gradient",
     "primary": "#014726",
     "accent": "#FFCF00",
     "background": "#002011",
@@ -334,6 +371,7 @@
   },
   {
     "name": "Deep Rich Red / Soft Yellow",
+    "category": "Duo/Gradient",
     "primary": "#AB1509",
     "accent": "#FFF8D2",
     "background": "#FFFDEF",
@@ -343,6 +381,7 @@
   },
   {
     "name": "Dark Red / Bright Warm Yellow",
+    "category": "Duo/Gradient",
     "primary": "#A01717",
     "accent": "#FFE162",
     "background": "#FFF4C8",
@@ -352,6 +391,7 @@
   },
   {
     "name": "Matcha Cream / Milky Honey",
+    "category": "Duo/Gradient",
     "primary": "#9CA763",
     "accent": "#F1E8C7",
     "background": "#FAF7EB",
@@ -361,6 +401,7 @@
   },
   {
     "name": "Coffee Bean / Almond",
+    "category": "Duo/Gradient",
     "primary": "#2E0D14",
     "accent": "#EFE1D5",
     "background": "#F9F4F0",
@@ -370,6 +411,7 @@
   },
   {
     "name": "Mocha Berry / Soft Vanilla",
+    "category": "Duo/Gradient",
     "primary": "#784955",
     "accent": "#FAEDDB",
     "background": "#FDF9F2",
@@ -379,6 +421,7 @@
   },
   {
     "name": "Twilight",
+    "category": "Duo/Gradient",
     "primary": "#564A96",
     "accent": "#B75F67",
     "background": "#272144",
@@ -388,6 +431,7 @@
   },
   {
     "name": "Blacklist Purple / Transparent Pink",
+    "category": "Duo/Gradient",
     "primary": "#240A30",
     "accent": "#FFDCF0",
     "background": "#FFF3FA",
@@ -397,6 +441,7 @@
   },
   {
     "name": "Magenta",
+    "category": "Duo/Gradient",
     "primary": "#4B0C37",
     "accent": "#C8005A",
     "background": "#220519",
@@ -406,6 +451,7 @@
   },
   {
     "name": "Muted Blue Green / Fresh Green",
+    "category": "Duo/Gradient",
     "primary": "#162531",
     "accent": "#9AF376",
     "background": "#0A1116",
@@ -415,6 +461,7 @@
   },
   {
     "name": "Deep Rich Purple / Light Cream",
+    "category": "Duo/Gradient",
     "primary": "#720065",
     "accent": "#FDF9B6",
     "background": "#FEFDE5",
@@ -424,6 +471,7 @@
   },
   {
     "name": "Deep Royal Purple / Soft Snow White",
+    "category": "Duo/Gradient",
     "primary": "#460B6A",
     "accent": "#FFFBFF",
     "background": "#FFFEFF",
@@ -433,6 +481,7 @@
   },
   {
     "name": "Deep Navy / Vibrant Cyan",
+    "category": "Duo/Gradient",
     "primary": "#001935",
     "accent": "#2FE8FF",
     "background": "#000B18",
@@ -442,6 +491,7 @@
   },
   {
     "name": "Vanilla Latte / Teal Forest",
+    "category": "Duo/Gradient",
     "primary": "#184E50",
     "accent": "#184E50",
     "background": "#0B2324",
@@ -451,6 +501,7 @@
   },
   {
     "name": "Sage / Black Olive",
+    "category": "Duo/Gradient",
     "primary": "#B2B49C",
     "accent": "#B2B49C",
     "background": "#505146",
@@ -460,6 +511,7 @@
   },
   {
     "name": "Old Rose / Seashell / Sky Reflection",
+    "category": "Duo/Gradient",
     "primary": "#E19AA6",
     "accent": "#FAF0EA",
     "background": "#FDFAF8",
@@ -469,6 +521,7 @@
   },
   {
     "name": "Soft Fawn / Carbon Black / Ivory Mist",
+    "category": "Duo/Gradient",
     "primary": "#D5B572",
     "accent": "#201F14",
     "background": "#FDFAF4",
@@ -478,6 +531,7 @@
   },
   {
     "name": "Onyx / Olive / Desert",
+    "category": "Duo/Gradient",
     "primary": "#13140E",
     "accent": "#838236",
     "background": "#090906",
@@ -487,6 +541,7 @@
   },
   {
     "name": "Fiery Rose / Black Pearl",
+    "category": "Duo/Gradient",
     "primary": "#FF4D73",
     "accent": "#00181B",
     "background": "#000B0C",
@@ -496,6 +551,7 @@
   },
   {
     "name": "Tranquil Orange / Maastricht Blue",
+    "category": "Duo/Gradient",
     "primary": "#FFB268",
     "accent": "#001E37",
     "background": "#000D19",
@@ -505,6 +561,7 @@
   },
   {
     "name": "Sangria",
+    "category": "Duo/Gradient",
     "primary": "#C0392B",
     "accent": "#080205",
     "background": "#040102",
@@ -514,6 +571,7 @@
   },
   {
     "name": "Forest Night",
+    "category": "Duo/Gradient",
     "primary": "#0A1200",
     "accent": "#BD5E85",
     "background": "#040800",
@@ -523,6 +581,7 @@
   },
   {
     "name": "Burgundy",
+    "category": "Duo/Gradient",
     "primary": "#4A1528",
     "accent": "#4A1528",
     "background": "#210912",
@@ -532,6 +591,7 @@
   },
   {
     "name": "Navy",
+    "category": "Duo/Gradient",
     "primary": "#292F91",
     "accent": "#292F91",
     "background": "#121541",
@@ -541,6 +601,7 @@
   },
   {
     "name": "Cyan Spark",
+    "category": "Duo/Gradient",
     "primary": "#00D4FF",
     "accent": "#00D4FF",
     "background": "#005F73",
@@ -550,6 +611,7 @@
   },
   {
     "name": "Near Black",
+    "category": "Duo/Gradient",
     "primary": "#1A0508",
     "accent": "#1A0508",
     "background": "#0C0204",
@@ -559,6 +621,7 @@
   },
   {
     "name": "Copper Blaze",
+    "category": "Duo/Gradient",
     "primary": "#B5651D",
     "accent": "#3A1A0A",
     "background": "#1A0C04",
@@ -568,6 +631,7 @@
   },
   {
     "name": "Polar Night",
+    "category": "Duo/Gradient",
     "primary": "#1B2735",
     "accent": "#090A0F",
     "background": "#040407",
@@ -577,6 +641,7 @@
   },
   {
     "name": "Mango Tango",
+    "category": "Duo/Gradient",
     "primary": "#FFB347",
     "accent": "#FF6F3C",
     "background": "#73321B",
@@ -586,6 +651,7 @@
   },
   {
     "name": "Velvet Plum",
+    "category": "Duo/Gradient",
     "primary": "#5A2A5C",
     "accent": "#1A0E1C",
     "background": "#0C060D",
@@ -595,6 +661,7 @@
   },
   {
     "name": "Seaglass Drift",
+    "category": "Duo/Gradient",
     "primary": "#6FBFA0",
     "accent": "#1C3D3A",
     "background": "#0D1B1A",
@@ -604,6 +671,7 @@
   },
   {
     "name": "Crimson Veil",
+    "category": "Duo/Gradient",
     "primary": "#8B1E3F",
     "accent": "#2B0A12",
     "background": "#130408",
@@ -613,6 +681,7 @@
   },
   {
     "name": "Honeycomb",
+    "category": "Duo/Gradient",
     "primary": "#F4B400",
     "accent": "#7A4E00",
     "background": "#372300",
@@ -622,6 +691,7 @@
   },
   {
     "name": "Inkwell",
+    "category": "Duo/Gradient",
     "primary": "#2E2B5F",
     "accent": "#0B0A1A",
     "background": "#05040C",
@@ -631,6 +701,7 @@
   },
   {
     "name": "Rosewater Fog",
+    "category": "Duo/Gradient",
     "primary": "#E8B4BC",
     "accent": "#5C3A40",
     "background": "#291A1D",
@@ -640,6 +711,7 @@
   },
   {
     "name": "Verdant Spark",
+    "category": "Duo/Gradient",
     "primary": "#2E8B57",
     "accent": "#0D2914",
     "background": "#061209",
@@ -649,6 +721,7 @@
   },
   {
     "name": "Amber Trail",
+    "category": "Duo/Gradient",
     "primary": "#C8851A",
     "accent": "#4A2E0A",
     "background": "#211504",
@@ -658,6 +731,7 @@
   },
   {
     "name": "Glacier Pulse",
+    "category": "Duo/Gradient",
     "primary": "#7FB3D5",
     "accent": "#1A3A4A",
     "background": "#0C1A21",
@@ -667,6 +741,7 @@
   },
   {
     "name": "Wildfire",
+    "category": "Duo/Gradient",
     "primary": "#FF4E00",
     "accent": "#8E0000",
     "background": "#400000",
@@ -676,6 +751,7 @@
   },
   {
     "name": "Lagoon Drift",
+    "category": "Duo/Gradient",
     "primary": "#00A8A8",
     "accent": "#003C3C",
     "background": "#001B1B",
@@ -685,6 +761,7 @@
   },
   {
     "name": "Plumeria",
+    "category": "Duo/Gradient",
     "primary": "#FFD6E8",
     "accent": "#7A2E5C",
     "background": "#FFF1F7",
@@ -694,6 +771,7 @@
   },
   {
     "name": "Stormfront",
+    "category": "Duo/Gradient",
     "primary": "#4A5A6A",
     "accent": "#0E141A",
     "background": "#06090C",
@@ -703,6 +781,7 @@
   },
   {
     "name": "Sunburst Clay",
+    "category": "Duo/Gradient",
     "primary": "#E89A3C",
     "accent": "#6B3A1E",
     "background": "#301A0D",
@@ -712,6 +791,7 @@
   },
   {
     "name": "Midnight Garnet",
+    "category": "Duo/Gradient",
     "primary": "#6B0F1A",
     "accent": "#19060C",
     "background": "#0B0305",
@@ -721,6 +801,7 @@
   },
   {
     "name": "Frosted Lilac",
+    "category": "Duo/Gradient",
     "primary": "#C9B6E4",
     "accent": "#3A2C5C",
     "background": "#1A1429",
@@ -730,6 +811,7 @@
   },
   {
     "name": "Brass & Ink",
+    "category": "Duo/Gradient",
     "primary": "#B08D57",
     "accent": "#1A1A2E",
     "background": "#0C0C15",
@@ -739,6 +821,7 @@
   },
   {
     "name": "Night Freight",
+    "category": "Train/Transit",
     "primary": "#1B2A4A",
     "accent": "#E8622C",
     "background": "#0C1220",
@@ -747,6 +830,7 @@
   },
   {
     "name": "Platform 9",
+    "category": "Train/Transit",
     "primary": "#2C3E6B",
     "accent": "#F2A93B",
     "background": "#F4F1EA",
@@ -755,6 +839,7 @@
   },
   {
     "name": "Diesel Smoke",
+    "category": "Train/Transit",
     "primary": "#4A4A4F",
     "accent": "#D9762B",
     "background": "#1C1C1E",
@@ -763,6 +848,7 @@
   },
   {
     "name": "Rail Spike",
+    "category": "Train/Transit",
     "primary": "#7A1F2B",
     "accent": "#E8B93B",
     "background": "#F7F2E9",
@@ -771,6 +857,7 @@
   },
   {
     "name": "Overhead Line",
+    "category": "Train/Transit",
     "primary": "#1E5C8A",
     "accent": "#F2D93B",
     "background": "#0D1B26",
@@ -779,6 +866,7 @@
   },
   {
     "name": "Ballast Gray",
+    "category": "Train/Transit",
     "primary": "#5A5F63",
     "accent": "#C8481E",
     "background": "#F0EFEC",
@@ -787,6 +875,7 @@
   },
   {
     "name": "Third Rail",
+    "category": "Train/Transit",
     "primary": "#C8102E",
     "accent": "#1B2A4A",
     "background": "#F7EDEC",
@@ -795,6 +884,7 @@
   },
   {
     "name": "Sleeper Car Navy",
+    "category": "Train/Transit",
     "primary": "#16264A",
     "accent": "#D4A94E",
     "background": "#0A1226",
@@ -803,6 +893,7 @@
   },
   {
     "name": "Whistle Stop",
+    "category": "Train/Transit",
     "primary": "#2E7D5B",
     "accent": "#F0A83A",
     "background": "#F3F5EE",
@@ -811,6 +902,7 @@
   },
   {
     "name": "Coach Class Cream",
+    "category": "Train/Transit",
     "primary": "#8A6A3E",
     "accent": "#4E6B5C",
     "background": "#F7F1E3",
@@ -819,6 +911,7 @@
   },
   {
     "name": "Signal Amber",
+    "category": "Train/Transit",
     "primary": "#E8952C",
     "accent": "#1B3350",
     "background": "#1A1508",
@@ -827,6 +920,7 @@
   },
   {
     "name": "Freight Yard Rust",
+    "category": "Train/Transit",
     "primary": "#9C4B24",
     "accent": "#5C6B5A",
     "background": "#F5EFE6",
@@ -835,6 +929,7 @@
   },
   {
     "name": "Bullet Nose White",
+    "category": "Train/Transit",
     "primary": "#E8E9EB",
     "accent": "#E8622C",
     "background": "#14161C",
@@ -843,6 +938,7 @@
   },
   {
     "name": "Underground Line",
+    "category": "Train/Transit",
     "primary": "#2B2E7A",
     "accent": "#E8B93B",
     "background": "#0C0D1A",
@@ -851,6 +947,7 @@
   },
   {
     "name": "Level Crossing",
+    "category": "Train/Transit",
     "primary": "#D9B300",
     "accent": "#1A1A1A",
     "background": "#0D0D0D",
@@ -859,6 +956,7 @@
   },
   {
     "name": "Concourse Marble",
+    "category": "Train/Transit",
     "primary": "#7A8B9B",
     "accent": "#C8481E",
     "background": "#F2F3F5",
@@ -867,6 +965,7 @@
   },
   {
     "name": "Timetable Ink",
+    "category": "Train/Transit",
     "primary": "#2A2A2A",
     "accent": "#D4AF37",
     "background": "#F5F3EC",
@@ -875,6 +974,7 @@
   },
   {
     "name": "Boarding Ramp Teal",
+    "category": "Train/Transit",
     "primary": "#1E6B6B",
     "accent": "#F2A93B",
     "background": "#0A1A1A",
@@ -883,6 +983,7 @@
   },
   {
     "name": "Freight Container Red",
+    "category": "Train/Transit",
     "primary": "#B5291F",
     "accent": "#2C4A6B",
     "background": "#F7EDEA",
@@ -891,6 +992,7 @@
   },
   {
     "name": "Night Express Indigo",
+    "category": "Train/Transit",
     "primary": "#2E2B5F",
     "accent": "#F0A83A",
     "background": "#0B0A1A",
@@ -899,6 +1001,7 @@
   },
   {
     "name": "Locomotive Black",
+    "category": "Train/Transit",
     "primary": "#1A1A1A",
     "accent": "#C8481E",
     "background": "#0D0D0D",
@@ -907,6 +1010,7 @@
   },
   {
     "name": "Wagon Wood",
+    "category": "Train/Transit",
     "primary": "#6A4B2E",
     "accent": "#8B9E7C",
     "background": "#F5EEE1",
@@ -915,6 +1019,7 @@
   },
   {
     "name": "Departure Amber",
+    "category": "Train/Transit",
     "primary": "#E8A23B",
     "accent": "#1B3350",
     "background": "#F7F1E1",
@@ -923,6 +1028,7 @@
   },
   {
     "name": "Track Ballast Blue",
+    "category": "Train/Transit",
     "primary": "#3B5E8A",
     "accent": "#E8B93B",
     "background": "#0F1A26",
@@ -931,6 +1037,7 @@
   },
   {
     "name": "Overnight Slate",
+    "category": "Train/Transit",
     "primary": "#4A5A6A",
     "accent": "#E8622C",
     "background": "#14181C",
@@ -939,6 +1046,7 @@
   },
   {
     "name": "Cargo Hold Olive",
+    "category": "Train/Transit",
     "primary": "#5C6B3A",
     "accent": "#D9762B",
     "background": "#F3F2E6",
@@ -947,6 +1055,7 @@
   },
   {
     "name": "Junction Red",
+    "category": "Train/Transit",
     "primary": "#A0201E",
     "accent": "#2C3E6B",
     "background": "#F7ECEB",
@@ -955,6 +1064,7 @@
   },
   {
     "name": "Terminal Glass",
+    "category": "Train/Transit",
     "primary": "#9BB3C8",
     "accent": "#E8622C",
     "background": "#101820",
@@ -963,6 +1073,7 @@
   },
   {
     "name": "Steel Wheel Gray",
+    "category": "Train/Transit",
     "primary": "#6B6F73",
     "accent": "#F2A93B",
     "background": "#F1F1F0",
@@ -971,6 +1082,7 @@
   },
   {
     "name": "Platform Lantern",
+    "category": "Train/Transit",
     "primary": "#E8B93B",
     "accent": "#1E3350",
     "background": "#141008",
@@ -979,6 +1091,7 @@
   },
   {
     "name": "Commuter Blue Line",
+    "category": "Train/Transit",
     "primary": "#1E5C9B",
     "accent": "#F2D93B",
     "background": "#F0F4F8",
@@ -987,6 +1100,7 @@
   },
   {
     "name": "Rail Tie Brown",
+    "category": "Train/Transit",
     "primary": "#4A3524",
     "accent": "#8B9E7C",
     "background": "#F5F0E5",
@@ -995,6 +1109,7 @@
   },
   {
     "name": "Express Emerald",
+    "category": "Train/Transit",
     "primary": "#1E6B4A",
     "accent": "#E8B93B",
     "background": "#0A1A12",
@@ -1003,6 +1118,7 @@
   },
   {
     "name": "Sidewinder Silver",
+    "category": "Train/Transit",
     "primary": "#B8BCC0",
     "accent": "#C8481E",
     "background": "#14161A",
@@ -1011,6 +1127,7 @@
   },
   {
     "name": "Depot Copper",
+    "category": "Train/Transit",
     "primary": "#A0521F",
     "accent": "#2C4A5A",
     "background": "#F7EFE6",
@@ -1019,6 +1136,7 @@
   },
   {
     "name": "Signal Box Green",
+    "category": "Train/Transit",
     "primary": "#2B5C3A",
     "accent": "#E8952C",
     "background": "#0A1A0F",
@@ -1027,6 +1145,7 @@
   },
   {
     "name": "First Class Maroon",
+    "category": "Train/Transit",
     "primary": "#5C1A2A",
     "accent": "#D4AF37",
     "background": "#1A0A0F",
@@ -1035,6 +1154,7 @@
   },
   {
     "name": "Track Switch Gold",
+    "category": "Train/Transit",
     "primary": "#C89B2C",
     "accent": "#1B2A4A",
     "background": "#F7F1DE",
@@ -1043,6 +1163,7 @@
   },
   {
     "name": "Overhead Wire Gray",
+    "category": "Train/Transit",
     "primary": "#5A6570",
     "accent": "#F2A93B",
     "background": "#F0F1F2",
@@ -1051,6 +1172,7 @@
   },
   {
     "name": "Boiler Room Rust",
+    "category": "Train/Transit",
     "primary": "#8A3A1E",
     "accent": "#4A5A6A",
     "background": "#F5EBE4",
@@ -1059,6 +1181,7 @@
   },
   {
     "name": "Rapid Transit Cyan",
+    "category": "Train/Transit",
     "primary": "#1E8A9B",
     "accent": "#F2D93B",
     "background": "#0A1E22",
@@ -1067,6 +1190,7 @@
   },
   {
     "name": "Waiting Room Cream",
+    "category": "Train/Transit",
     "primary": "#B08D57",
     "accent": "#3B5E6B",
     "background": "#F7F2E5",
@@ -1075,6 +1199,7 @@
   },
   {
     "name": "Night Signal Violet",
+    "category": "Train/Transit",
     "primary": "#4A2B6B",
     "accent": "#E8B93B",
     "background": "#12081A",
@@ -1083,6 +1208,7 @@
   },
   {
     "name": "Coal Tender Black",
+    "category": "Train/Transit",
     "primary": "#141414",
     "accent": "#B5291F",
     "background": "#0A0A0A",
@@ -1091,6 +1217,7 @@
   },
   {
     "name": "Passenger Deck Blue",
+    "category": "Train/Transit",
     "primary": "#2C4A7A",
     "accent": "#F0A83A",
     "background": "#F0F3F7",
@@ -1099,6 +1226,7 @@
   },
   {
     "name": "Route Map Ochre",
+    "category": "Train/Transit",
     "primary": "#C87A2C",
     "accent": "#2C4A5A",
     "background": "#F7EFE1",
@@ -1107,6 +1235,7 @@
   },
   {
     "name": "Electric Third Line",
+    "category": "Train/Transit",
     "primary": "#2C9BE8",
     "accent": "#E8B93B",
     "background": "#081826",
@@ -1115,6 +1244,7 @@
   },
   {
     "name": "Guard's Van Green",
+    "category": "Train/Transit",
     "primary": "#2B4A2E",
     "accent": "#D9A23B",
     "background": "#0D1A0E",
@@ -1123,6 +1253,7 @@
   },
   {
     "name": "Ticket Booth Brass",
+    "category": "Train/Transit",
     "primary": "#A8863B",
     "accent": "#1E3350",
     "background": "#F7F0DE",
@@ -1131,6 +1262,7 @@
   },
   {
     "name": "Nightliner Charcoal",
+    "category": "Train/Transit",
     "primary": "#2A2E33",
     "accent": "#E8622C",
     "background": "#111316",
@@ -1139,6 +1271,7 @@
   },
   {
     "name": "Semaphore Red",
+    "category": "Train/Transit",
     "primary": "#B5201E",
     "accent": "#1B3350",
     "background": "#F7EBE9",
@@ -1147,6 +1280,7 @@
   },
   {
     "name": "Carriage Roof Silver",
+    "category": "Train/Transit",
     "primary": "#A8ACB0",
     "accent": "#C8481E",
     "background": "#16181A",
@@ -1155,6 +1289,7 @@
   },
   {
     "name": "Yard Light Amber",
+    "category": "Train/Transit",
     "primary": "#E89B2C",
     "accent": "#2C3E6B",
     "background": "#1A1408",
@@ -1163,6 +1298,7 @@
   },
   {
     "name": "Rail Bridge Teal",
+    "category": "Train/Transit",
     "primary": "#1E6B7A",
     "accent": "#F2A93B",
     "background": "#081E22",
@@ -1171,6 +1307,7 @@
   },
   {
     "name": "Boarding Pass Cream",
+    "category": "Train/Transit",
     "primary": "#D9C79E",
     "accent": "#4A5A6A",
     "background": "#F7F3E7",
@@ -1179,6 +1316,7 @@
   },
   {
     "name": "Track Bed Brown",
+    "category": "Train/Transit",
     "primary": "#5A3E24",
     "accent": "#7C8D6F",
     "background": "#F5EEE1",
@@ -1187,6 +1325,7 @@
   },
   {
     "name": "Overpass Concrete",
+    "category": "Train/Transit",
     "primary": "#8A8E92",
     "accent": "#D9762B",
     "background": "#F1F1F0",
@@ -1195,6 +1334,7 @@
   },
   {
     "name": "Late Night Platform",
+    "category": "Train/Transit",
     "primary": "#2A3A5A",
     "accent": "#E8B93B",
     "background": "#0A1220",
@@ -1203,6 +1343,7 @@
   },
   {
     "name": "Freight Line Orange",
+    "category": "Train/Transit",
     "primary": "#D9622C",
     "accent": "#2C3E6B",
     "background": "#1A0F08",
@@ -1211,6 +1352,7 @@
   },
   {
     "name": "Handrail Steel",
+    "category": "Train/Transit",
     "primary": "#6A7378",
     "accent": "#F2A93B",
     "background": "#F0F1F1",
@@ -1219,6 +1361,7 @@
   },
   {
     "name": "Diesel Engine Green",
+    "category": "Train/Transit",
     "primary": "#2B4A2E",
     "accent": "#C8481E",
     "background": "#0D1A0E",
@@ -1227,6 +1370,7 @@
   },
   {
     "name": "Route 1 Crimson",
+    "category": "Train/Transit",
     "primary": "#A0201E",
     "accent": "#F2D93B",
     "background": "#F7ECEB",
@@ -1235,6 +1379,7 @@
   },
   {
     "name": "Compartment Walnut",
+    "category": "Train/Transit",
     "primary": "#4A3524",
     "accent": "#B08D57",
     "background": "#F5EEE1",
@@ -1243,6 +1388,7 @@
   },
   {
     "name": "Departure Gate Blue",
+    "category": "Train/Transit",
     "primary": "#1E5C9B",
     "accent": "#E8952C",
     "background": "#0A1826",
@@ -1251,6 +1397,7 @@
   },
   {
     "name": "Rail Yard Fog",
+    "category": "Train/Transit",
     "primary": "#8A939B",
     "accent": "#D9762B",
     "background": "#14161A",
@@ -1259,6 +1406,7 @@
   },
   {
     "name": "Ticket Stamp Red",
+    "category": "Train/Transit",
     "primary": "#B5291F",
     "accent": "#1B2A4A",
     "background": "#F7EDEA",
@@ -1267,6 +1415,7 @@
   },
   {
     "name": "Sunrise Commuter",
+    "category": "Train/Transit",
     "primary": "#E8A23B",
     "accent": "#2C4A6B",
     "background": "#F7F1E1",
@@ -1275,6 +1424,7 @@
   },
   {
     "name": "Iron Rail Black",
+    "category": "Train/Transit",
     "primary": "#1A1A1A",
     "accent": "#D4AF37",
     "background": "#0D0D0D",
@@ -1283,6 +1433,7 @@
   },
   {
     "name": "Platform Puddle",
+    "category": "Train/Transit",
     "primary": "#3B5E6B",
     "accent": "#E8B93B",
     "background": "#0A1A1E",
@@ -1291,6 +1442,7 @@
   },
   {
     "name": "Baggage Car Tan",
+    "category": "Train/Transit",
     "primary": "#A8863B",
     "accent": "#4A5A6A",
     "background": "#F7F0DE",
@@ -1299,6 +1451,7 @@
   },
   {
     "name": "Night Rail Sapphire",
+    "category": "Train/Transit",
     "primary": "#1E3A8A",
     "accent": "#F2D93B",
     "background": "#080D1A",
@@ -1307,6 +1460,7 @@
   },
   {
     "name": "Grease & Steam",
+    "category": "Train/Transit",
     "primary": "#3A3A3A",
     "accent": "#C8481E",
     "background": "#151515",
@@ -1315,6 +1469,7 @@
   },
   {
     "name": "Whistle Bright Red",
+    "category": "Train/Transit",
     "primary": "#D9201E",
     "accent": "#1B2A4A",
     "background": "#F7E9E8",
@@ -1323,6 +1478,7 @@
   },
   {
     "name": "Track Marker Yellow",
+    "category": "Train/Transit",
     "primary": "#E8C93B",
     "accent": "#1E3350",
     "background": "#1A1608",
@@ -1331,6 +1487,7 @@
   },
   {
     "name": "Overnight Fog Blue",
+    "category": "Train/Transit",
     "primary": "#4A6580",
     "accent": "#E8952C",
     "background": "#0F1A22",
@@ -1339,6 +1496,7 @@
   },
   {
     "name": "Rusted Boxcar",
+    "category": "Train/Transit",
     "primary": "#8A3A1E",
     "accent": "#5C6B5A",
     "background": "#F5EBE4",
@@ -1347,6 +1505,7 @@
   },
   {
     "name": "Concourse Light",
+    "category": "Train/Transit",
     "primary": "#E8E4D8",
     "accent": "#C8481E",
     "background": "#141210",
@@ -1355,6 +1514,7 @@
   },
   {
     "name": "Rail Union Navy",
+    "category": "Train/Transit",
     "primary": "#1B2A5A",
     "accent": "#D4A94E",
     "background": "#0A0F20",
@@ -1363,6 +1523,7 @@
   },
   {
     "name": "Boarding Horn Amber",
+    "category": "Train/Transit",
     "primary": "#E89B2C",
     "accent": "#1B3350",
     "background": "#F7F0DE",
@@ -1371,6 +1532,7 @@
   },
   {
     "name": "Steam Vent White",
+    "category": "Train/Transit",
     "primary": "#E8E9EB",
     "accent": "#5A6570",
     "background": "#14161A",
@@ -1379,6 +1541,7 @@
   },
   {
     "name": "Points & Crossings",
+    "category": "Train/Transit",
     "primary": "#5C1A2A",
     "accent": "#8B9E7C",
     "background": "#1A0A0F",
@@ -1387,6 +1550,7 @@
   },
   {
     "name": "Terminal Neon",
+    "category": "Train/Transit",
     "primary": "#2C9BE8",
     "accent": "#E8622C",
     "background": "#08141E",
@@ -1395,6 +1559,7 @@
   },
   {
     "name": "Rail Depot Sand",
+    "category": "Train/Transit",
     "primary": "#C8A96B",
     "accent": "#3B5E6B",
     "background": "#F7F1E1",
@@ -1403,6 +1568,7 @@
   },
   {
     "name": "Overhead Gantry",
+    "category": "Train/Transit",
     "primary": "#5A6570",
     "accent": "#E8B93B",
     "background": "#F0F1F2",
@@ -1411,6 +1577,7 @@
   },
   {
     "name": "Night Freight Amber",
+    "category": "Train/Transit",
     "primary": "#D98A2C",
     "accent": "#1E2A4A",
     "background": "#1A1208",
@@ -1419,6 +1586,7 @@
   },
   {
     "name": "Passenger Lounge Teal",
+    "category": "Train/Transit",
     "primary": "#1E6B6B",
     "accent": "#E8952C",
     "background": "#0A1A1A",
@@ -1427,6 +1595,7 @@
   },
   {
     "name": "Rail Crossing Amber",
+    "category": "Train/Transit",
     "primary": "#E8952C",
     "accent": "#1B1B1B",
     "background": "#F7F0DE",
@@ -1435,6 +1604,7 @@
   },
   {
     "name": "Coupling Steel",
+    "category": "Train/Transit",
     "primary": "#6B7378",
     "accent": "#D9762B",
     "background": "#F1F1F0",
@@ -1443,6 +1613,7 @@
   },
   {
     "name": "Southbound Crimson",
+    "category": "Train/Transit",
     "primary": "#8A1F1E",
     "accent": "#2C4A6B",
     "background": "#F7ECEB",
@@ -1451,6 +1622,7 @@
   },
   {
     "name": "Depot Fluorescent",
+    "category": "Train/Transit",
     "primary": "#D9E8A3",
     "accent": "#3B5E6B",
     "background": "#12140E",
@@ -1459,6 +1631,7 @@
   },
   {
     "name": "Rail Grease Black",
+    "category": "Train/Transit",
     "primary": "#161616",
     "accent": "#B5291F",
     "background": "#0A0A0A",
@@ -1467,6 +1640,7 @@
   },
   {
     "name": "Border Crossing Blue",
+    "category": "Train/Transit",
     "primary": "#2C4A7A",
     "accent": "#E8B93B",
     "background": "#0A1424",
@@ -1475,6 +1649,7 @@
   },
   {
     "name": "Timetable Cream",
+    "category": "Train/Transit",
     "primary": "#D9C79E",
     "accent": "#2C3E6B",
     "background": "#F7F3E7",
@@ -1483,6 +1658,7 @@
   },
   {
     "name": "Overhead Storm Line",
+    "category": "Train/Transit",
     "primary": "#3B4A5A",
     "accent": "#E8622C",
     "background": "#0F1218",
@@ -1491,6 +1667,7 @@
   },
   {
     "name": "Golden Age Rail",
+    "category": "Train/Transit",
     "primary": "#B08D3B",
     "accent": "#1B2A4A",
     "background": "#F7F1DE",
@@ -1499,6 +1676,7 @@
   },
   {
     "name": "Last Whistle",
+    "category": "Train/Transit",
     "primary": "#4A1A1E",
     "accent": "#D4AF37",
     "background": "#140A0B",
@@ -1507,6 +1685,7 @@
   },
   {
     "name": "Rapid Line Violet",
+    "category": "Train/Transit",
     "primary": "#4A2B7A",
     "accent": "#F2D93B",
     "background": "#0F0820",
@@ -1515,6 +1694,7 @@
   },
   {
     "name": "Station Clock Bronze",
+    "category": "Train/Transit",
     "primary": "#A0692C",
     "accent": "#2C3E4A",
     "background": "#F7EFE1",
@@ -1523,6 +1703,7 @@
   },
   {
     "name": "Homebound Amber",
+    "category": "Train/Transit",
     "primary": "#E8A23B",
     "accent": "#1E2A4A",
     "background": "#F7F1E1",
@@ -1531,6 +1712,7 @@
   },
   {
     "name": "Rail Line 8",
+    "category": "Train/Transit",
     "primary": "#1E7A5C",
     "accent": "#E8B93B",
     "background": "#081A14",
@@ -1539,6 +1721,7 @@
   },
   {
     "name": "Final Approach",
+    "category": "Train/Transit",
     "primary": "#2A2E33",
     "accent": "#D9622C",
     "background": "#111316",
@@ -1547,6 +1730,7 @@
   },
   {
     "name": "Bullet Express",
+    "category": "Train/Transit",
     "primary": "#0D1B3E",
     "accent": "#E8622C",
     "background": "#F5F6F8",
@@ -1556,6 +1740,7 @@
   },
   {
     "name": "Maglev Midnight",
+    "category": "Train/Transit",
     "primary": "#141A3D",
     "accent": "#3BC8E8",
     "background": "#0A0D1E",
@@ -1565,6 +1750,7 @@
   },
   {
     "name": "Steel Rail",
+    "category": "Train/Transit",
     "primary": "#5A6570",
     "accent": "#D9762B",
     "background": "#F1F1F0",
@@ -1574,6 +1760,7 @@
   },
   {
     "name": "Platform Dusk",
+    "category": "Train/Transit",
     "primary": "#3A3552",
     "accent": "#E8A23B",
     "background": "#141220",
@@ -1583,6 +1770,7 @@
   },
   {
     "name": "Signal Red",
+    "category": "Train/Transit",
     "primary": "#B5201E",
     "accent": "#1B2A4A",
     "background": "#F7EBE9",
@@ -1592,6 +1780,7 @@
   },
   {
     "name": "Departure Board",
+    "category": "Train/Transit",
     "primary": "#E8952C",
     "accent": "#1B1F26",
     "background": "#0F1014",
@@ -1601,6 +1790,7 @@
   },
   {
     "name": "Overnight Sleeper",
+    "category": "Train/Transit",
     "primary": "#242A4A",
     "accent": "#8B9EC8",
     "background": "#0A0D1A",
@@ -1610,6 +1800,7 @@
   },
   {
     "name": "Coastal Line",
+    "category": "Train/Transit",
     "primary": "#2A7B9B",
     "accent": "#E8A23B",
     "background": "#F0F6F7",
@@ -1619,6 +1810,7 @@
   },
   {
     "name": "Tunnel Vision",
+    "category": "Train/Transit",
     "primary": "#1A1A1E",
     "accent": "#E8622C",
     "background": "#0A0A0C",
@@ -1628,6 +1820,7 @@
   },
   {
     "name": "Last Stop",
+    "category": "Train/Transit",
     "primary": "#4A1520",
     "accent": "#D4AF37",
     "background": "#140A0C",
@@ -1637,6 +1830,7 @@
   },
   {
     "name": "Express Lane",
+    "category": "Train/Transit",
     "primary": "#1E6B4A",
     "accent": "#F2A93B",
     "background": "#F1F5F1",
@@ -1646,6 +1840,7 @@
   },
   {
     "name": "Commuter Gray",
+    "category": "Train/Transit",
     "primary": "#6B6F73",
     "accent": "#2C4A6B",
     "background": "#F1F1F0",
@@ -1655,6 +1850,7 @@
   },
   {
     "name": "Diesel Run",
+    "category": "Train/Transit",
     "primary": "#3A3A3A",
     "accent": "#D9762B",
     "background": "#151515",
@@ -1664,6 +1860,7 @@
   },
   {
     "name": "Boarding Call",
+    "category": "Train/Transit",
     "primary": "#E8B93B",
     "accent": "#1E3350",
     "background": "#F7F1DE",
@@ -1673,6 +1870,7 @@
   },
   {
     "name": "Track Switch",
+    "category": "Train/Transit",
     "primary": "#2C6B4A",
     "accent": "#E89B2C",
     "background": "#0A1A12",
@@ -1682,6 +1880,7 @@
   },
   {
     "name": "Conductor's Brass",
+    "category": "Train/Transit",
     "primary": "#A8863B",
     "accent": "#1B2A4A",
     "background": "#F7F0DE",
@@ -1691,6 +1890,7 @@
   },
   {
     "name": "Rail Yard",
+    "category": "Train/Transit",
     "primary": "#5A5F63",
     "accent": "#B5291F",
     "background": "#F0EFEC",
@@ -1700,6 +1900,7 @@
   },
   {
     "name": "Crossing Light",
+    "category": "Train/Transit",
     "primary": "#E8A23B",
     "accent": "#1E1E1E",
     "background": "#F7F1E1",
@@ -1709,6 +1910,7 @@
   },
   {
     "name": "Terminus",
+    "category": "Train/Transit",
     "primary": "#1B2A4A",
     "accent": "#D4A94E",
     "background": "#0A0F20",
@@ -1718,6 +1920,7 @@
   },
   {
     "name": "High-Speed Run",
+    "category": "Train/Transit",
     "primary": "#2C9BE8",
     "accent": "#E8622C",
     "background": "#081826",
@@ -1727,6 +1930,7 @@
   },
   {
     "name": "Rose Gold",
+    "category": "Warm",
     "primary": "#C9807A",
     "accent": "#D4AF37",
     "background": "#FAF0EC",
@@ -1736,6 +1940,7 @@
   },
   {
     "name": "Sunset Boulevard",
+    "category": "Warm",
     "primary": "#E8622C",
     "accent": "#5B3A5C",
     "background": "#FCEFE6",
@@ -1745,6 +1950,7 @@
   },
   {
     "name": "Champagne Blush",
+    "category": "Warm",
     "primary": "#D9B98E",
     "accent": "#B5677A",
     "background": "#FBF3E9",
@@ -1754,6 +1960,7 @@
   },
   {
     "name": "Amber Glow",
+    "category": "Warm",
     "primary": "#E8A23B",
     "accent": "#8A3A1E",
     "background": "#FCF3E4",
@@ -1763,6 +1970,7 @@
   },
   {
     "name": "Coral Reef",
+    "category": "Warm",
     "primary": "#FF6B5B",
     "accent": "#2A7B9B",
     "background": "#FDEEEA",
@@ -1772,6 +1980,7 @@
   },
   {
     "name": "Honey Bee",
+    "category": "Warm",
     "primary": "#F2B705",
     "accent": "#1A1A1A",
     "background": "#FCF6DE",
@@ -1781,6 +1990,7 @@
   },
   {
     "name": "Peach Fizz",
+    "category": "Warm",
     "primary": "#F2A488",
     "accent": "#5C8D6F",
     "background": "#FCEFE7",
@@ -1790,6 +2000,7 @@
   },
   {
     "name": "Terracotta",
+    "category": "Warm",
     "primary": "#C4653A",
     "accent": "#7C8D6F",
     "background": "#F7E9E0",
@@ -1799,6 +2010,7 @@
   },
   {
     "name": "Cherry Blossom",
+    "category": "Warm",
     "primary": "#E8A3B5",
     "accent": "#5C4A3A",
     "background": "#FCEFF2",
@@ -1808,6 +2020,7 @@
   },
   {
     "name": "Wine & Roses",
+    "category": "Warm",
     "primary": "#7A1F3A",
     "accent": "#D4AF37",
     "background": "#F7E9EC",
@@ -1817,6 +2030,7 @@
   },
   {
     "name": "Cinnamon Toast",
+    "category": "Warm",
     "primary": "#A0522D",
     "accent": "#E8C77E",
     "background": "#F7EEE3",
@@ -1826,6 +2040,7 @@
   },
   {
     "name": "Apricot Sun",
+    "category": "Warm",
     "primary": "#F2954A",
     "accent": "#2A7B9B",
     "background": "#FCF0E4",
@@ -1835,6 +2050,7 @@
   },
   {
     "name": "Brick Oven",
+    "category": "Warm",
     "primary": "#8A3A24",
     "accent": "#D9B98E",
     "background": "#F5E9E3",
@@ -1844,6 +2060,7 @@
   },
   {
     "name": "Maple Syrup",
+    "category": "Warm",
     "primary": "#B5731E",
     "accent": "#5C3A24",
     "background": "#F7EEE0",
@@ -1853,6 +2070,7 @@
   },
   {
     "name": "Flamingo",
+    "category": "Warm",
     "primary": "#F26B8A",
     "accent": "#3A7B7B",
     "background": "#FCEEF0",
@@ -1862,6 +2080,7 @@
   },
   {
     "name": "Paprika",
+    "category": "Warm",
     "primary": "#C4401E",
     "accent": "#E8C77E",
     "background": "#F7E9E3",
@@ -1871,6 +2090,7 @@
   },
   {
     "name": "Golden Hour",
+    "category": "Warm",
     "primary": "#E8B93B",
     "accent": "#5C3A5C",
     "background": "#FCF3DE",
@@ -1880,6 +2100,7 @@
   },
   {
     "name": "Burnt Sienna",
+    "category": "Warm",
     "primary": "#A0522D",
     "accent": "#7C8D6F",
     "background": "#F5EAE3",
@@ -1889,6 +2110,7 @@
   },
   {
     "name": "Marigold Field",
+    "category": "Warm",
     "primary": "#E8A23B",
     "accent": "#2C4A2E",
     "background": "#FCF1E1",
@@ -1898,6 +2120,7 @@
   },
   {
     "name": "Ember Glow",
+    "category": "Warm",
     "primary": "#D9622C",
     "accent": "#1A1A1A",
     "background": "#F7EAE1",
@@ -1907,6 +2130,7 @@
   },
   {
     "name": "Arctic Frost",
+    "category": "Cool",
     "primary": "#C9E4F2",
     "accent": "#4F6B7A",
     "background": "#F0F8FB",
@@ -1916,6 +2140,7 @@
   },
   {
     "name": "Glacier Blue",
+    "category": "Cool",
     "primary": "#7FB3D5",
     "accent": "#1A3A4A",
     "background": "#EAF3F8",
@@ -1925,6 +2150,7 @@
   },
   {
     "name": "Midnight Ocean",
+    "category": "Cool",
     "primary": "#0E2A4A",
     "accent": "#3BC8E8",
     "background": "#080E1A",
@@ -1934,6 +2160,7 @@
   },
   {
     "name": "Slate Storm",
+    "category": "Cool",
     "primary": "#4A5A6A",
     "accent": "#E8622C",
     "background": "#F0F1F2",
@@ -1943,6 +2170,7 @@
   },
   {
     "name": "Mint Frost",
+    "category": "Cool",
     "primary": "#A8D8CF",
     "accent": "#2A7B7B",
     "background": "#EEF7F5",
@@ -1952,6 +2180,7 @@
   },
   {
     "name": "Lavender Mist",
+    "category": "Cool",
     "primary": "#B6A8D8",
     "accent": "#5B3A7A",
     "background": "#F3F0F9",
@@ -1961,6 +2190,7 @@
   },
   {
     "name": "Steel Blue",
+    "category": "Cool",
     "primary": "#4682B4",
     "accent": "#1A2A3A",
     "background": "#EAF0F5",
@@ -1970,6 +2200,7 @@
   },
   {
     "name": "Periwinkle",
+    "category": "Cool",
     "primary": "#8CA8E8",
     "accent": "#2A2A6B",
     "background": "#EEF1FB",
@@ -1979,6 +2210,7 @@
   },
   {
     "name": "Northern Lights",
+    "category": "Cool",
     "primary": "#2A9B8A",
     "accent": "#8B5CC8",
     "background": "#0A1A18",
@@ -1988,6 +2220,7 @@
   },
   {
     "name": "Deep Sea",
+    "category": "Cool",
     "primary": "#0A3A4A",
     "accent": "#3BC8B5",
     "background": "#050F14",
@@ -1997,6 +2230,7 @@
   },
   {
     "name": "Polar Cap",
+    "category": "Cool",
     "primary": "#E8F0F5",
     "accent": "#2A5A7A",
     "background": "#141A1E",
@@ -2006,6 +2240,7 @@
   },
   {
     "name": "Cobalt Deep",
+    "category": "Cool",
     "primary": "#1B3A9B",
     "accent": "#E8B93B",
     "background": "#0A0F20",
@@ -2015,6 +2250,7 @@
   },
   {
     "name": "Winter Pine",
+    "category": "Cool",
     "primary": "#1F4D3A",
     "accent": "#C9E4E8",
     "background": "#0A1A14",
@@ -2024,6 +2260,7 @@
   },
   {
     "name": "Iceberg",
+    "category": "Cool",
     "primary": "#D8ECF2",
     "accent": "#2A5A7A",
     "background": "#F5FAFC",
@@ -2033,6 +2270,7 @@
   },
   {
     "name": "Frosted Glass",
+    "category": "Cool",
     "primary": "#C0D8E0",
     "accent": "#3A5A6A",
     "background": "#F2F7F8",
@@ -2042,6 +2280,7 @@
   },
   {
     "name": "Moonlit Bay",
+    "category": "Cool",
     "primary": "#2A3A5A",
     "accent": "#8FD9C4",
     "background": "#0A0F1A",
@@ -2051,6 +2290,7 @@
   },
   {
     "name": "Stormwatch",
+    "category": "Cool",
     "primary": "#3A4A5A",
     "accent": "#D9762B",
     "background": "#0F1418",
@@ -2060,6 +2300,7 @@
   },
   {
     "name": "Denim Drift",
+    "category": "Cool",
     "primary": "#4A6B8A",
     "accent": "#E8B93B",
     "background": "#EEF2F5",
@@ -2069,6 +2310,7 @@
   },
   {
     "name": "Glacial Teal",
+    "category": "Cool",
     "primary": "#3A9B9B",
     "accent": "#1A2A4A",
     "background": "#EAF6F5",
@@ -2078,6 +2320,7 @@
   },
   {
     "name": "Cold Steel",
+    "category": "Cool",
     "primary": "#6B7378",
     "accent": "#2C9BE8",
     "background": "#F0F1F1",
@@ -2087,6 +2330,7 @@
   },
   {
     "name": "Obsidian",
+    "category": "Dark/Moody",
     "primary": "#1A1A1E",
     "accent": "#8B5CC8",
     "background": "#0A0A0C",
@@ -2096,6 +2340,7 @@
   },
   {
     "name": "Charcoal Noir",
+    "category": "Dark/Moody",
     "primary": "#2A2A2D",
     "accent": "#D4AF37",
     "background": "#111113",
@@ -2105,6 +2350,7 @@
   },
   {
     "name": "Blackout",
+    "category": "Dark/Moody",
     "primary": "#0D0D0D",
     "accent": "#B5291F",
     "background": "#050505",
@@ -2114,6 +2360,7 @@
   },
   {
     "name": "Graphite",
+    "category": "Dark/Moody",
     "primary": "#3A3A3C",
     "accent": "#5A8FD9",
     "background": "#151517",
@@ -2123,6 +2370,7 @@
   },
   {
     "name": "Shadow Walker",
+    "category": "Dark/Moody",
     "primary": "#242430",
     "accent": "#8B5CC8",
     "background": "#0C0C12",
@@ -2132,6 +2380,7 @@
   },
   {
     "name": "Onyx Edge",
+    "category": "Dark/Moody",
     "primary": "#1B1B1E",
     "accent": "#E8622C",
     "background": "#090909",
@@ -2141,6 +2390,7 @@
   },
   {
     "name": "Eclipse",
+    "category": "Dark/Moody",
     "primary": "#16161C",
     "accent": "#F2A93B",
     "background": "#0A0A0E",
@@ -2150,6 +2400,7 @@
   },
   {
     "name": "Storm Cloud",
+    "category": "Dark/Moody",
     "primary": "#3A3F45",
     "accent": "#8FA8D9",
     "background": "#141619",
@@ -2159,6 +2410,7 @@
   },
   {
     "name": "Iron Gate",
+    "category": "Dark/Moody",
     "primary": "#3A3D40",
     "accent": "#B5291F",
     "background": "#131415",
@@ -2168,6 +2420,7 @@
   },
   {
     "name": "Void",
+    "category": "Dark/Moody",
     "primary": "#0D0D0D",
     "accent": "#00E59B",
     "background": "#050505",
@@ -2177,6 +2430,7 @@
   },
   {
     "name": "Pitch",
+    "category": "Dark/Moody",
     "primary": "#111111",
     "accent": "#D4AF37",
     "background": "#080808",
@@ -2186,6 +2440,7 @@
   },
   {
     "name": "Carbon Fiber",
+    "category": "Dark/Moody",
     "primary": "#242424",
     "accent": "#2C9BE8",
     "background": "#0F0F0F",
@@ -2195,6 +2450,7 @@
   },
   {
     "name": "Midnight Vault",
+    "category": "Dark/Moody",
     "primary": "#1A1A2E",
     "accent": "#D4A94E",
     "background": "#0A0A16",
@@ -2204,6 +2460,7 @@
   },
   {
     "name": "Raven",
+    "category": "Dark/Moody",
     "primary": "#1C1C1E",
     "accent": "#8B5CC8",
     "background": "#0A0A0B",
@@ -2213,6 +2470,7 @@
   },
   {
     "name": "Tar Pit",
+    "category": "Dark/Moody",
     "primary": "#141414",
     "accent": "#C8481E",
     "background": "#080808",
@@ -2222,6 +2480,7 @@
   },
   {
     "name": "Nightfall",
+    "category": "Dark/Moody",
     "primary": "#1E2438",
     "accent": "#E8B93B",
     "background": "#0A0D16",
@@ -2231,6 +2490,7 @@
   },
   {
     "name": "Abyss",
+    "category": "Dark/Moody",
     "primary": "#0A1420",
     "accent": "#2C9BE8",
     "background": "#050A10",
@@ -2240,6 +2500,7 @@
   },
   {
     "name": "Smoke Screen",
+    "category": "Dark/Moody",
     "primary": "#3A3A3D",
     "accent": "#E8622C",
     "background": "#151515",
@@ -2249,6 +2510,7 @@
   },
   {
     "name": "Coal Bed",
+    "category": "Dark/Moody",
     "primary": "#1A1714",
     "accent": "#D9762B",
     "background": "#0A0908",
@@ -2258,6 +2520,7 @@
   },
   {
     "name": "Dark Matter",
+    "category": "Dark/Moody",
     "primary": "#16161E",
     "accent": "#8B5CC8",
     "background": "#08080C",
@@ -2267,6 +2530,7 @@
   },
   {
     "name": "Desert Sand",
+    "category": "Earth",
     "primary": "#D9B98E",
     "accent": "#8A5A3A",
     "background": "#F7F0E3",
@@ -2276,6 +2540,7 @@
   },
   {
     "name": "Olive Grove",
+    "category": "Earth",
     "primary": "#6B7C49",
     "accent": "#B5731E",
     "background": "#F0F2E6",
@@ -2285,6 +2550,7 @@
   },
   {
     "name": "Forest Floor",
+    "category": "Earth",
     "primary": "#3E2F25",
     "accent": "#7C9070",
     "background": "#EEEBE3",
@@ -2294,6 +2560,7 @@
   },
   {
     "name": "Cedar Wood",
+    "category": "Earth",
     "primary": "#8A5A3A",
     "accent": "#5C6B5A",
     "background": "#F5EEE3",
@@ -2303,6 +2570,7 @@
   },
   {
     "name": "Clay Pot",
+    "category": "Earth",
     "primary": "#B5673A",
     "accent": "#7C8D6F",
     "background": "#F7EDE4",
@@ -2312,6 +2580,7 @@
   },
   {
     "name": "Autumn Leaf",
+    "category": "Earth",
     "primary": "#C4651E",
     "accent": "#5C6B3A",
     "background": "#F7EBE0",
@@ -2321,6 +2590,7 @@
   },
   {
     "name": "Mossy Stone",
+    "category": "Earth",
     "primary": "#6B7C49",
     "accent": "#8A8784",
     "background": "#F0F2E6",
@@ -2330,6 +2600,7 @@
   },
   {
     "name": "Terra Firma",
+    "category": "Earth",
     "primary": "#8A5A3A",
     "accent": "#6B7C49",
     "background": "#F5EEE3",
@@ -2339,6 +2610,7 @@
   },
   {
     "name": "Walnut",
+    "category": "Earth",
     "primary": "#4A3524",
     "accent": "#B08D57",
     "background": "#EEE8DE",
@@ -2348,6 +2620,7 @@
   },
   {
     "name": "Harvest Gold",
+    "category": "Earth",
     "primary": "#D9A23B",
     "accent": "#5C3A24",
     "background": "#F7F1E1",
@@ -2357,6 +2630,7 @@
   },
   {
     "name": "Canyon Ridge",
+    "category": "Earth",
     "primary": "#A0521F",
     "accent": "#7A8B9B",
     "background": "#F5EBE1",
@@ -2366,6 +2640,7 @@
   },
   {
     "name": "Driftclay",
+    "category": "Earth",
     "primary": "#8B6F47",
     "accent": "#A8D8CF",
     "background": "#F3EFE6",
@@ -2375,6 +2650,7 @@
   },
   {
     "name": "Redwood",
+    "category": "Earth",
     "primary": "#7A3324",
     "accent": "#5C6B49",
     "background": "#F5E9E3",
@@ -2384,6 +2660,7 @@
   },
   {
     "name": "Prairie Dust",
+    "category": "Earth",
     "primary": "#C4A56B",
     "accent": "#6B7C49",
     "background": "#F7F1E4",
@@ -2393,6 +2670,7 @@
   },
   {
     "name": "Loam",
+    "category": "Earth",
     "primary": "#3E2F25",
     "accent": "#8A5A3A",
     "background": "#EEEBE3",
@@ -2402,6 +2680,7 @@
   },
   {
     "name": "Stonewash",
+    "category": "Earth",
     "primary": "#8A8784",
     "accent": "#4F6B7A",
     "background": "#F0EFEC",
@@ -2411,6 +2690,7 @@
   },
   {
     "name": "Bark & Moss",
+    "category": "Earth",
     "primary": "#5A3E24",
     "accent": "#7C9070",
     "background": "#F0EEE1",
@@ -2420,6 +2700,7 @@
   },
   {
     "name": "Sienna Trail",
+    "category": "Earth",
     "primary": "#A0522D",
     "accent": "#D9B98E",
     "background": "#F5EAE3",
@@ -2429,6 +2710,7 @@
   },
   {
     "name": "Highland Peat",
+    "category": "Earth",
     "primary": "#4A3D2A",
     "accent": "#6B7C49",
     "background": "#EEEAE0",
@@ -2438,6 +2720,7 @@
   },
   {
     "name": "Sandstone",
+    "category": "Earth",
     "primary": "#C4A56B",
     "accent": "#8A5A3A",
     "background": "#F7F1E4",
@@ -2447,6 +2730,7 @@
   },
   {
     "name": "Electric Lime",
+    "category": "Vibrant",
     "primary": "#A8FF00",
     "accent": "#1A1A1A",
     "background": "#0D0D0D",
@@ -2456,6 +2740,7 @@
   },
   {
     "name": "Neon Pink",
+    "category": "Vibrant",
     "primary": "#FF2E9B",
     "accent": "#00F5AA",
     "background": "#100810",
@@ -2465,6 +2750,7 @@
   },
   {
     "name": "Cyber Purple",
+    "category": "Vibrant",
     "primary": "#8B00FF",
     "accent": "#00F5AA",
     "background": "#0D081A",
@@ -2474,6 +2760,7 @@
   },
   {
     "name": "Tropic Punch",
+    "category": "Vibrant",
     "primary": "#FF6F3C",
     "accent": "#00E59B",
     "background": "#1A0F08",
@@ -2483,6 +2770,7 @@
   },
   {
     "name": "Bubblegum",
+    "category": "Vibrant",
     "primary": "#FF6FCF",
     "accent": "#7AA8FF",
     "background": "#1A0F16",
@@ -2492,6 +2780,7 @@
   },
   {
     "name": "Laser Blue",
+    "category": "Vibrant",
     "primary": "#00AAFF",
     "accent": "#FF2E5C",
     "background": "#08141E",
@@ -2501,6 +2790,7 @@
   },
   {
     "name": "Hot Magenta",
+    "category": "Vibrant",
     "primary": "#E8007A",
     "accent": "#00E5D9",
     "background": "#1A0512",
@@ -2510,6 +2800,7 @@
   },
   {
     "name": "Acid Wash",
+    "category": "Vibrant",
     "primary": "#D9FF3B",
     "accent": "#3A1A9B",
     "background": "#0D0F08",
@@ -2519,6 +2810,7 @@
   },
   {
     "name": "Retro Arcade",
+    "category": "Vibrant",
     "primary": "#FF3B5C",
     "accent": "#3BC8E8",
     "background": "#12081E",
@@ -2528,6 +2820,7 @@
   },
   {
     "name": "Volt Yellow",
+    "category": "Vibrant",
     "primary": "#F2E100",
     "accent": "#1A1A1A",
     "background": "#0D0D08",
@@ -2537,6 +2830,7 @@
   },
   {
     "name": "Plasma Red",
+    "category": "Vibrant",
     "primary": "#FF1E3B",
     "accent": "#00D4FF",
     "background": "#1A0508",
@@ -2546,6 +2840,7 @@
   },
   {
     "name": "Ultraviolet",
+    "category": "Vibrant",
     "primary": "#7A1EFF",
     "accent": "#F2E100",
     "background": "#0D0820",
@@ -2555,6 +2850,7 @@
   },
   {
     "name": "Highlighter Green",
+    "category": "Vibrant",
     "primary": "#39FF14",
     "accent": "#1A1A1A",
     "background": "#08140A",
@@ -2564,6 +2860,7 @@
   },
   {
     "name": "Synthwave Pink",
+    "category": "Vibrant",
     "primary": "#FF2EBF",
     "accent": "#2E2EFF",
     "background": "#12081E",
@@ -2573,6 +2870,7 @@
   },
   {
     "name": "Radioactive",
+    "category": "Vibrant",
     "primary": "#C6FF00",
     "accent": "#2A2A2A",
     "background": "#0A0D06",
@@ -2582,6 +2880,7 @@
   },
   {
     "name": "Power Surge",
+    "category": "Vibrant",
     "primary": "#FFB300",
     "accent": "#3B00FF",
     "background": "#1A1408",
@@ -2591,6 +2890,7 @@
   },
   {
     "name": "Neon Sign",
+    "category": "Vibrant",
     "primary": "#FF3CB0",
     "accent": "#3CFFDA",
     "background": "#100810",
@@ -2600,6 +2900,7 @@
   },
   {
     "name": "Strobe Blue",
+    "category": "Vibrant",
     "primary": "#0080FF",
     "accent": "#FF3B5C",
     "background": "#08121E",
@@ -2609,6 +2910,7 @@
   },
   {
     "name": "Powder Blue",
+    "category": "Pastel",
     "primary": "#B4D4E8",
     "accent": "#5B7A9B",
     "background": "#F2F7FA",
@@ -2618,6 +2920,7 @@
   },
   {
     "name": "Buttercream",
+    "category": "Pastel",
     "primary": "#F2E4B8",
     "accent": "#B08D57",
     "background": "#FCF8EC",
@@ -2627,6 +2930,7 @@
   },
   {
     "name": "Sage Whisper",
+    "category": "Pastel",
     "primary": "#C4D4B8",
     "accent": "#6B7C49",
     "background": "#F3F5EE",
@@ -2636,6 +2940,7 @@
   },
   {
     "name": "Blush Pink",
+    "category": "Pastel",
     "primary": "#F2C4CE",
     "accent": "#B5677A",
     "background": "#FCEFF1",
@@ -2645,6 +2950,7 @@
   },
   {
     "name": "Lilac Dream",
+    "category": "Pastel",
     "primary": "#D8C4E8",
     "accent": "#7A5B9B",
     "background": "#F7F2FA",
@@ -2654,6 +2960,7 @@
   },
   {
     "name": "Vanilla Cream",
+    "category": "Pastel",
     "primary": "#F2E8D0",
     "accent": "#8A6A3E",
     "background": "#FCFAF0",
@@ -2663,6 +2970,7 @@
   },
   {
     "name": "Seafoam",
+    "category": "Pastel",
     "primary": "#B8E0D4",
     "accent": "#2A7B7B",
     "background": "#EFF8F5",
@@ -2672,6 +2980,7 @@
   },
   {
     "name": "Dusty Rose",
+    "category": "Pastel",
     "primary": "#D8A8B0",
     "accent": "#5C4A3A",
     "background": "#F7EEEF",
@@ -2681,6 +2990,7 @@
   },
   {
     "name": "Cloud Nine",
+    "category": "Pastel",
     "primary": "#E0E8F0",
     "accent": "#5B7A9B",
     "background": "#F7FAFC",
@@ -2690,6 +3000,7 @@
   },
   {
     "name": "Cotton Sky",
+    "category": "Pastel",
     "primary": "#C4DCF2",
     "accent": "#3A5A8A",
     "background": "#F2F8FC",
@@ -2699,6 +3010,7 @@
   },
   {
     "name": "Mint Macaron",
+    "category": "Pastel",
     "primary": "#C4E8D4",
     "accent": "#3A8A6B",
     "background": "#F0FAF5",
@@ -2708,6 +3020,7 @@
   },
   {
     "name": "Soft Peach",
+    "category": "Pastel",
     "primary": "#F2D0B8",
     "accent": "#B5673A",
     "background": "#FCF3EC",
@@ -2717,6 +3030,7 @@
   },
   {
     "name": "Baby Lilac",
+    "category": "Pastel",
     "primary": "#E0D0F0",
     "accent": "#6A4B8A",
     "background": "#F8F3FC",
@@ -2726,6 +3040,7 @@
   },
   {
     "name": "Pale Mimosa",
+    "category": "Pastel",
     "primary": "#F2E8B8",
     "accent": "#8A7A3A",
     "background": "#FCFAE9",
@@ -2735,6 +3050,7 @@
   },
   {
     "name": "Whisper Gray",
+    "category": "Pastel",
     "primary": "#D8DCE0",
     "accent": "#5A6570",
     "background": "#F5F6F7",
@@ -2744,6 +3060,7 @@
   },
   {
     "name": "Petal Pink",
+    "category": "Pastel",
     "primary": "#F0C8D4",
     "accent": "#8A4A5C",
     "background": "#FCEFF3",
@@ -2753,6 +3070,7 @@
   },
   {
     "name": "Boipelo's Pick",
+    "category": "Special",
     "primary": "#1B3A7A",
     "accent": "#3A6BD9",
     "background": "#0A1226",
@@ -2762,6 +3080,7 @@
   },
   {
     "name": "Last Dance",
+    "category": "Special",
     "primary": "#D4AF37",
     "accent": "#1A1A1A",
     "background": "#0D0D0D",
@@ -2771,6 +3090,7 @@
   },
   {
     "name": "Apex Legend",
+    "category": "Special",
     "primary": "#8A1414",
     "accent": "#1A1A1A",
     "background": "#0D0808",
@@ -2780,6 +3100,7 @@
   },
   {
     "name": "Minecraft Green",
+    "category": "Special",
     "primary": "#3A6B2E",
     "accent": "#5A3E24",
     "background": "#0F1A0D",
@@ -2789,6 +3110,7 @@
   },
   {
     "name": "Knight's Gambit",
+    "category": "Special",
     "primary": "#F8F4E3",
     "accent": "#4A3524",
     "background": "#F5F0E5",
@@ -2798,6 +3120,7 @@
   },
   {
     "name": "Checkmate",
+    "category": "Special",
     "primary": "#1A1A1A",
     "accent": "#8B1E2A",
     "background": "#0D0D0D",
@@ -2807,6 +3130,7 @@
   },
   {
     "name": "Endgame",
+    "category": "Special",
     "primary": "#4A5A6A",
     "accent": "#D4AF37",
     "background": "#141618",
@@ -2816,6 +3140,7 @@
   },
   {
     "name": "Castling",
+    "category": "Special",
     "primary": "#1B2A4A",
     "accent": "#F5F0E5",
     "background": "#0A0F1C",
@@ -2825,6 +3150,7 @@
   },
   {
     "name": "Grayscale Pro",
+    "category": "Monochrome",
     "primary": "#5A5A5A",
     "accent": "#1A1A1A",
     "background": "#F2F2F2",
@@ -2834,6 +3160,7 @@
   },
   {
     "name": "Paper White",
+    "category": "Monochrome",
     "primary": "#EDEDED",
     "accent": "#3A3A3A",
     "background": "#F7F7F7",
@@ -2843,6 +3170,7 @@
   },
   {
     "name": "Ink Black",
+    "category": "Monochrome",
     "primary": "#141414",
     "accent": "#8A8A8A",
     "background": "#0A0A0A",
@@ -2852,6 +3180,7 @@
   },
   {
     "name": "Concrete",
+    "category": "Monochrome",
     "primary": "#8A8A8A",
     "accent": "#3A3A3A",
     "background": "#F0F0EF",
@@ -2861,6 +3190,7 @@
   },
   {
     "name": "Fog Bank",
+    "category": "Monochrome",
     "primary": "#C4C4C4",
     "accent": "#5A5A5A",
     "background": "#F5F5F5",
@@ -2870,6 +3200,7 @@
   },
   {
     "name": "Slate Mono",
+    "category": "Monochrome",
     "primary": "#4A4A4A",
     "accent": "#9A9A9A",
     "background": "#151515",
@@ -2879,6 +3210,7 @@
   },
   {
     "name": "Stone Gray",
+    "category": "Monochrome",
     "primary": "#6E6E6E",
     "accent": "#2A2A2A",
     "background": "#F1F1F0",
@@ -2888,6 +3220,7 @@
   },
   {
     "name": "Newsprint",
+    "category": "Monochrome",
     "primary": "#2A2A2A",
     "accent": "#8A8A8A",
     "background": "#EDEAE1",
@@ -2897,6 +3230,7 @@
   },
   {
     "name": "Sapphire Court",
+    "category": "Jewel Tones",
     "primary": "#0F52BA",
     "accent": "#D4AF37",
     "background": "#080D1A",
@@ -2906,6 +3240,7 @@
   },
   {
     "name": "Emerald City",
+    "category": "Jewel Tones",
     "primary": "#0F7B4A",
     "accent": "#D4AF37",
     "background": "#081A12",
@@ -2915,6 +3250,7 @@
   },
   {
     "name": "Ruby Reign",
+    "category": "Jewel Tones",
     "primary": "#9B111E",
     "accent": "#D4AF37",
     "background": "#1A080A",
@@ -2924,6 +3260,7 @@
   },
   {
     "name": "Topaz Glow",
+    "category": "Jewel Tones",
     "primary": "#D9A23B",
     "accent": "#1A2A4A",
     "background": "#1A1408",
@@ -2933,6 +3270,7 @@
   },
   {
     "name": "Amethyst Vault",
+    "category": "Jewel Tones",
     "primary": "#6A2C91",
     "accent": "#D4AF37",
     "background": "#12081A",
@@ -2942,6 +3280,7 @@
   },
   {
     "name": "Garnet Deep",
+    "category": "Jewel Tones",
     "primary": "#6B0F1A",
     "accent": "#8A8784",
     "background": "#140A0B",
@@ -2951,6 +3290,7 @@
   },
   {
     "name": "Citrine Spark",
+    "category": "Jewel Tones",
     "primary": "#E4D00A",
     "accent": "#2A2A2A",
     "background": "#1A1808",
@@ -2960,6 +3300,7 @@
   },
   {
     "name": "Tourmaline",
+    "category": "Jewel Tones",
     "primary": "#2A9B8A",
     "accent": "#8B5CC8",
     "background": "#081A18",

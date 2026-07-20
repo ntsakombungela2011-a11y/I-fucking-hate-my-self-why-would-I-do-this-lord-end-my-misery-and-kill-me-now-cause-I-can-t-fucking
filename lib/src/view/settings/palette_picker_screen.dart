@@ -17,45 +17,70 @@ class PalettePickerScreen extends ConsumerWidget {
     final selectedName = ref.watch(themePalettePreferenceProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Themes'), animateColor: true),
+      appBar: AppBar(title: const Text('Palettes'), animateColor: true),
       body: palettes.when(
-        data: (items) => ListView(
-          children: [
-            ListSection(
-              children: [
-                for (final palette in items)
-                  RadioListTile<String>(
-                    value: palette.name,
-                    groupValue: selectedName,
-                    onChanged: (_) => ref
-                        .read(themePalettePreferenceProvider.notifier)
-                        .setPalette(palette.name),
-                    title: Text(palette.name),
-                    subtitle: Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Row(
-                        children: [
-                          for (final color in palette.swatchColors)
-                            Container(
-                              width: 18,
-                              height: 18,
-                              margin: const EdgeInsetsDirectional.only(end: 6),
-                              decoration: BoxDecoration(
-                                color: color,
-                                shape: BoxShape.circle,
-                                border: Border.all(color: ColorScheme.of(context).outlineVariant),
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
+        data: (items) {
+          final sections = <String, List<AppPalette>>{};
+          for (final palette in items) {
+            sections.putIfAbsent(palette.category, () => []).add(palette);
+          }
+
+          return ListView.builder(
+            itemCount: sections.length,
+            itemBuilder: (context, index) {
+              final entry = sections.entries.elementAt(index);
+              return ListSection(
+                children: [
+                  ExpansionTile(
+                    title: Text(entry.key),
+                    initiallyExpanded: entry.value.any((palette) => palette.name == selectedName),
+                    children: [
+                      for (final palette in entry.value)
+                        _PaletteTile(palette: palette, selectedName: selectedName),
+                    ],
                   ),
-              ],
-            ),
-          ],
-        ),
+                ],
+              );
+            },
+          );
+        },
         error: (error, stackTrace) => Center(child: Text('Could not load themes: $error')),
         loading: () => const Center(child: CircularProgressIndicator.adaptive()),
+      ),
+    );
+  }
+}
+
+class _PaletteTile extends ConsumerWidget {
+  const _PaletteTile({required this.palette, required this.selectedName});
+
+  final AppPalette palette;
+  final String selectedName;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return RadioListTile<String>(
+      value: palette.name,
+      groupValue: selectedName,
+      onChanged: (_) => ref.read(themePalettePreferenceProvider.notifier).setPalette(palette.name),
+      title: Text(palette.name),
+      subtitle: Padding(
+        padding: const EdgeInsets.only(top: 8.0),
+        child: Row(
+          children: [
+            for (final color in palette.swatchColors)
+              Container(
+                width: 18,
+                height: 18,
+                margin: const EdgeInsetsDirectional.only(end: 6),
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                  border: Border.all(color: ColorScheme.of(context).outlineVariant),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }
