@@ -85,7 +85,8 @@ class StreamerListTile extends StatelessWidget {
                 child: Icon(
                   Symbols.train_rounded,
                   color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  size: thumbnailSize * 0.72,
+                  size: thumbnailSize * 0.56,
+                  weight: 300,
                 ),
               ),
             ),

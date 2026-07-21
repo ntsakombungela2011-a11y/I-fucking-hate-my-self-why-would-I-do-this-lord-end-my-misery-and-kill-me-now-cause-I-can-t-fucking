@@ -3,10 +3,16 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <path android:pathData="M13,69 C14,35 35,26 56,28 C74,30 91,43 97,53 Q100,58 98,64 Q60,74 16,72 Q11,72 13,69 M17,38 C7,52 10,68 19,78 Q53,82 96,66 M23,33 C13,45 17,60 16,68 M26,41 C33,29 51,31 56,36 C50,47 39,51 27,48 Q23,47 26,41 M31,69 C42,49 59,35 72,37 C83,39 92,48 97,53 M34,66 C54,52 72,48 97,56 M39,68 C61,55 78,54 98,60 M15,72 Q52,73 98,62"
-        android:fillColor="@android:color/transparent"
-        android:strokeColor="@color/ic_splash"
-        android:strokeWidth="4.2"
-        android:strokeLineCap="round"
-        android:strokeLineJoin="round"/>
+    <group
+        android:scaleX="0.82"
+        android:scaleY="0.82"
+        android:translateX="9.72"
+        android:translateY="9.72">
+        <path android:pathData="M13,69 C14,35 35,26 56,28 C74,30 91,43 97,53 Q100,58 98,64 Q60,74 16,72 Q11,72 13,69 M17,38 C7,52 10,68 19,78 Q53,82 96,66 M23,33 C13,45 17,60 16,68 M26,41 C33,29 51,31 56,36 C50,47 39,51 27,48 Q23,47 26,41 M31,69 C42,49 59,35 72,37 C83,39 92,48 97,53 M34,66 C54,52 72,48 97,56 M39,68 C61,55 78,54 98,60 M15,72 Q52,73 98,62"
+            android:fillColor="@android:color/transparent"
+            android:strokeColor="@color/ic_splash"
+            android:strokeWidth="3"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"/>
+    </group>
 </vector>

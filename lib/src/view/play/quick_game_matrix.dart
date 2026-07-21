@@ -60,11 +60,16 @@ class QuickGameMatrix extends ConsumerWidget {
           children: [
             if (scaffoldOpacity != 0)
               Positioned.fill(
-                child: FittedBox(
-                  fit: BoxFit.contain,
-                  child: Icon(
-                    Symbols.train_rounded,
-                    color: logoColor,
+                child: FractionallySizedBox(
+                  widthFactor: 0.78,
+                  heightFactor: 0.78,
+                  child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: Icon(
+                      Symbols.train_rounded,
+                      color: logoColor,
+                      weight: 300,
+                    ),
                   ),
                 ),
               ),

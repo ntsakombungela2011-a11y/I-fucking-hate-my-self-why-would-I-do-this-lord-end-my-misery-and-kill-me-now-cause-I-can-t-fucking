@@ -505,7 +505,8 @@ class AboutScreen extends ConsumerWidget {
                     applicationIcon: Icon(
                       Symbols.train_rounded,
                       color: Theme.of(context).colorScheme.onSurface,
-                      size: 48,
+                      size: 38,
+                      weight: 300,
                     ),
                   );
                 },
