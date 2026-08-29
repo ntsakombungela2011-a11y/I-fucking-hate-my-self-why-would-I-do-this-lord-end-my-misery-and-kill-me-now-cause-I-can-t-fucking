@@ -61,14 +61,14 @@ class OfflineComputerGamePreferences extends Notifier<OfflineComputerGamePrefs>
   }
 }
 
-/// Represents the player's color choice for offline computer games.
+/// Represents the Stockfish engine's color choice for offline computer games.
 enum SideChoice {
   white,
   random,
   black,
   nextToPlay;
 
-  /// Resolves the side choice to a [Side].
+  /// Resolves the engine side choice to a [Side].
   ///
   /// When [fen] is provided and this is [nextToPlay], returns the side to move
   /// from the FEN. Returns `null` for [random] (caller should pick randomly).
