@@ -1,54 +1,98 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
-    android:viewportWidth="108"
-    android:viewportHeight="108">
+    android:viewportWidth="1024"
+    android:viewportHeight="1024">
     <group
         android:scaleX="0.72"
         android:scaleY="0.72"
         android:translateX="15.12"
         android:translateY="15.12">
         <path
-            android:pathData="M13,69 C13,50 24,34 42,29 C56,25 70,29 82,37 C89,42 95,47 98,53 C100,57 100,62 98,66 C86,72 60,77 21,75 C15,75 11,73 13,69 Z"
-            android:fillColor="@android:color/transparent"
-            android:strokeColor="@color/ic_splash"
-            android:strokeWidth="2.2"
+            android:name="silhouette"
+            android:pathData="M 118 655
+                 C 108 600, 118 545, 155 495
+                 C 195 440, 260 380, 340 340
+                 C 400 310, 460 288, 520 285
+                 C 610 282, 700 315, 780 365
+                 C 850 408, 905 460, 935 505
+                 C 948 524, 950 535, 943 545
+                 C 928 565, 895 585, 850 605
+                 C 740 652, 590 682, 440 695
+                 C 340 703, 250 700, 190 685
+                 C 150 675, 125 665, 118 655 Z"
+            android:strokeColor="#000000"
+            android:strokeWidth="13"
             android:strokeLineCap="round"
-            android:strokeLineJoin="round" />
+            android:strokeLineJoin="round"
+            android:fillColor="#00000000" />
+
         <path
-            android:pathData="M17,71 C22,74 53,75 96,64 C88,71 57,80 22,78 C16,78 12,75 13,69 C14,70 15,71 17,71 Z"
-            android:fillColor="@android:color/transparent"
-            android:strokeColor="@color/ic_splash"
-            android:strokeWidth="2.2"
+            android:name="window"
+            android:pathData="M 210 430
+                 C 205 390, 250 345, 320 322
+                 C 380 302, 445 305, 480 335
+                 C 505 357, 495 390, 455 415
+                 C 405 447, 330 458, 270 450
+                 C 235 445, 213 440, 210 430 Z"
+            android:strokeColor="#000000"
+            android:strokeWidth="13"
             android:strokeLineCap="round"
-            android:strokeLineJoin="round" />
+            android:strokeLineJoin="round"
+            android:fillColor="#00000000" />
+
         <path
-            android:pathData="M22,64 C22,47 31,36 43,34 C50,33 56,34 59,37 C56,44 47,52 40,57 C34,62 27,66 22,64 Z"
-            android:fillColor="@android:color/transparent"
-            android:strokeColor="@color/ic_splash"
-            android:strokeWidth="2.2"
+            android:name="accent_line_1"
+            android:pathData="M 300 600 C 410 485, 520 395, 610 355 C 680 324, 745 328, 810 375 C 865 415, 908 462, 935 505"
+            android:strokeColor="#000000"
+            android:strokeWidth="13"
             android:strokeLineCap="round"
-            android:strokeLineJoin="round" />
+            android:strokeLineJoin="round"
+            android:fillColor="#00000000" />
+
         <path
-            android:pathData="M31,68 C43,50 58,38 70,36 C82,35 91,46 98,53 C89,50 80,44 70,42 C60,39 46,52 31,68 Z"
-            android:fillColor="@android:color/transparent"
-            android:strokeColor="@color/ic_splash"
-            android:strokeWidth="2.2"
+            android:name="accent_line_2"
+            android:pathData="M 315 628 C 435 525, 555 450, 655 415 C 725 391, 782 400, 830 438 C 870 469, 903 495, 927 517"
+            android:strokeColor="#000000"
+            android:strokeWidth="13"
             android:strokeLineCap="round"
-            android:strokeLineJoin="round" />
+            android:strokeLineJoin="round"
+            android:fillColor="#00000000" />
+
         <path
-            android:pathData="M35,67 C55,53 72,48 98,57 C74,53 57,57 35,67 Z"
-            android:fillColor="@android:color/transparent"
-            android:strokeColor="@color/ic_splash"
-            android:strokeWidth="2.2"
+            android:name="accent_line_3"
+            android:pathData="M 335 648 C 460 568, 575 512, 675 492 C 745 478, 795 486, 838 507 C 872 523, 902 527, 923 527"
+            android:strokeColor="#000000"
+            android:strokeWidth="13"
             android:strokeLineCap="round"
-            android:strokeLineJoin="round" />
+            android:strokeLineJoin="round"
+            android:fillColor="#00000000" />
+
         <path
-            android:pathData="M40,69 C61,58 78,56 98,61 C77,60 61,62 40,69 Z"
-            android:fillColor="@android:color/transparent"
-            android:strokeColor="@color/ic_splash"
-            android:strokeWidth="2.2"
+            android:name="belly_line"
+            android:pathData="M 165 685 C 320 680, 490 655, 650 615 C 740 592, 815 565, 875 540"
+            android:strokeColor="#000000"
+            android:strokeWidth="13"
             android:strokeLineCap="round"
-            android:strokeLineJoin="round" />
+            android:strokeLineJoin="round"
+            android:fillColor="#00000000" />
+
+        <path
+            android:name="rear_curl_1"
+            android:pathData="M 128 640 C 145 610, 158 585, 160 560"
+            android:strokeColor="#000000"
+            android:strokeWidth="13"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"
+            android:fillColor="#00000000" />
+
+        <path
+            android:name="rear_curl_2"
+            android:pathData="M 150 655 C 168 622, 182 595, 185 568"
+            android:strokeColor="#000000"
+            android:strokeWidth="13"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"
+            android:fillColor="#00000000" />
     </group>
 </vector>
