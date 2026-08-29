@@ -1182,6 +1182,39 @@ void main() {
       expect(gameState.game.initialFen, customFen);
     });
 
+    testWidgets('Selected side is used as the player side', (tester) async {
+      for (final side in Side.values) {
+        final gameStorage = MockOfflineComputerGameStorage();
+        when(() => gameStorage.fetchGame()).thenAnswer((_) async => null);
+
+        late WidgetRef ref;
+
+        final app = await makeTestProviderScopeApp(
+          tester,
+          home: Consumer(
+            builder: (context, r, _) {
+              ref = r;
+              return const OfflineComputerGameScreen();
+            },
+          ),
+          overrides: {
+            offlineComputerGameStorageProvider: offlineComputerGameStorageProvider.overrideWith(
+              (_) => gameStorage,
+            ),
+          },
+        );
+        await tester.pumpWidget(app);
+        await tester.pumpAndSettle();
+
+        await selectSide(tester, side);
+        await tester.tap(find.text('Play'));
+        await tester.pumpAndSettle();
+
+        final gameState = ref.read(offlineComputerGameControllerProvider);
+        expect(gameState.game.playerSide, side);
+      }
+    });
+
     testWidgets('Game uses Variant.standard when started without custom FEN', (tester) async {
       final gameStorage = MockOfflineComputerGameStorage();
       when(() => gameStorage.fetchGame()).thenAnswer((_) async => null);
