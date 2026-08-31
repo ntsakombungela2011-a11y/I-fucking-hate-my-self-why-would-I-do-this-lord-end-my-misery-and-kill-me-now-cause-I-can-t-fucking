@@ -30,6 +30,7 @@ import 'package:lichess_mobile/src/network/connectivity.dart';
 import 'package:lichess_mobile/src/network/socket.dart';
 import 'package:lichess_mobile/src/quick_actions.dart';
 import 'package:lichess_mobile/src/shared_pgn_service.dart';
+import 'package:lichess_mobile/src/splash_screen.dart';
 import 'package:lichess_mobile/src/tab_scaffold.dart';
 import 'package:lichess_mobile/src/theme.dart';
 import 'package:lichess_mobile/src/utils/screen.dart';
@@ -60,8 +61,7 @@ class AppInitializationScreen extends ConsumerWidget {
         debugPrint('SEVERE: [App] could not initialize app; $error\n$stackTrace');
         return const SizedBox.shrink();
       case _:
-        // loading screen is handled by the native splash screen
-        return const SizedBox.shrink();
+        return const FlutterSplashScreen();
     }
   }
 }
