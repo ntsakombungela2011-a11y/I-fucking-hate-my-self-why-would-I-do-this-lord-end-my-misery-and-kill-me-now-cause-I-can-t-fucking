@@ -14,7 +14,17 @@ class _FlutterSplashScreenState extends State<FlutterSplashScreen>
   late final AnimationController _controller = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 1800),
-  )..forward();
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _controller.forward();
+      }
+    });
+  }
 
   @override
   void dispose() {
