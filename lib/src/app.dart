@@ -30,7 +30,6 @@ import 'package:lichess_mobile/src/network/connectivity.dart';
 import 'package:lichess_mobile/src/network/socket.dart';
 import 'package:lichess_mobile/src/quick_actions.dart';
 import 'package:lichess_mobile/src/shared_pgn_service.dart';
-import 'package:lichess_mobile/src/splash_screen.dart';
 import 'package:lichess_mobile/src/tab_scaffold.dart';
 import 'package:lichess_mobile/src/theme.dart';
 import 'package:lichess_mobile/src/utils/screen.dart';
@@ -43,70 +42,26 @@ const List<String> _kIosBlogWidgetKinds = [
 ];
 
 /// Application initialization and main entry point.
-class AppInitializationScreen extends ConsumerStatefulWidget {
+class AppInitializationScreen extends ConsumerWidget {
   const AppInitializationScreen({super.key});
 
   @override
-  ConsumerState<AppInitializationScreen> createState() => _AppInitializationScreenState();
-}
-
-class _AppInitializationScreenState extends ConsumerState<AppInitializationScreen> {
-  static const _minimumSplashDuration = Duration(milliseconds: 1800);
-
-  late final Timer _minimumSplashTimer;
-  Timer? _visibleSplashTimer;
-  bool _minimumSplashDurationElapsed = false;
-  bool _nativeSplashRemoved = false;
-  bool _visibleSplashDurationElapsed = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _minimumSplashTimer = Timer(_minimumSplashDuration, () {
-      if (mounted) {
-        setState(() => _minimumSplashDurationElapsed = true);
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _minimumSplashTimer.cancel();
-    _visibleSplashTimer?.cancel();
-    super.dispose();
-  }
-
-  void _removeNativeSplash() {
-    FlutterNativeSplash.remove();
-    if (_nativeSplashRemoved) {
-      return;
-    }
-
-    setState(() => _nativeSplashRemoved = true);
-    _visibleSplashTimer = Timer(_minimumSplashDuration, () {
-      if (mounted) {
-        setState(() => _visibleSplashDurationElapsed = true);
-      }
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     ref.listen<AsyncValue<PreloadedData>>(preloadedDataProvider, (_, state) {
       if (state.hasValue || state.hasError) {
-        _removeNativeSplash();
+        FlutterNativeSplash.remove();
       }
     });
 
     switch (ref.watch(preloadedDataProvider)) {
-      case AsyncData()
-          when _minimumSplashDurationElapsed && _visibleSplashDurationElapsed:
+      case AsyncData():
         return const Application();
       case AsyncError(:final error, :final stackTrace):
         debugPrint('SEVERE: [App] could not initialize app; $error\n$stackTrace');
         return const SizedBox.shrink();
       case _:
-        return FlutterSplashScreen(nativeSplashRemoved: _nativeSplashRemoved);
+        // loading screen is handled by the native splash screen
+        return const SizedBox.shrink();
     }
   }
 }
