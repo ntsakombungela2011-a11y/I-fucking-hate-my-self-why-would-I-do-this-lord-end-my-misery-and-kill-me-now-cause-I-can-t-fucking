@@ -43,11 +43,37 @@ const List<String> _kIosBlogWidgetKinds = [
 ];
 
 /// Application initialization and main entry point.
-class AppInitializationScreen extends ConsumerWidget {
+class AppInitializationScreen extends ConsumerStatefulWidget {
   const AppInitializationScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<AppInitializationScreen> createState() => _AppInitializationScreenState();
+}
+
+class _AppInitializationScreenState extends ConsumerState<AppInitializationScreen> {
+  static const _minimumSplashDuration = Duration(milliseconds: 1800);
+
+  late final Timer _minimumSplashTimer;
+  bool _minimumSplashDurationElapsed = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _minimumSplashTimer = Timer(_minimumSplashDuration, () {
+      if (mounted) {
+        setState(() => _minimumSplashDurationElapsed = true);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _minimumSplashTimer.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     ref.listen<AsyncValue<PreloadedData>>(preloadedDataProvider, (_, state) {
       if (state.hasValue || state.hasError) {
         FlutterNativeSplash.remove();
@@ -55,7 +81,7 @@ class AppInitializationScreen extends ConsumerWidget {
     });
 
     switch (ref.watch(preloadedDataProvider)) {
-      case AsyncData():
+      case AsyncData() when _minimumSplashDurationElapsed:
         return const Application();
       case AsyncError(:final error, :final stackTrace):
         debugPrint('SEVERE: [App] could not initialize app; $error\n$stackTrace');
