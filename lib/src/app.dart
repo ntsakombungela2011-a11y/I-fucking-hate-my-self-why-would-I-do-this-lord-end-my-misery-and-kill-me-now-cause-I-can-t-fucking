@@ -54,7 +54,10 @@ class _AppInitializationScreenState extends ConsumerState<AppInitializationScree
   static const _minimumSplashDuration = Duration(milliseconds: 1800);
 
   late final Timer _minimumSplashTimer;
+  Timer? _visibleSplashTimer;
   bool _minimumSplashDurationElapsed = false;
+  bool _nativeSplashRemoved = false;
+  bool _visibleSplashDurationElapsed = false;
 
   @override
   void initState() {
@@ -69,25 +72,41 @@ class _AppInitializationScreenState extends ConsumerState<AppInitializationScree
   @override
   void dispose() {
     _minimumSplashTimer.cancel();
+    _visibleSplashTimer?.cancel();
     super.dispose();
+  }
+
+  void _removeNativeSplash() {
+    FlutterNativeSplash.remove();
+    if (_nativeSplashRemoved) {
+      return;
+    }
+
+    setState(() => _nativeSplashRemoved = true);
+    _visibleSplashTimer = Timer(_minimumSplashDuration, () {
+      if (mounted) {
+        setState(() => _visibleSplashDurationElapsed = true);
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     ref.listen<AsyncValue<PreloadedData>>(preloadedDataProvider, (_, state) {
       if (state.hasValue || state.hasError) {
-        FlutterNativeSplash.remove();
+        _removeNativeSplash();
       }
     });
 
     switch (ref.watch(preloadedDataProvider)) {
-      case AsyncData() when _minimumSplashDurationElapsed:
+      case AsyncData()
+          when _minimumSplashDurationElapsed && _visibleSplashDurationElapsed:
         return const Application();
       case AsyncError(:final error, :final stackTrace):
         debugPrint('SEVERE: [App] could not initialize app; $error\n$stackTrace');
         return const SizedBox.shrink();
       case _:
-        return const FlutterSplashScreen();
+        return FlutterSplashScreen(nativeSplashRemoved: _nativeSplashRemoved);
     }
   }
 }

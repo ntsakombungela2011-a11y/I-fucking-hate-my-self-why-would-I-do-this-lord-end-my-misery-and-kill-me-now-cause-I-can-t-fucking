@@ -3,7 +3,9 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 class FlutterSplashScreen extends StatefulWidget {
-  const FlutterSplashScreen({super.key});
+  const FlutterSplashScreen({required this.nativeSplashRemoved, super.key});
+
+  final bool nativeSplashRemoved;
 
   @override
   State<FlutterSplashScreen> createState() => _FlutterSplashScreenState();
@@ -15,10 +17,28 @@ class _FlutterSplashScreenState extends State<FlutterSplashScreen>
     vsync: this,
     duration: const Duration(milliseconds: 1800),
   );
+  bool _animationStarted = false;
 
   @override
   void initState() {
     super.initState();
+    _startAnimationIfReady();
+  }
+
+  @override
+  void didUpdateWidget(FlutterSplashScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!oldWidget.nativeSplashRemoved && widget.nativeSplashRemoved) {
+      _startAnimationIfReady();
+    }
+  }
+
+  void _startAnimationIfReady() {
+    if (!widget.nativeSplashRemoved || _animationStarted) {
+      return;
+    }
+
+    _animationStarted = true;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
         _controller.forward();
