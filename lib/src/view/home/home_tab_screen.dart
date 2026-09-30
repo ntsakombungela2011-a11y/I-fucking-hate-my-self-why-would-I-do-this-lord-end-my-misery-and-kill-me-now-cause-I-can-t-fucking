@@ -56,7 +56,7 @@ class HomeTabScreen extends StatelessWidget {
               title: 'Analysis',
               onTap: () => Navigator.of(context).push(
                 AnalysisScreen.buildRoute(
-                  const AnalysisOptions.standalone(variant: Variant.standard),
+                  AnalysisOptions.standalone(variant: Variant.standard),
                 ),
               ),
             ),

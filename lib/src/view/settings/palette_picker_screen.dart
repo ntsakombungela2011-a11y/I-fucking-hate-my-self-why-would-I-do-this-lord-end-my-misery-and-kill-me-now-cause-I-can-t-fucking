@@ -16,7 +16,7 @@ class PalettePickerScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final palettes = ref.watch(palettesProvider);
-    final selectedName = ref.watch(themePalettePreferenceProvider);
+    final selectedName = ref.watch(themePalettePreferenceProvider).name;
 
     return Scaffold(
       appBar: AppBar(title: const Text('Palettes'), animateColor: true),
@@ -91,7 +91,7 @@ class _PaletteTile extends ConsumerWidget {
     return RadioListTile<String>(
       value: palette.name,
       groupValue: selectedName,
-      onChanged: (_) => ref.read(themePalettePreferenceProvider.notifier).setPalette(palette.name),
+      onChanged: (_) => ref.read(themePalettePreferenceProvider.notifier).setPalette(palette),
       title: Text(palette.name),
       subtitle: Padding(
         padding: const EdgeInsets.only(top: 8.0),
