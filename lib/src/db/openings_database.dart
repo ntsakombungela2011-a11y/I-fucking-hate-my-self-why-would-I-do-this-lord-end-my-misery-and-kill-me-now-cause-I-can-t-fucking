@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lichess_mobile/src/debug/startup_trace.dart';
 import 'package:path/path.dart' as p;
 import 'package:sqflite/sqflite.dart';
 
@@ -43,5 +44,9 @@ Future<Database> _openDb(String path) async {
     await File(path).writeAsBytes(bytes, flush: true);
   }
 
-  return databaseFactory.openDatabase(path, options: OpenDatabaseOptions(readOnly: true));
+  StartupTrace.mark('openings db open start');
+  return databaseFactory.openDatabase(path, options: OpenDatabaseOptions(readOnly: true)).then((db) {
+    StartupTrace.mark('openings db open end');
+    return db;
+  });
 }

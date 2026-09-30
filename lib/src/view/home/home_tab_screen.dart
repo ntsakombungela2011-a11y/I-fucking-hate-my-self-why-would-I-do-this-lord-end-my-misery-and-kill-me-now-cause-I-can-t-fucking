@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/experimental/mutation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lichess_mobile/src/binding.dart';
+import 'package:lichess_mobile/src/debug/startup_trace.dart';
 import 'package:lichess_mobile/src/model/account/account_repository.dart';
 import 'package:lichess_mobile/src/model/account/home_preferences.dart';
 import 'package:lichess_mobile/src/model/account/home_widgets.dart';
@@ -116,6 +117,7 @@ class _HomeScreenState extends ConsumerState<HomeTabScreen> {
 
   bool wasOnline = true;
   bool hasRefreshed = false;
+  bool _firstBuild = true;
 
   @override
   void initState() {
@@ -134,6 +136,10 @@ class _HomeScreenState extends ConsumerState<HomeTabScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (_firstBuild) {
+      StartupTrace.mark('Home first build');
+      _firstBuild = false;
+    }
     ref.listen(connectivityChangesProvider, (_, connectivity) {
       // Refresh the data only once if it was offline and is now online
       if (!connectivity.isRefreshing && connectivity.hasValue) {
