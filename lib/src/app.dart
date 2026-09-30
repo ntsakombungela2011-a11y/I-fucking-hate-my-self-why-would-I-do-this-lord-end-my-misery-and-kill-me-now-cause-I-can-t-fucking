@@ -62,9 +62,7 @@ class _AppState extends ConsumerState<Application> {
 
   // Adjusts some settings for small screens based on the MediaQuery data.
   Future<void> _screenSizeBasedInitialization(WidgetRef ref) async {
-    // Bump version here in case we adjust the thresholds for screen size based initialization
-    // and want it to run again for users who already launched the app with a previous version.
-    const kDoneScreenSizeInitKey = 'done_screen_size_init_v1';
+    const kDoneScreenSizeInitKey = 'done_screen_size_init_v4_dynamic_fix';
 
     final prefs = LichessBinding.instance.sharedPreferences;
     if (prefs.getBool(kDoneScreenSizeInitKey) == true) {
@@ -74,14 +72,10 @@ class _AppState extends ConsumerState<Application> {
     final mediaQueryData = MediaQueryData.fromView(
       WidgetsBinding.instance.platformDispatcher.views.first,
     );
-    final isTablet = mediaQueryData.size.shortestSide > FormFactor.tablet;
-    final isSmallScreen = estimateHeightMinusBoard(mediaQueryData) < kSmallHeightMinusBoard;
-    final showEngineLines =
-        isTablet || estimateHeightMinusBoard(mediaQueryData) > kSmallHeightMinusBoard - 30;
-
-    // For tablets in portrait mode using the full board size makes the bottom analysis tabs tiny,
-    // see https://github.com/lichess-org/mobile/issues/3150,
-    // so use a small board there by default as well.
+    final isTablet = mediaQueryData.size.shortestSide > 600;
+    final heightMinusBoard = estimateHeightMinusBoard(mediaQueryData);
+    final isSmallScreen = heightMinusBoard < kSmallHeightMinusBoard;
+    final showEngineLines = isTablet || heightMinusBoard > kSmallHeightMinusBoard - 30;
     final smallBoard = isTablet || isSmallScreen;
 
     await ref
