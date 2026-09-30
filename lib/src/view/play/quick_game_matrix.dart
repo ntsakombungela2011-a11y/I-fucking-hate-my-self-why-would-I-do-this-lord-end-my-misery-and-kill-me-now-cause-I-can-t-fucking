@@ -16,6 +16,7 @@ import 'package:lichess_mobile/src/view/game/game_screen.dart';
 import 'package:lichess_mobile/src/view/game/game_screen_providers.dart';
 import 'package:lichess_mobile/src/view/play/play_bottom_sheet.dart';
 import 'package:lichess_mobile/src/view/play/playban.dart';
+import 'package:material_symbols_icons/symbols.dart';
 
 const _kMatrixSpacing = 8.0;
 
@@ -54,31 +55,40 @@ class QuickGameMatrix extends ConsumerWidget {
       children: [
         Text(context.l10n.quickPairing, style: Styles.sectionTitle),
         const SizedBox(height: 6.0),
-        Container(
-          decoration: scaffoldOpacity != 0
-              ? BoxDecoration(
-                  image: DecorationImage(
-                    colorFilter: ColorFilter.mode(logoColor, BlendMode.modulate),
-                    image: const AssetImage('assets/images/logo-transp.webp'),
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            if (scaffoldOpacity != 0)
+              Positioned.fill(
+                child: FractionallySizedBox(
+                  widthFactor: 0.64,
+                  heightFactor: 0.64,
+                  child: FittedBox(
                     fit: BoxFit.contain,
+                    child: Icon(
+                      Symbols.train_rounded,
+                      color: logoColor,
+                      weight: 200,
+                    ),
                   ),
-                )
-              : null,
-          child: Column(
-            children: [
-              for (final (index, row) in rows.indexed) ...[
-                if (index > 0) const SizedBox(height: _kMatrixSpacing),
-                _SectionChoices(
-                  choices: row,
-                  showCustom: showCustom && index == rows.length - 1 && row.length < 3,
                 ),
+              ),
+            Column(
+              children: [
+                for (final (index, row) in rows.indexed) ...[
+                  if (index > 0) const SizedBox(height: _kMatrixSpacing),
+                  _SectionChoices(
+                    choices: row,
+                    showCustom: showCustom && index == rows.length - 1 && row.length < 3,
+                  ),
+                ],
+                if (showCustom && rows.every((r) => r.length >= 3)) ...[
+                  const SizedBox(height: _kMatrixSpacing),
+                  const _SectionChoices(choices: [], showCustom: true),
+                ],
               ],
-              if (showCustom && rows.every((r) => r.length >= 3)) ...[
-                const SizedBox(height: _kMatrixSpacing),
-                const _SectionChoices(choices: [], showCustom: true),
-              ],
-            ],
-          ),
+            ),
+          ],
         ),
       ],
     );

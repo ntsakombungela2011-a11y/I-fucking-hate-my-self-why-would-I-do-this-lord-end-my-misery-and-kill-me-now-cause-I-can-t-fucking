@@ -18,6 +18,7 @@ import 'package:lichess_mobile/src/view/home/home_tab_screen.dart';
 import 'package:lichess_mobile/src/widgets/buttons.dart';
 import 'package:lichess_mobile/src/widgets/feedback.dart';
 import 'package:lichess_mobile/src/widgets/platform.dart';
+import 'package:material_symbols_icons/symbols.dart';
 
 import '../../binding.dart';
 import '../../example_data.dart';
@@ -408,7 +409,7 @@ void main() {
         await tester.tap(find.widgetWithText(TextButton, 'OK'));
         await tester.pumpAndSettle(); // wait for home screen to re-appear
 
-        expect(find.byIcon(LichessIcons.logo_lichess), findsOneWidget); // we're back on home
+        expect(find.byIcon(Symbols.home_rounded), findsOneWidget); // we're back on home
 
         expect(find.text(customizeTip), findsNothing);
       });

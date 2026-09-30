@@ -1,44 +1,22 @@
-import 'dart:async';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:home_widget/home_widget.dart';
 import 'package:l10n_esperanto/l10n_esperanto.dart';
 import 'package:lichess_mobile/l10n/l10n.dart';
-import 'package:lichess_mobile/src/app_links_service.dart';
 import 'package:lichess_mobile/src/binding.dart';
-import 'package:lichess_mobile/src/constants.dart';
-import 'package:lichess_mobile/src/model/account/account_repository.dart';
-import 'package:lichess_mobile/src/model/account/account_service.dart';
-import 'package:lichess_mobile/src/model/account/ongoing_game.dart';
 import 'package:lichess_mobile/src/model/analysis/analysis_preferences.dart';
-import 'package:lichess_mobile/src/model/announce/announce_service.dart';
 import 'package:lichess_mobile/src/model/broadcast/broadcast_preferences.dart';
-import 'package:lichess_mobile/src/model/challenge/challenge_service.dart';
 import 'package:lichess_mobile/src/model/common/preloaded_data.dart';
-import 'package:lichess_mobile/src/model/correspondence/correspondence_service.dart';
 import 'package:lichess_mobile/src/model/log/app_log_service.dart';
-import 'package:lichess_mobile/src/model/message/message_service.dart';
-import 'package:lichess_mobile/src/model/notifications/notification_service.dart';
 import 'package:lichess_mobile/src/model/settings/board_preferences.dart';
 import 'package:lichess_mobile/src/model/settings/general_preferences.dart';
+import 'package:lichess_mobile/src/model/settings/palette.dart';
 import 'package:lichess_mobile/src/model/study/study_preferences.dart';
-import 'package:lichess_mobile/src/network/connectivity.dart';
-import 'package:lichess_mobile/src/network/socket.dart';
 import 'package:lichess_mobile/src/quick_actions.dart';
 import 'package:lichess_mobile/src/shared_pgn_service.dart';
 import 'package:lichess_mobile/src/tab_scaffold.dart';
 import 'package:lichess_mobile/src/theme.dart';
 import 'package:lichess_mobile/src/utils/screen.dart';
-
-const String _kIosAppGroupId = 'group.org.lichess.mobileV2.LichessWidgets';
-const List<String> _kIosBlogWidgetKinds = [
-  'OfficialBlogWidget',
-  'CommunityBlogWidget',
-  'UserBlogFeedWidget',
-];
 
 /// Application initialization and main entry point.
 class AppInitializationScreen extends ConsumerWidget {
@@ -77,8 +55,9 @@ class Application extends ConsumerStatefulWidget {
 }
 
 class _AppState extends ConsumerState<Application> {
-  /// Whether the app has checked for online status for the first time.
-  bool _firstTimeOnlineCheck = false;
+  // DISABLED FOR OFFLINE MODE - REENABLE IF ONLINE FEATURES RETURNED
+  // Whether the app has checked for online status for the first time.
+  // bool _firstTimeOnlineCheck = false;
   final _navigatorKey = GlobalKey<NavigatorState>();
 
   // Adjusts some settings for small screens based on the MediaQuery data.
@@ -136,42 +115,20 @@ class _AppState extends ConsumerState<Application> {
 
     // Start services
     ref.read(appLogServiceProvider).start();
-    ref.read(notificationServiceProvider).start();
-    ref.read(messageServiceProvider).start();
-    ref.read(challengeServiceProvider).start();
-    ref.read(accountServiceProvider).start();
-    ref.read(correspondenceServiceProvider).start();
     ref.read(quickActionServiceProvider).start();
-    ref.read(announceServiceProvider).start();
-    ref.read(appLinksServiceProvider).start();
     ref.read(sharedPgnServiceProvider).start();
 
-    if (Platform.isIOS) {
-      HomeWidget.setAppGroupId(_kIosAppGroupId);
-      HomeWidget.saveWidgetData<String>('lichessHost', kLichessHost);
-      ref.listenManual(kidModeProvider, (prev, state) {
-        if (state.hasValue && prev?.value != state.value) {
-          HomeWidget.saveWidgetData<bool>('isKidMode', state.value).then((_) {
-            Future.wait([
-              for (final kind in _kIosBlogWidgetKinds) HomeWidget.updateWidget(iOSName: kind),
-            ]);
-          });
-        }
-      }, fireImmediately: true);
-      ref.listenManual(boardPreferencesProvider, (prev, state) {
-        if (prev == null ||
-            prev.boardTheme != state.boardTheme ||
-            prev.pieceSet != state.pieceSet) {
-          Future.wait([
-            HomeWidget.saveWidgetData<String>('boardTheme', state.boardTheme.name),
-            HomeWidget.saveWidgetData<String>('pieceSet', state.pieceSet.name),
-          ]).then((_) {
-            HomeWidget.updateWidget(iOSName: 'DailyPuzzleLargeWidget');
-          });
-        }
-      }, fireImmediately: true);
-    }
+    // DISABLED FOR OFFLINE MODE - REENABLE IF ONLINE FEATURES RETURNED
+    // ref.read(notificationServiceProvider).start();
+    // ref.read(messageServiceProvider).start();
+    // ref.read(challengeServiceProvider).start();
+    // ref.read(accountServiceProvider).start();
+    // ref.read(correspondenceServiceProvider).start();
+    // ref.read(announceServiceProvider).start();
+    // ref.read(appLinksServiceProvider).start();
 
+    // DISABLED FOR OFFLINE MODE - REENABLE IF ONLINE FEATURES RETURNED
+    /*
     // Listen for connectivity changes and perform actions accordingly.
     ref.listenManual(connectivityChangesProvider, (prev, current) async {
       final prevWasOffline = prev?.value?.isOnline == false;
@@ -200,6 +157,7 @@ class _AppState extends ConsumerState<Application> {
         socketClient.close();
       }
     });
+    */
 
     super.initState();
   }
@@ -208,7 +166,8 @@ class _AppState extends ConsumerState<Application> {
   Widget build(BuildContext context) {
     final generalPrefs = ref.watch(generalPreferencesProvider);
     final boardPrefs = ref.watch(boardPreferencesProvider);
-    final theme = makeAppTheme(context, generalPrefs, boardPrefs);
+    final activePalette = ref.watch(activePaletteProvider);
+    final theme = makeAppTheme(context, generalPrefs, boardPrefs, appPalette: activePalette);
 
     final isIOS = Theme.of(context).platform == TargetPlatform.iOS;
 

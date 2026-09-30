@@ -117,8 +117,26 @@ class PuzzleStreakController extends AsyncNotifier<StreakState> {
   Future<void> gameOver() async {
     if (!state.hasValue) return;
 
+    final authUser = ref.read(authControllerProvider);
+    final currentStreak = state.requireValue.streak;
+    final playedIds = currentStreak.streak.take(currentStreak.index + 1).toSet();
+
+    final batchStorage = await ref.read(puzzleBatchStorageProvider.future);
+    final batch = await batchStorage.fetch(
+      userId: authUser?.user.id,
+      angle: const PuzzleTheme(PuzzleThemeKey.mix),
+    );
+    if (batch != null) {
+      final newUnsolved = batch.unsolved.where((p) => !playedIds.contains(p.puzzle.id)).toIList();
+      await batchStorage.save(
+        userId: authUser?.user.id,
+        angle: const PuzzleTheme(PuzzleThemeKey.mix),
+        data: batch.copyWith(unsolved: newUnsolved),
+      );
+    }
+
     state = AsyncData((
-      streak: state.requireValue.streak.copyWith(finished: true),
+      streak: currentStreak.copyWith(finished: true),
       puzzle: state.requireValue.puzzle,
       nextPuzzle: state.requireValue.nextPuzzle,
     ));
