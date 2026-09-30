@@ -1,4 +1,4 @@
-import 'package:dartchess/dartchess.dart';
+import 'package:lichess_mobile/src/model/common/chess.dart' show Variant;
 import 'package:flutter/material.dart';
 import 'package:lichess_mobile/src/model/analysis/analysis_controller.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_angle.dart';
