@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:l10n_esperanto/l10n_esperanto.dart';
 import 'package:lichess_mobile/l10n/l10n.dart';
 import 'package:lichess_mobile/src/binding.dart';
+import 'package:lichess_mobile/src/debug/startup_debugger.dart';
 import 'package:lichess_mobile/src/model/analysis/analysis_preferences.dart';
 import 'package:lichess_mobile/src/model/broadcast/broadcast_preferences.dart';
 import 'package:lichess_mobile/src/model/log/app_log_service.dart';
@@ -26,10 +27,11 @@ class AppInitializationScreen extends ConsumerWidget {
     // Remove splash ASAP after first frame.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       FlutterNativeSplash.remove();
+      StartupDebugger.updateStep('Splash Removed');
     });
 
     // Application handles data loading after the first frame is rendered.
-    return const Application();
+    return const Stack(children: [Application(), StartupDebugger()]);
   }
 }
 
@@ -97,12 +99,14 @@ class _AppState extends ConsumerState<Application> {
   void initState() {
     super.initState();
 
+    StartupDebugger.updateStep('Starting Services');
     _screenSizeBasedInitialization(ref).ignore();
 
     // Start services
     ref.read(appLogServiceProvider).start();
     ref.read(quickActionServiceProvider).start();
     ref.read(sharedPgnServiceProvider).start().ignore();
+    StartupDebugger.updateStep('Services Started');
 
     // DISABLED FOR OFFLINE MODE - REENABLE IF ONLINE FEATURES RETURNED
     // ref.read(notificationServiceProvider).start();
