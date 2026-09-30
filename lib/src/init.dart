@@ -13,7 +13,6 @@ import 'package:lichess_mobile/src/model/notifications/notification_service.dart
 import 'package:lichess_mobile/src/model/notifications/notifications.dart';
 import 'package:lichess_mobile/src/model/settings/board_preferences.dart';
 import 'package:lichess_mobile/src/model/settings/preferences_storage.dart';
-import 'package:lichess_mobile/src/utils/chessboard.dart';
 import 'package:lichess_mobile/src/utils/color_palette.dart';
 import 'package:lichess_mobile/src/utils/screen.dart';
 import 'package:lichess_mobile/src/utils/string.dart';
@@ -86,21 +85,6 @@ Future<void> initializeLocalNotifications(Locale locale) async {
   );
 }
 
-Future<void> preloadPieceImages() async {
-  final prefs = LichessBinding.instance.sharedPreferences;
-  final storedPrefs = prefs.getString(PrefCategory.board.storageKey);
-  BoardPrefs boardPrefs = BoardPrefs.defaults;
-  if (storedPrefs != null) {
-    try {
-      boardPrefs = BoardPrefs.fromJson(jsonDecode(storedPrefs) as Map<String, dynamic>);
-    } catch (e) {
-      _logger.warning('Failed to decode board preferences: $e');
-    }
-  }
-
-  await precachePieceImages(boardPrefs.pieceSet);
-}
-
 /// Display setup on Android.
 ///
 /// This is meant to be called once during app initialization.
@@ -157,3 +141,4 @@ Future<void> androidDisplayInitialization(WidgetsBinding widgetsBinding) async {
   // This setting is per session.
   await FlutterDisplayMode.setPreferredMode(mostOptimalMode);
 }
+import 'dart:convert';

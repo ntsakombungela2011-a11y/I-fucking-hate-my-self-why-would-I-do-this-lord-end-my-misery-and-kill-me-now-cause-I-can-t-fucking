@@ -1,9 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lichess_mobile/src/binding.dart';
 import 'package:lichess_mobile/src/model/common/chess.dart';
 import 'package:lichess_mobile/src/model/settings/general_preferences.dart';
 import 'package:lichess_mobile/src/model/settings/preferences_storage.dart';
@@ -40,14 +37,9 @@ final soundServiceProvider = Provider<SoundService>((Ref ref) {
 
 final _extension = defaultTargetPlatform == TargetPlatform.iOS ? 'aifc' : 'mp3';
 
-const Set<Sound> _emtpySet = {};
-
-/// Loads all sounds of the given [SoundTheme].
-Future<void> _loadAllSounds(SoundTheme soundTheme, {Set<Sound> excluded = _emtpySet}) async {
-  await Future.wait(
-    Sound.values.where((s) => !excluded.contains(s)).map((sound) => _loadSound(soundTheme, sound)),
-  );
-}
+Future<void>? _soundEngineInitialization;
+SoundTheme? _loadedSoundTheme;
+final Map<Sound, Future<void>> _soundLoads = {};
 
 /// Loads a single sound from the given [SoundTheme].
 Future<void> _loadSound(SoundTheme theme, Sound sound) async {
@@ -56,13 +48,21 @@ Future<void> _loadSound(SoundTheme theme, Sound sound) async {
   final soundId = sound.name;
   final file = '$soundId.$_extension';
   String fullPath = '$themePath/$file';
-  // If the sound file is not found in the theme, fallback to the standard theme.
+  // Load only the requested sound and fall back to the standard asset when needed.
   try {
     await rootBundle.load(fullPath);
   } catch (_) {
     fullPath = '$standardPath/$file';
   }
   await _soundEffectPlugin.load(soundId, fullPath);
+}
+
+Future<void> _ensureSoundLoaded(SoundTheme theme, Sound sound) {
+  if (_loadedSoundTheme != theme) {
+    _loadedSoundTheme = theme;
+    _soundLoads.clear();
+  }
+  return _soundLoads.putIfAbsent(sound, () => _loadSound(theme, sound));
 }
 
 /// Service to play game sounds.
@@ -73,20 +73,14 @@ class SoundService {
 
   /// Initialize the sound service.
   ///
-  /// This will load the sounds from assets and make them ready to be played.
-  /// This should be called once when the app starts.
-  static Future<void> initialize() async {
+  /// Initializes the audio engine without decoding any sound assets.
+  static Future<void> initialize() {
+    return _soundEngineInitialization ??= _initializeEngine();
+  }
+
+  static Future<void> _initializeEngine() async {
     try {
-      final stored = LichessBinding.instance.sharedPreferences.getString(
-        PrefCategory.general.storageKey,
-      );
-      final theme =
-          (stored != null
-                  ? GeneralPrefs.fromJson(jsonDecode(stored) as Map<String, dynamic>)
-                  : GeneralPrefs.defaults)
-              .soundTheme;
       await _soundEffectPlugin.initialize(maxStreams: _kMaxConcurrentStreams);
-      await _loadAllSounds(theme);
     } catch (e) {
       _logger.warning('Failed to initialize sound service: $e');
     }
@@ -100,6 +94,8 @@ class SoundService {
     if (!isEnabled || finalVolume == 0.0) {
       return;
     }
+    await initialize();
+    await _ensureSoundLoaded(_ref.read(generalPreferencesProvider).soundTheme, sound);
     _soundEffectPlugin.play(sound.name, volume: finalVolume);
   }
 
@@ -115,15 +111,20 @@ class SoundService {
   /// If [playSound] is true, a move sound will be played.
   Future<void> changeTheme(SoundTheme theme, {bool playSound = false}) async {
     await _soundEffectPlugin.release();
-    await _soundEffectPlugin.initialize(maxStreams: _kMaxConcurrentStreams);
-    await _loadSound(theme, Sound.move);
+    _soundEngineInitialization = null;
+    _loadedSoundTheme = null;
+    _soundLoads.clear();
+    await initialize();
     if (playSound) {
-      play(Sound.move);
+      await _ensureSoundLoaded(theme, Sound.move);
+      _soundEffectPlugin.play(Sound.move.name);
     }
-    await _loadAllSounds(theme, excluded: {Sound.move});
   }
 
   Future<void> release() async {
     await _soundEffectPlugin.release();
+    _soundEngineInitialization = null;
+    _loadedSoundTheme = null;
+    _soundLoads.clear();
   }
 }
