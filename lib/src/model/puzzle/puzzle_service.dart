@@ -8,9 +8,11 @@ import 'package:lichess_mobile/src/model/common/id.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_angle.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_batch_storage.dart';
-import 'package:lichess_mobile/src/model/puzzle/offline_puzzle_repository.dart';
+import 'package:lichess_mobile/src/model/puzzle/puzzle_preferences.dart';
+import 'package:lichess_mobile/src/model/puzzle/puzzle_repository.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_storage.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_theme.dart';
+import 'package:lichess_mobile/src/network/http.dart';
 import 'package:logging/logging.dart';
 import 'package:result_extensions/result_extensions.dart';
 
@@ -106,9 +108,10 @@ class PuzzleService {
     );
   }
 
-  /// Update puzzle queue with the solved puzzle and returns the next puzzle.
+  /// Update puzzle queue with the solved puzzle, sync with server and returns
+  /// the next puzzle with the glicko rating if available.
   ///
-  /// This future should never fail.
+  /// This future should never fail on network errors.
   Future<PuzzleContext?> solve({
     required UserId? userId,
     required PuzzleSolution solution,
@@ -116,17 +119,6 @@ class PuzzleService {
     PuzzleAngle angle = const PuzzleTheme(PuzzleThemeKey.mix),
   }) async {
     puzzleStorage.save(puzzle: puzzle);
-    final batch = await batchStorage.fetch(userId: userId, angle: angle);
-    if (batch != null) {
-      await batchStorage.save(
-        userId: userId,
-        angle: angle,
-        data: PuzzleBatch(
-          solved: IList([...batch.solved, solution]),
-          unsolved: batch.unsolved.where((p) => p.puzzle.id != puzzle.puzzle.id).toIList(),
-        ),
-      );
-    }
     return nextPuzzle(userId: userId, angle: angle);
   }
 
@@ -143,12 +135,14 @@ class PuzzleService {
     await batchStorage.delete(userId: userId, angle: angle);
   }
 
-  /// Synchronize the puzzle queue with the bundled offline puzzle database.
+  /// Synchronize offline puzzle queue with server and gets latest data.
   ///
-  /// This task will load missing puzzles so the queue length is always equal to
+  /// This task will fetch missing puzzles so the queue length is always equal to
   /// `queueLength`.
+  /// It will call [PuzzleRepository.solveBatch] if necessary.
   ///
-  /// This method should never fail.
+  /// This method should never fail, as if the network is down it will fallback
+  /// to the local database.
   FutureResult<(PuzzleBatch?, PuzzleGlicko?, IList<PuzzleRound>?)> _syncAndLoadData(
     UserId? userId,
     PuzzleAngle angle,
@@ -157,28 +151,51 @@ class PuzzleService {
 
     final unsolved = data?.unsolved ?? IList(const []);
     final solved = data?.solved ?? IList(const []);
+
     final deficit = max(0, queueLength - unsolved.length);
 
-    if (deficit == 0 && solved.isEmpty) {
-      return Result.value((data, null, null));
-    }
+    if (deficit > 0 || solved.isNotEmpty) {
+      _log.fine('Will sync puzzles with lichess (deficit: $deficit, solved: ${solved.length})');
 
-    _log.fine('Will load offline puzzles (deficit: $deficit, solved: ${solved.length})');
+      final difficulty = _ref.read(puzzlePreferencesProvider).difficulty;
 
-    try {
-      final offlineRepository = await _ref.read(offlinePuzzleRepositoryProvider.future);
-      final puzzles = deficit > 0
-          ? await offlineRepository.randomPuzzles(limit: deficit, angle: angle)
-          : IList<Puzzle>(const []);
-      final newBatch = PuzzleBatch(
-        solved: IList(const []),
-        unsolved: IList([...unsolved, ...puzzles]),
+      // anonymous users can't solve puzzles so we just download the deficit
+      final batchResponse = _ref.withClient(
+        (client) => Result.capture(
+          solved.isNotEmpty && userId != null
+              ? PuzzleRepository(
+                  client,
+                ).solveBatch(nb: deficit, solved: solved, angle: angle, difficulty: difficulty)
+              : PuzzleRepository(
+                  client,
+                ).selectBatch(nb: deficit, angle: angle, difficulty: difficulty),
+        ),
       );
-      await batchStorage.save(userId: userId, angle: angle, data: newBatch);
-      return Result.value((newBatch, null, null));
-    } catch (e, stackTrace) {
-      _log.warning('Could not load offline puzzles', e, stackTrace);
-      return Result.value((data, null, null));
+
+      return batchResponse
+          .fold(
+            (value) => Result.value((
+              PuzzleBatch(
+                solved: IList(const []),
+                unsolved: IList([...unsolved, ...value.puzzles]),
+              ),
+              value.glicko,
+              value.rounds,
+              true, // should save the batch
+            )),
+
+            // we don't need to save the batch if the request failed
+            (_, _) => Result.value((data, null, null, false)),
+          )
+          .flatMap((tuple) async {
+            final (newBatch, glicko, rounds, shouldSave) = tuple;
+            if (newBatch != null && shouldSave) {
+              await batchStorage.save(userId: userId, angle: angle, data: newBatch);
+            }
+            return Result.value((newBatch, glicko, rounds));
+          });
     }
+
+    return Result.value((data, null, null));
   }
 }

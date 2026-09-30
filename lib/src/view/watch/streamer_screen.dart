@@ -8,7 +8,6 @@ import 'package:lichess_mobile/src/utils/navigation.dart';
 import 'package:lichess_mobile/src/widgets/list.dart';
 import 'package:lichess_mobile/src/widgets/network_image.dart';
 import 'package:lichess_mobile/src/widgets/platform.dart';
-import 'package:material_symbols_icons/symbols.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 const _kThumbnailSize = 75.0;
@@ -78,17 +77,13 @@ class StreamerListTile extends StatelessWidget {
               height: thumbnailSize,
               fit: BoxFit.cover,
             )
-          : ColoredBox(
-              color: Theme.of(context).colorScheme.surfaceContainerHighest,
-              child: SizedBox.square(
-                dimension: thumbnailSize,
-                child: Icon(
-                  Symbols.train_rounded,
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  size: thumbnailSize * 0.46,
-                  weight: 200,
-                ),
-              ),
+          : Image.asset(
+              Theme.of(context).brightness == Brightness.light
+                  ? 'assets/images/logo-black.webp'
+                  : 'assets/images/logo-white.webp',
+              width: thumbnailSize,
+              height: thumbnailSize,
+              fit: BoxFit.cover,
             ),
     );
 

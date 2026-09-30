@@ -4,17 +4,33 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_angle.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_providers.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_theme.dart';
+import 'package:lichess_mobile/src/network/connectivity.dart';
 import 'package:lichess_mobile/src/styles/styles.dart';
 import 'package:lichess_mobile/src/utils/l10n_context.dart';
 import 'package:lichess_mobile/src/utils/navigation.dart';
+import 'package:lichess_mobile/src/view/puzzle/opening_screen.dart';
 import 'package:lichess_mobile/src/view/puzzle/puzzle_screen.dart';
 import 'package:lichess_mobile/src/widgets/list.dart';
 import 'package:lichess_mobile/src/widgets/platform.dart';
 import 'package:lichess_mobile/src/widgets/platform_search_bar.dart';
 
-final _themesProvider = FutureProvider.autoDispose<IMap<PuzzleThemeKey, PuzzleThemeData>>((ref) {
-  return ref.watch(puzzleThemesProvider.future);
-});
+final _themesProvider =
+    FutureProvider.autoDispose<
+      (bool, IMap<PuzzleThemeKey, int>, IMap<PuzzleThemeKey, PuzzleThemeData>?, bool)
+    >((ref) async {
+      final isOnline = await ref.watch(onlineStatusProvider.future);
+      final savedThemes = await ref.watch(savedThemeBatchesProvider.future);
+      IMap<PuzzleThemeKey, PuzzleThemeData>? onlineThemes;
+      if (isOnline) {
+        try {
+          onlineThemes = await ref.watch(puzzleThemesProvider.future);
+        } catch (e) {
+          onlineThemes = null;
+        }
+      }
+      final savedOpenings = await ref.watch(savedOpeningBatchesProvider.future);
+      return (isOnline, savedThemes, onlineThemes, savedOpenings.isNotEmpty);
+    });
 
 class PuzzleThemesScreen extends StatelessWidget {
   const PuzzleThemesScreen({super.key});
@@ -57,8 +73,9 @@ class _BodyState extends ConsumerState<_Body> {
 
     return themes.when(
       data: (data) {
-        final offlineThemes = data;
+        final (hasConnectivity, savedThemes, onlineThemes, hasSavedOpenings) = data;
 
+        final openingsAvailable = hasConnectivity || hasSavedOpenings;
         final searchBar = Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
           child: PlatformSearchBar(
@@ -88,11 +105,13 @@ class _BodyState extends ConsumerState<_Body> {
               ListSection(
                 hasLeading: true,
                 children: matched.map((theme) {
-                  final isThemeAvailable = (offlineThemes[theme]?.count ?? 0) > 0;
+                  final isThemeAvailable = hasConnectivity || savedThemes.containsKey(theme);
                   return _ThemeTile(
                     theme: theme,
                     isThemeAvailable: isThemeAvailable,
-                    offlineThemes: offlineThemes,
+                    hasConnectivity: hasConnectivity,
+                    onlineThemes: onlineThemes,
+                    savedThemes: savedThemes,
                   );
                 }).toList(),
               ),
@@ -105,8 +124,10 @@ class _BodyState extends ConsumerState<_Body> {
             searchBar,
             for (final category in list)
               _Category(
+                hasConnectivity: hasConnectivity,
                 category: category,
-                offlineThemes: offlineThemes,
+                onlineThemes: onlineThemes,
+                savedThemes: savedThemes,
               ),
           ],
         );
@@ -121,12 +142,16 @@ class _ThemeTile extends StatelessWidget {
   const _ThemeTile({
     required this.theme,
     required this.isThemeAvailable,
-    required this.offlineThemes,
+    required this.hasConnectivity,
+    required this.onlineThemes,
+    required this.savedThemes,
   });
 
   final PuzzleThemeKey theme;
   final bool isThemeAvailable;
-  final IMap<PuzzleThemeKey, PuzzleThemeData> offlineThemes;
+  final bool hasConnectivity;
+  final IMap<PuzzleThemeKey, PuzzleThemeData>? onlineThemes;
+  final IMap<PuzzleThemeKey, int> savedThemes;
 
   @override
   Widget build(BuildContext context) {
@@ -138,10 +163,15 @@ class _ThemeTile extends StatelessWidget {
     return ListTile(
       enabled: isThemeAvailable,
       leading: Icon(theme.icon),
-      trailing: offlineThemes.containsKey(theme)
+      trailing: hasConnectivity && onlineThemes?.containsKey(theme) == true
           ? Padding(
               padding: const EdgeInsets.only(left: 6.0),
-              child: Text('${offlineThemes[theme]!.count}', style: themeCountStyle),
+              child: Text('${onlineThemes![theme]!.count}', style: themeCountStyle),
+            )
+          : savedThemes.containsKey(theme)
+          ? Padding(
+              padding: const EdgeInsets.only(left: 6.0),
+              child: Text('${savedThemes[theme]!}', style: themeCountStyle),
             )
           : null,
       title: Text(theme.l10n(context.l10n).name),
@@ -165,12 +195,16 @@ class _ThemeTile extends StatelessWidget {
 
 class _Category extends StatelessWidget {
   const _Category({
+    required this.hasConnectivity,
     required this.category,
-    required this.offlineThemes,
+    required this.onlineThemes,
+    required this.savedThemes,
   });
 
+  final bool hasConnectivity;
   final PuzzleThemeCategory category;
-  final IMap<PuzzleThemeKey, PuzzleThemeData> offlineThemes;
+  final IMap<PuzzleThemeKey, PuzzleThemeData>? onlineThemes;
+  final IMap<PuzzleThemeKey, int> savedThemes;
 
   @override
   Widget build(BuildContext context) {
@@ -184,11 +218,13 @@ class _Category extends StatelessWidget {
           ListSection(
             hasLeading: true,
             children: themes.map((theme) {
-              final isThemeAvailable = (offlineThemes[theme]?.count ?? 0) > 0;
+              final isThemeAvailable = hasConnectivity || savedThemes.containsKey(theme);
               return _ThemeTile(
                 theme: theme,
                 isThemeAvailable: isThemeAvailable,
-                offlineThemes: offlineThemes,
+                hasConnectivity: hasConnectivity,
+                onlineThemes: onlineThemes,
+                savedThemes: savedThemes,
               );
             }).toList(),
           ),
