@@ -5,10 +5,10 @@ import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:lichess_mobile/src/model/common/id.dart';
+import 'package:lichess_mobile/src/model/puzzle/offline_puzzle_repository.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_angle.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_batch_storage.dart';
-import 'package:lichess_mobile/src/model/puzzle/offline_puzzle_repository.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_storage.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_theme.dart';
 import 'package:logging/logging.dart';
@@ -89,21 +89,18 @@ class PuzzleService {
     PuzzleAngle angle = const PuzzleTheme(PuzzleThemeKey.mix),
   }) async {
     final result = await _syncAndLoadData(userId, angle);
-    return result.fold(
-      (data) {
-        final (batch, glicko, rounds) = data;
-        final puzzle = batch == null || batch.unsolved.isEmpty ? null : batch.unsolved.first;
-        if (puzzle == null) return null;
-        return PuzzleContext(
-          puzzle: puzzle,
-          angle: angle,
-          userId: userId,
-          glicko: glicko,
-          rounds: rounds,
-        );
-      },
-      (_, _) => null,
-    );
+    return result.fold((data) {
+      final (batch, glicko, rounds) = data;
+      final puzzle = batch == null || batch.unsolved.isEmpty ? null : batch.unsolved.first;
+      if (puzzle == null) return null;
+      return PuzzleContext(
+        puzzle: puzzle,
+        angle: angle,
+        userId: userId,
+        glicko: glicko,
+        rounds: rounds,
+      );
+    }, (_, _) => null);
   }
 
   /// Update puzzle queue with the solved puzzle and returns the next puzzle.
@@ -134,9 +131,7 @@ class PuzzleService {
   Future<PuzzleContext?> resetBatch({
     required UserId? userId,
     PuzzleAngle angle = const PuzzleTheme(PuzzleThemeKey.mix),
-  }) async {
-    return nextPuzzle(userId: userId, angle: angle);
-  }
+  }) => nextPuzzle(userId: userId, angle: angle);
 
   /// Deletes the puzzle batch of [angle] from the local storage.
   Future<void> deleteBatch({required UserId? userId, required PuzzleAngle angle}) async {
