@@ -52,7 +52,7 @@ class PalettePickerScreen extends ConsumerWidget {
   }
 }
 
-class _PaletteSectionList extends StatelessWidget {
+class _PaletteSectionList extends ConsumerWidget {
   const _PaletteSectionList({required this.palettes, required this.selectedName});
 
   static const _tileExtent = 80.0;
@@ -61,37 +61,39 @@ class _PaletteSectionList extends StatelessWidget {
   final String selectedName;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final maxHeight = MediaQuery.sizeOf(context).height * 0.6;
     final listHeight = math.min(palettes.length * _tileExtent, maxHeight);
 
     return SizedBox(
       height: listHeight,
-      child: ListView.builder(
-        primary: false,
-        itemExtent: _tileExtent,
-        itemCount: palettes.length,
-        itemBuilder: (context, index) => _PaletteTile(
-          palette: palettes[index],
-          selectedName: selectedName,
+      child: RadioGroup<String>(
+        groupValue: selectedName,
+        onChanged: (name) {
+          if (name != null) {
+            ref.read(themePalettePreferenceProvider.notifier).setPalette(name);
+          }
+        },
+        child: ListView.builder(
+          primary: false,
+          itemExtent: _tileExtent,
+          itemCount: palettes.length,
+          itemBuilder: (context, index) => _PaletteTile(palette: palettes[index]),
         ),
       ),
     );
   }
 }
 
-class _PaletteTile extends ConsumerWidget {
-  const _PaletteTile({required this.palette, required this.selectedName});
+class _PaletteTile extends StatelessWidget {
+  const _PaletteTile({required this.palette});
 
   final AppPalette palette;
-  final String selectedName;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return RadioListTile<String>(
       value: palette.name,
-      groupValue: selectedName,
-      onChanged: (_) => ref.read(themePalettePreferenceProvider.notifier).setPalette(palette.name),
       title: Text(palette.name),
       subtitle: Padding(
         padding: const EdgeInsets.only(top: 8.0),

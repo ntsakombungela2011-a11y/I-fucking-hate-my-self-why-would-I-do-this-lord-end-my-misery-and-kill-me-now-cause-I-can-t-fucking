@@ -2,18 +2,16 @@ import 'dart:async';
 
 import 'package:dartchess/dartchess.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 import 'package:lichess_mobile/src/constants.dart';
-import 'package:flutter/foundation.dart';
 import 'package:lichess_mobile/src/db/openings_database.dart';
-import 'package:lichess_mobile/src/model/common/chess.dart' show Variant, LightOpening;
+import 'package:lichess_mobile/src/model/common/chess.dart' show LightOpening, Variant;
 import 'package:lichess_mobile/src/model/common/speed.dart';
 import 'package:lichess_mobile/src/model/explorer/opening_explorer.dart';
-import 'package:lichess_mobile/src/model/explorer/opening_explorer_preferences.dart';
 import 'package:lichess_mobile/src/network/http.dart';
 import 'package:lichess_mobile/src/utils/riverpod.dart';
-import 'package:sqflite/sqflite.dart';
 
 final openingExplorerProvider = AsyncNotifierProvider.autoDispose
     .family<
@@ -240,14 +238,3 @@ class OpeningExplorerRepository {
 // Other variants must be explicit or the API falls back to standard data.
 String _openingExplorerVariantKey(Variant variant) =>
     variant == Variant.fromPosition ? Variant.standard.name : variant.name;
-
-OpeningDatabase _openingExplorerDatabaseFor(OpeningDatabase db, Variant variant) {
-  // The masters endpoint has no variant parameter. For variants, fall back to
-  // Lichess DB instead of asking users to change their persisted setting.
-  if (db == OpeningDatabase.master &&
-      variant != Variant.standard &&
-      variant != Variant.fromPosition) {
-    return OpeningDatabase.lichess;
-  }
-  return db;
-}

@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lichess_mobile/src/model/common/perf.dart';
 import 'package:lichess_mobile/src/network/connectivity.dart';
-import 'package:lichess_mobile/src/styles/lichess_icons.dart';
 import 'package:lichess_mobile/src/utils/l10n_context.dart';
 import 'package:lichess_mobile/src/view/offline_computer/offline_computer_game_screen.dart';
 import 'package:lichess_mobile/src/view/over_the_board/over_the_board_screen.dart';
 import 'package:lichess_mobile/src/view/play/correspondence_challenges_screen.dart';
 import 'package:lichess_mobile/src/view/play/create_challenge_bottom_sheet.dart';
 import 'package:lichess_mobile/src/view/play/create_game_widget.dart';
-import 'package:lichess_mobile/src/view/tournament/tournament_list_screen.dart';
 import 'package:lichess_mobile/src/widgets/list.dart';
 
 class PlayMenu extends ConsumerWidget {
@@ -31,9 +29,7 @@ class PlayMenu extends ConsumerWidget {
               enabled: isOnline,
               onTap: () {
                 // Pops the play bottom sheet
-                Navigator.of(
-                  context,
-                ).popUntil((route) => route is! ModalBottomSheetRoute);
+                Navigator.of(context).popUntil((route) => route is! ModalBottomSheetRoute);
                 showModalBottomSheet<void>(
                   context: context,
                   isScrollControlled: true,
@@ -50,9 +46,7 @@ class PlayMenu extends ConsumerWidget {
               enabled: isOnline,
               onTap: () {
                 // Pops the play bottom sheet
-                Navigator.of(
-                  context,
-                ).popUntil((route) => route is! ModalBottomSheetRoute);
+                Navigator.of(context).popUntil((route) => route is! ModalBottomSheetRoute);
                 Navigator.of(
                   context,
                   rootNavigator: true,
@@ -65,9 +59,7 @@ class PlayMenu extends ConsumerWidget {
             ListTile(
               onTap: () {
                 // Pops the play bottom sheet
-                Navigator.of(
-                  context,
-                ).popUntil((route) => route is! ModalBottomSheetRoute);
+                Navigator.of(context).popUntil((route) => route is! ModalBottomSheetRoute);
                 Navigator.of(
                   context,
                   rootNavigator: true,
@@ -79,13 +71,8 @@ class PlayMenu extends ConsumerWidget {
             ListTile(
               onTap: () {
                 // Pops the play bottom sheet
-                Navigator.of(
-                  context,
-                ).popUntil((route) => route is! ModalBottomSheetRoute);
-                Navigator.of(
-                  context,
-                  rootNavigator: true,
-                ).push(OverTheBoardScreen.buildRoute());
+                Navigator.of(context).popUntil((route) => route is! ModalBottomSheetRoute);
+                Navigator.of(context, rootNavigator: true).push(OverTheBoardScreen.buildRoute());
               },
               leading: const Icon(Icons.table_restaurant_outlined),
               title: Text(context.l10n.mobileOverTheBoard),
@@ -104,10 +91,6 @@ class _Section extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListSection(
-      hasLeading: true,
-      materialFilledCard: true,
-      children: children,
-    );
+    return ListSection(hasLeading: true, materialFilledCard: true, children: children);
   }
 }

@@ -2,10 +2,10 @@ import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lichess_mobile/src/model/auth/auth_controller.dart';
 import 'package:lichess_mobile/src/model/common/id.dart';
+import 'package:lichess_mobile/src/model/puzzle/offline_puzzle_repository.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_angle.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_batch_storage.dart';
-import 'package:lichess_mobile/src/model/puzzle/offline_puzzle_repository.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_opening.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_repository.dart';
 import 'package:lichess_mobile/src/model/puzzle/puzzle_service.dart';
@@ -143,10 +143,7 @@ final puzzleThemesProvider = FutureProvider.autoDispose<IMap<PuzzleThemeKey, Puz
   final offlineRepository = await ref.watch(offlinePuzzleRepositoryProvider.future);
   final counts = await offlineRepository.themeCounts();
   return counts.map((theme, count) {
-    return MapEntry(
-      theme,
-      PuzzleThemeData(count: count, desc: null, key: theme, name: theme.name),
-    );
+    return MapEntry(theme, PuzzleThemeData(count: count, desc: null, key: theme, name: theme.name));
   });
 }, name: 'PuzzleThemesProvider');
 
