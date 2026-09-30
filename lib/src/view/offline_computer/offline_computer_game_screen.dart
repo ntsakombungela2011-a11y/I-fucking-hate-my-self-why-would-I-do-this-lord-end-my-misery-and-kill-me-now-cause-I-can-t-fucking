@@ -927,14 +927,14 @@ class _NewGameSheetState extends ConsumerState<_NewGameSheet> {
                     final effectiveFen =
                         widget.initialFen ??
                         (_selectedVariant == Variant.fromPosition ? _fromPositionFen : null);
-                    final engineSide =
+                    final side =
                         _selectedSideChoice.toSide(fen: effectiveFen) ??
                         Side.values[Random().nextInt(2)];
                     ref
                         .read(offlineComputerGameControllerProvider.notifier)
                         .startNewGame(
                           stockfishLevel: _selectedLevel,
-                          playerSide: engineSide.opposite,
+                          playerSide: side,
                           casual: _practiceMode || _casual,
                           practiceMode: _practiceMode,
                           variant: _selectedVariant,

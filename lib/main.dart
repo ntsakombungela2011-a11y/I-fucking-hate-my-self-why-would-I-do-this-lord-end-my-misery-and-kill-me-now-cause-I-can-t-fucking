@@ -14,14 +14,30 @@ Future<void> main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   final lichessBinding = AppLichessBinding.ensureInitialized();
 
-  // 1. Preserve Splash immediately
+  // Show splash screen until app is ready
+  // See src/app.dart for splash screen removal
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-  // 2. CRITICAL PATH ONLY (Must happen before runApp)
-  // Shared Preferences are needed for theme/locale detection instantly.
   await lichessBinding.preloadSharedPreferences();
 
-  // 3. RUN APP IMMEDIATELY
+  await preloadPieceImages();
+
+  await initializeApp();
+
+  await SoundService.initialize();
+
+  final locale = await setupIntl(widgetsBinding);
+
+  await initializeLocalNotifications(locale);
+
+  if (defaultTargetPlatform != TargetPlatform.linux) {
+    await lichessBinding.initializeFirebase();
+  }
+
+  if (defaultTargetPlatform == TargetPlatform.android) {
+    await androidDisplayInitialization(widgetsBinding);
+  }
+
   runApp(
     ProviderScope(
       observers: [ProviderLogger()],
@@ -34,22 +50,4 @@ Future<void> main() async {
       child: const AppInitializationScreen(),
     ),
   );
-
-  // 4. DEFERRED INITIALIZATION (Run AFTER first frame)
-  preloadPieceImages().then((_) => debugPrint('Pieces preloaded'));
-  SoundService.initialize().then((_) => debugPrint('Sounds ready'));
-  setupIntl(widgetsBinding).then((locale) {
-    initializeLocalNotifications(locale).then((_) => debugPrint('Notifs ready'));
-  });
-
-  // Firebase initialization is deferred while the app is offline-first.
-  /*
-  if (defaultTargetPlatform != TargetPlatform.linux) {
-    lichessBinding.initializeFirebase().then((_) => debugPrint('Firebase ready'));
-  }
-  */
-
-  if (defaultTargetPlatform == TargetPlatform.android) {
-    androidDisplayInitialization(widgetsBinding).then((_) => debugPrint('Display ready'));
-  }
 }

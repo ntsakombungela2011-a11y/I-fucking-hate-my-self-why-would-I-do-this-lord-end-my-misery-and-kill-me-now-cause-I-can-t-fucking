@@ -502,12 +502,7 @@ class AboutScreen extends ConsumerWidget {
                     context: context,
                     applicationName: 'Lichess',
                     applicationVersion: packageInfo.version,
-                    applicationIcon: Icon(
-                      Symbols.train_rounded,
-                      color: Theme.of(context).colorScheme.onSurface,
-                      size: 32,
-                      weight: 200,
-                    ),
+                    applicationIcon: const Icon(LichessIcons.logo_lichess),
                   );
                 },
               ),

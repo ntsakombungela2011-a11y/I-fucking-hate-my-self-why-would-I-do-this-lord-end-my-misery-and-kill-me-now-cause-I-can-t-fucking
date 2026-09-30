@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:lichess_mobile/src/constants.dart';
 import 'package:lichess_mobile/src/model/settings/board_preferences.dart';
 import 'package:lichess_mobile/src/model/settings/general_preferences.dart';
-import 'package:lichess_mobile/src/model/settings/palette.dart';
 import 'package:lichess_mobile/src/styles/styles.dart';
 import 'package:lichess_mobile/src/utils/color_palette.dart';
 
@@ -12,12 +11,7 @@ const kSliderTheme = SliderThemeData(
   year2023: false,
 );
 
-ThemeData makeAppTheme(
-  BuildContext context,
-  GeneralPrefs generalPrefs,
-  BoardPrefs boardPrefs, {
-  AppPalette? appPalette,
-}) {
+ThemeData makeAppTheme(BuildContext context, GeneralPrefs generalPrefs, BoardPrefs boardPrefs) {
   final isIOS = Theme.of(context).platform == TargetPlatform.iOS;
   final brightness = generalPrefs.isForcedDarkMode
       ? Brightness.dark
@@ -28,7 +22,7 @@ ThemeData makeAppTheme(
         };
 
   if (generalPrefs.backgroundColor == null && generalPrefs.backgroundImage == null) {
-    return _makeDefaultTheme(brightness, generalPrefs, boardPrefs, isIOS, appPalette: appPalette);
+    return _makeDefaultTheme(brightness, generalPrefs, boardPrefs, isIOS);
   } else {
     return _makeBackgroundImageTheme(
       baseTheme:
@@ -85,9 +79,8 @@ ThemeData _makeDefaultTheme(
   Brightness brightness,
   GeneralPrefs generalPrefs,
   BoardPrefs boardPrefs,
-  bool isIOS, {
-  AppPalette? appPalette,
-}) {
+  bool isIOS,
+) {
   final boardTheme = boardPrefs.boardTheme;
   final dynamicColorSchemes = getDynamicColorSchemes();
   final systemScheme = switch (brightness) {
@@ -126,10 +119,7 @@ ThemeData _makeDefaultTheme(
 
   final textTheme = isIOS ? kCupertinoDefaultTextTheme : null;
 
-  final paletteScheme = appPalette?.toColorScheme(brightness);
-  final theme = paletteScheme != null
-      ? ThemeData.from(colorScheme: paletteScheme, textTheme: textTheme)
-      : hasSystemColors
+  final theme = hasSystemColors
       ? ThemeData.from(colorScheme: systemScheme, textTheme: textTheme)
       : ThemeData.from(colorScheme: boardScheme, textTheme: textTheme);
 
