@@ -14,11 +14,10 @@ Future<void> main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   final lichessBinding = AppLichessBinding.ensureInitialized();
 
-  // 1. Preserve Splash immediately
+  // 1. Preserve Native Splash Immediately
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-  // 2. CRITICAL PATH ONLY (Must happen before runApp)
-  // Shared Preferences are needed for theme/locale detection instantly.
+  // 2. ONLY Await Critical Path: SharedPreferences
   await lichessBinding.preloadSharedPreferences();
 
   // 3. RUN APP IMMEDIATELY
@@ -28,28 +27,33 @@ Future<void> main() async {
       retry: (retryCount, error) {
         if (error is ServerException && error.statusCode != 503) return null;
         if (retryCount > 5) return null;
-
         return Duration(milliseconds: 500 * (1 << retryCount));
       },
       child: const AppInitializationScreen(),
     ),
   );
 
-  // 4. DEFERRED INITIALIZATION (Run AFTER first frame)
-  preloadPieceImages().then((_) => debugPrint('Pieces preloaded'));
-  SoundService.initialize().then((_) => debugPrint('Sounds ready'));
+  // 4. DEFERRED INITIALIZATION (Fire-and-Forget)
+  // These run AFTER the first frame is painted. They do NOT block startup.
+
+  // A. Sounds
+  SoundService.initialize().ignore();
+
+  // B. Intl & Notifications (Delayed slightly to let UI breathe)
   setupIntl(widgetsBinding).then((locale) {
-    initializeLocalNotifications(locale).then((_) => debugPrint('Notifs ready'));
-  });
+    Future.delayed(const Duration(seconds: 2), () {
+      initializeLocalNotifications(locale).ignore();
+    }).ignore();
+  }).ignore();
 
-  // Firebase initialization is deferred while the app is offline-first.
-  /*
-  if (defaultTargetPlatform != TargetPlatform.linux) {
-    lichessBinding.initializeFirebase().then((_) => debugPrint('Firebase ready'));
-  }
-  */
-
+  // C. Android Display Mode (Crucial for smoothness, but can wait 1s)
   if (defaultTargetPlatform == TargetPlatform.android) {
-    androidDisplayInitialization(widgetsBinding).then((_) => debugPrint('Display ready'));
+    Future.delayed(const Duration(seconds: 1), () {
+      androidDisplayInitialization(widgetsBinding).ignore();
+    }).ignore();
   }
+
+  // D. Firebase & Piece Images: DISABLED FROM MAIN
+  // preloadPieceImages() is NOT called here.
+  // initializeFirebase() is NOT called here.
 }

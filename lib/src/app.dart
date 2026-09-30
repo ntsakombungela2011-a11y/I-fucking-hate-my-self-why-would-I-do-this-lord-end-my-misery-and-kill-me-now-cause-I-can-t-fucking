@@ -6,7 +6,6 @@ import 'package:lichess_mobile/l10n/l10n.dart';
 import 'package:lichess_mobile/src/binding.dart';
 import 'package:lichess_mobile/src/model/analysis/analysis_preferences.dart';
 import 'package:lichess_mobile/src/model/broadcast/broadcast_preferences.dart';
-import 'package:lichess_mobile/src/model/common/preloaded_data.dart';
 import 'package:lichess_mobile/src/model/log/app_log_service.dart';
 import 'package:lichess_mobile/src/model/settings/board_preferences.dart';
 import 'package:lichess_mobile/src/model/settings/general_preferences.dart';
@@ -24,22 +23,13 @@ class AppInitializationScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen<AsyncValue<PreloadedData>>(preloadedDataProvider, (_, state) {
-      if (state.hasValue || state.hasError) {
-        FlutterNativeSplash.remove();
-      }
+    // Remove splash ASAP after first frame.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      FlutterNativeSplash.remove();
     });
 
-    switch (ref.watch(preloadedDataProvider)) {
-      case AsyncData():
-        return const Application();
-      case AsyncError(:final error, :final stackTrace):
-        debugPrint('SEVERE: [App] could not initialize app; $error\n$stackTrace');
-        return const SizedBox.shrink();
-      case _:
-        // loading screen is handled by the native splash screen
-        return const SizedBox.shrink();
-    }
+    // Application handles data loading after the first frame is rendered.
+    return const Application();
   }
 }
 
@@ -105,12 +95,14 @@ class _AppState extends ConsumerState<Application> {
 
   @override
   void initState() {
-    _screenSizeBasedInitialization(ref);
+    super.initState();
+
+    _screenSizeBasedInitialization(ref).ignore();
 
     // Start services
     ref.read(appLogServiceProvider).start();
     ref.read(quickActionServiceProvider).start();
-    ref.read(sharedPgnServiceProvider).start();
+    ref.read(sharedPgnServiceProvider).start().ignore();
 
     // DISABLED FOR OFFLINE MODE - REENABLE IF ONLINE FEATURES RETURNED
     // ref.read(notificationServiceProvider).start();
@@ -152,8 +144,6 @@ class _AppState extends ConsumerState<Application> {
       }
     });
     */
-
-    super.initState();
   }
 
   @override
