@@ -31,7 +31,10 @@ class AppInitializationScreen extends ConsumerWidget {
     });
 
     // Application handles data loading after the first frame is rendered.
-    return const Stack(children: [Application(), StartupDebugger()]);
+    return const Directionality(
+      textDirection: TextDirection.ltr,
+      child: Stack(children: [Application(), StartupDebugger()]),
+    );
   }
 }
 
