@@ -1,0 +1,130 @@
+name: Android startup and screen performance
+
+on:
+  workflow_dispatch:
+    inputs:
+      runs:
+        description: 'Cold and warm launches per variant/network condition'
+        required: false
+        default: '5'
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  measure:
+    name: Measure Android emulator performance
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout mobile code
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        with:
+          java-version: 17
+          distribution: temurin
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          flutter-version-file: pubspec.yaml
+      - run: flutter doctor -v
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Code generation
+        run: dart run build_runner build
+
+      - name: Enable KVM
+        run: |
+          sudo usermod -aG kvm "$USER"
+          sudo chown "$USER":kvm /dev/kvm
+          sudo chmod 0660 /dev/kvm
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0660", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Verify KVM is available
+        run: |
+          if [[ ! -r /dev/kvm || ! -w /dev/kvm ]]; then
+            echo '::error::/dev/kvm is unavailable to this runner; Android emulator performance results would be invalid.'
+            ls -l /dev/kvm || true
+            exit 1
+          fi
+
+      - name: Build debug APK for x64
+        run: flutter build apk --debug --target-platform android-x64
+
+      - name: Build profile APK for x64
+        id: profile_apk
+        continue-on-error: true
+        run: flutter build apk --profile --target-platform android-x64
+
+      - name: Prepare APK inputs
+        run: |
+          mkdir -p perf-artifacts/apks perf-artifacts/size
+          cp build/app/outputs/flutter-apk/app-debug.apk perf-artifacts/apks/app-debug.apk
+          if [[ '${{ steps.profile_apk.outcome }}' == 'success' && -f build/app/outputs/flutter-apk/app-profile.apk ]]; then
+            cp build/app/outputs/flutter-apk/app-profile.apk perf-artifacts/apks/app-profile.apk
+          else
+            echo 'Profile x64 APK build failed or produced no APK; measurements will use debug only.' | tee perf-artifacts/profile-build-status.txt
+            echo '### Profile build' >> "$GITHUB_STEP_SUMMARY"
+            echo 'Profile x64 APK build failed; continuing with debug-only measurements.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Check whether release signing material is present
+        id: release_signing
+        run: |
+          if [[ -f android/key.properties ]]; then
+            store_file=$(sed -n 's/^storeFile=//p' android/key.properties | head -n 1)
+            if [[ -n "$store_file" && -f "android/$store_file" ]]; then
+              echo 'available=true' >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+          fi
+          echo 'available=false' >> "$GITHUB_OUTPUT"
+          echo 'Release size analysis skipped: android/key.properties and its keystore are not both present.' | tee perf-artifacts/size/release-size-status.txt
+
+      - name: Build signed release size analysis for x64
+        if: steps.release_signing.outputs.available == 'true'
+        continue-on-error: true
+        run: flutter build apk --release --analyze-size --target-platform android-x64
+
+      - name: Collect release size analysis files
+        if: always()
+        run: |
+          find build -type f \( -iname '*size*.json' -o -iname '*analy*size*.json' \) -exec cp --parents {} perf-artifacts/size/ \; || true
+          find build -type f -name '*.json' -path '*code-size-analysis*' -exec cp --parents {} perf-artifacts/size/ \; || true
+
+      - name: Measure on Android API 30 emulator
+        uses: reactivecircus/android-emulator-runner@1dcd0090116d15e7c562f8db72807de5e036a4ed # v2.34.0
+        with:
+          api-level: 30
+          arch: x86_64
+          cores: 2
+          ram-size: 2048M
+          disable-animations: true
+          script: |
+            chmod +x tools/perf/measure.sh
+            tools/perf/measure.sh perf-artifacts/apks '${{ inputs.runs }}'
+
+      - name: Publish measurement results
+        if: always()
+        run: |
+          if [[ -f perf-artifacts/summary.md ]]; then
+            cat perf-artifacts/summary.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo '## Android performance measurements' >> "$GITHUB_STEP_SUMMARY"
+            echo 'Measurement script did not produce a summary; inspect the uploaded artifacts.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Upload raw performance artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-emulator-performance
+          path: perf-artifacts
+          if-no-files-found: warn
