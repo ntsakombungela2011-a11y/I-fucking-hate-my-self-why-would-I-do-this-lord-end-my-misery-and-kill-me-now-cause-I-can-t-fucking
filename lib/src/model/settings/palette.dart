@@ -4,13 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lichess_mobile/src/binding.dart';
+import 'package:lichess_mobile/src/debug/startup_trace.dart';
 import 'package:lichess_mobile/src/model/settings/preferences_storage.dart';
 
 const kDefaultPaletteName = 'Bullet Express';
 
 final palettesProvider = FutureProvider<List<AppPalette>>((ref) async {
+  StartupTrace.mark('palette catalog load start');
   final data = await rootBundle.loadString('assets/themes/palettes.json');
   final list = jsonDecode(data) as List<dynamic>;
+  StartupTrace.mark('palette catalog load end');
   return list.map((item) => AppPalette.fromJson(item as Map<String, dynamic>)).toList();
 });
 
