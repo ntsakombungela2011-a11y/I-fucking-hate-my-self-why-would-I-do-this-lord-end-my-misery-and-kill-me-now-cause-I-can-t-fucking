@@ -260,7 +260,6 @@ class _PuzzleMenu extends ConsumerWidget {
           },
         ),
         _PuzzleMenuListTile(
-          enabled: isOnline,
           icon: LichessIcons.streak,
           title: 'Puzzle Streak',
           badgeLabel: switch (ref.watch(savedStreakScoreProvider)) {
@@ -272,22 +271,17 @@ class _PuzzleMenu extends ConsumerWidget {
                   .takeWhile((c) => c != '.')
                   .toString() +
               (context.l10n.puzzleStreakDescription.contains('.') ? '.' : ''),
-          onTap: isOnline
-              ? () {
-                  Navigator.of(context, rootNavigator: true).push(StreakScreen.buildRoute());
-                }
-              : null,
+          onTap: () {
+            Navigator.of(context, rootNavigator: true).push(StreakScreen.buildRoute());
+          },
         ),
         _PuzzleMenuListTile(
-          enabled: isOnline,
           icon: LichessIcons.storm,
           title: 'Puzzle Storm',
           subtitle: context.l10n.mobilePuzzleStormSubtitle,
-          onTap: isOnline
-              ? () {
-                  Navigator.of(context, rootNavigator: true).push(StormScreen.buildRoute());
-                }
-              : null,
+          onTap: () {
+            Navigator.of(context, rootNavigator: true).push(StormScreen.buildRoute());
+          },
         ),
         if (authUser != null) ...[
           _PuzzleMenuListTile(

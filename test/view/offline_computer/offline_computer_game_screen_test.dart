@@ -97,7 +97,8 @@ void main() {
     });
 
     testWidgets('Can start a new game with default settings', (tester) async {
-      await initOfflineComputerGame(tester);
+      late WidgetRef ref;
+      await initOfflineComputerGame(tester, onRef: (value) => ref = value);
 
       expect(find.byType(Chessboard), findsOneWidget);
       expect(find.text('Play against computer'), findsOneWidget);
@@ -107,10 +108,18 @@ void main() {
       expect(find.byIcon(CupertinoIcons.arrow_uturn_left), findsOneWidget);
       expect(find.byIcon(CupertinoIcons.flag), findsOneWidget);
       expect(find.byIcon(CupertinoIcons.lightbulb), findsOneWidget);
+      expect(ref.read(offlineComputerGameControllerProvider).game.playerSide, Side.white);
 
       // Verify Stockfish player info with default level (level 4)
       expect(find.textContaining('Stockfish'), findsOneWidget);
       expect(find.textContaining('4'), findsWidgets);
+    });
+
+    testWidgets('Selecting white assigns white to the human player', (tester) async {
+      late WidgetRef ref;
+      await initOfflineComputerGame(tester, onRef: (value) => ref = value);
+
+      expect(ref.read(offlineComputerGameControllerProvider).game.playerSide, Side.white);
     });
 
     testWidgets('Can play moves and move list updates', (tester) async {
@@ -274,7 +283,12 @@ void main() {
     });
 
     testWidgets('Playing as black shows board from black perspective', (tester) async {
-      await initOfflineComputerGame(tester, side: Side.black);
+      late WidgetRef ref;
+      await initOfflineComputerGame(
+        tester,
+        side: Side.black,
+        onRef: (value) => ref = value,
+      );
 
       // Wait for engine to make first move
       await tester.pump(const Duration(milliseconds: 200));
@@ -286,6 +300,7 @@ void main() {
       // The Chessboard widget should have orientation set to black
       final chessboard = tester.widget<Chessboard>(find.byType(Chessboard));
       expect(chessboard.orientation, Side.black);
+      expect(ref.read(offlineComputerGameControllerProvider).game.playerSide, Side.black);
 
       // Engine should have made the first move - move list should show a move
       expect(find.byType(InlineMoveItem), findsWidgets);
@@ -2026,13 +2041,19 @@ Future<Rect> initOfflineComputerGame(
   Variant? variant,
   String? fen,
   Side side = Side.white,
+  void Function(WidgetRef)? onRef,
 }) async {
   final gameStorage = MockOfflineComputerGameStorage();
   when(() => gameStorage.fetchGame()).thenAnswer((_) async => null);
 
   final app = await makeTestProviderScopeApp(
     tester,
-    home: OfflineComputerGameScreen(initialVariant: variant, initialFen: fen),
+    home: Consumer(
+      builder: (context, ref, _) {
+        onRef?.call(ref);
+        return OfflineComputerGameScreen(initialVariant: variant, initialFen: fen);
+      },
+    ),
     overrides: {
       offlineComputerGameStorageProvider: offlineComputerGameStorageProvider.overrideWith(
         (_) => gameStorage,
