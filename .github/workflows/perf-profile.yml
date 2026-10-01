@@ -75,6 +75,30 @@ jobs:
             echo 'Profile x64 APK build failed; continuing with debug-only measurements.' >> "$GITHUB_STEP_SUMMARY"
           fi
 
+      - name: Build profile APK for arm64 phone testing
+        run: |
+          mkdir -p perf-artifacts/phone-apks
+          flutter build apk --profile --target-platform android-arm64 --dart-define=BPC_TRACE=true
+          cp build/app/outputs/flutter-apk/app-profile.apk perf-artifacts/phone-apks/bpc-phone-profile-arm64.apk
+
+      - name: Build debug APK for arm64 phone testing
+        run: |
+          mkdir -p perf-artifacts/phone-apks
+          flutter build apk --debug --target-platform android-arm64 --dart-define=BPC_TRACE=true
+          cp build/app/outputs/flutter-apk/app-debug.apk perf-artifacts/phone-apks/bpc-phone-debug-arm64.apk
+
+      - name: Verify phone APK native libraries
+        run: |
+          profile_apk=perf-artifacts/phone-apks/bpc-phone-profile-arm64.apk
+          debug_apk=perf-artifacts/phone-apks/bpc-phone-debug-arm64.apk
+          for apk in "$profile_apk" "$debug_apk"; do
+            echo "Native libraries in $apk:"
+            unzip -l "$apk" | grep 'lib/arm64-v8a/'
+          done
+          unzip -l "$profile_apk" | grep -Eq '[[:space:]]lib/arm64-v8a/libflutter\.so$' || { echo '::error::Profile phone APK is missing lib/arm64-v8a/libflutter.so'; exit 1; }
+          unzip -l "$debug_apk" | grep -Eq '[[:space:]]lib/arm64-v8a/libflutter\.so$' || { echo '::error::Debug phone APK is missing lib/arm64-v8a/libflutter.so'; exit 1; }
+          unzip -l "$profile_apk" | grep -Eq '[[:space:]]lib/arm64-v8a/libapp\.so$' || { echo '::error::Profile phone APK is missing lib/arm64-v8a/libapp.so'; exit 1; }
+
       - name: Check whether release signing material is present
         id: release_signing
         run: |
@@ -135,4 +159,12 @@ jobs:
         with:
           name: android-profile-apk
           path: perf-artifacts/apks/app-profile.apk
+          if-no-files-found: warn
+
+      - name: Upload arm64 phone APKs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phone-apks
+          path: perf-artifacts/phone-apks
           if-no-files-found: warn
