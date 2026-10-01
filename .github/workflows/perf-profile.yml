@@ -95,9 +95,9 @@ jobs:
             echo "Native libraries in $apk:"
             unzip -l "$apk" | grep 'lib/arm64-v8a/'
           done
-          unzip -l "$profile_apk" | grep -Eq '[[:space:]]lib/arm64-v8a/libflutter\\.so$' || { echo '::error::Profile phone APK is missing lib/arm64-v8a/libflutter.so'; exit 1; }
-          unzip -l "$debug_apk" | grep -Eq '[[:space:]]lib/arm64-v8a/libflutter\\.so$' || { echo '::error::Debug phone APK is missing lib/arm64-v8a/libflutter.so'; exit 1; }
-          unzip -l "$profile_apk" | grep -Eq '[[:space:]]lib/arm64-v8a/libapp\\.so$' || { echo '::error::Profile phone APK is missing lib/arm64-v8a/libapp.so'; exit 1; }
+          unzip -l "$profile_apk" | grep -Eq '[[:space:]]lib/arm64-v8a/libflutter\.so$' || { echo '::error::Profile phone APK is missing lib/arm64-v8a/libflutter.so'; exit 1; }
+          unzip -l "$debug_apk" | grep -Eq '[[:space:]]lib/arm64-v8a/libflutter\.so$' || { echo '::error::Debug phone APK is missing lib/arm64-v8a/libflutter.so'; exit 1; }
+          unzip -l "$profile_apk" | grep -Eq '[[:space:]]lib/arm64-v8a/libapp\.so$' || { echo '::error::Profile phone APK is missing lib/arm64-v8a/libapp.so'; exit 1; }
 
       - name: Check whether release signing material is present
         id: release_signing
