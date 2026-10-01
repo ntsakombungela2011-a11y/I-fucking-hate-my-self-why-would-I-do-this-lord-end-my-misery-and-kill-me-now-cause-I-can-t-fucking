@@ -4,9 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:l10n_esperanto/l10n_esperanto.dart';
 import 'package:lichess_mobile/l10n/l10n.dart';
 import 'package:lichess_mobile/src/binding.dart';
+import 'package:lichess_mobile/src/debug/startup_debugger.dart';
 import 'package:lichess_mobile/src/model/analysis/analysis_preferences.dart';
 import 'package:lichess_mobile/src/model/broadcast/broadcast_preferences.dart';
-import 'package:lichess_mobile/src/model/common/preloaded_data.dart';
 import 'package:lichess_mobile/src/model/log/app_log_service.dart';
 import 'package:lichess_mobile/src/model/settings/board_preferences.dart';
 import 'package:lichess_mobile/src/model/settings/general_preferences.dart';
@@ -24,22 +24,17 @@ class AppInitializationScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen<AsyncValue<PreloadedData>>(preloadedDataProvider, (_, state) {
-      if (state.hasValue || state.hasError) {
-        FlutterNativeSplash.remove();
-      }
+    // Remove splash ASAP after first frame.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      FlutterNativeSplash.remove();
+      StartupDebugger.updateStep('Splash Removed');
     });
 
-    switch (ref.watch(preloadedDataProvider)) {
-      case AsyncData():
-        return const Application();
-      case AsyncError(:final error, :final stackTrace):
-        debugPrint('SEVERE: [App] could not initialize app; $error\n$stackTrace');
-        return const SizedBox.shrink();
-      case _:
-        // loading screen is handled by the native splash screen
-        return const SizedBox.shrink();
-    }
+    // Application handles data loading after the first frame is rendered.
+    return const Directionality(
+      textDirection: TextDirection.ltr,
+      child: Stack(children: [Application(), StartupDebugger()]),
+    );
   }
 }
 
@@ -62,9 +57,7 @@ class _AppState extends ConsumerState<Application> {
 
   // Adjusts some settings for small screens based on the MediaQuery data.
   Future<void> _screenSizeBasedInitialization(WidgetRef ref) async {
-    // Bump version here in case we adjust the thresholds for screen size based initialization
-    // and want it to run again for users who already launched the app with a previous version.
-    const kDoneScreenSizeInitKey = 'done_screen_size_init_v1';
+    const kDoneScreenSizeInitKey = 'done_screen_size_init_v4_dynamic_fix';
 
     final prefs = LichessBinding.instance.sharedPreferences;
     if (prefs.getBool(kDoneScreenSizeInitKey) == true) {
@@ -74,14 +67,10 @@ class _AppState extends ConsumerState<Application> {
     final mediaQueryData = MediaQueryData.fromView(
       WidgetsBinding.instance.platformDispatcher.views.first,
     );
-    final isTablet = mediaQueryData.size.shortestSide > FormFactor.tablet;
-    final isSmallScreen = estimateHeightMinusBoard(mediaQueryData) < kSmallHeightMinusBoard;
-    final showEngineLines =
-        isTablet || estimateHeightMinusBoard(mediaQueryData) > kSmallHeightMinusBoard - 30;
-
-    // For tablets in portrait mode using the full board size makes the bottom analysis tabs tiny,
-    // see https://github.com/lichess-org/mobile/issues/3150,
-    // so use a small board there by default as well.
+    final isTablet = mediaQueryData.size.shortestSide > 600;
+    final heightMinusBoard = estimateHeightMinusBoard(mediaQueryData);
+    final isSmallScreen = heightMinusBoard < kSmallHeightMinusBoard;
+    final showEngineLines = isTablet || heightMinusBoard > kSmallHeightMinusBoard - 30;
     final smallBoard = isTablet || isSmallScreen;
 
     await ref
@@ -111,12 +100,16 @@ class _AppState extends ConsumerState<Application> {
 
   @override
   void initState() {
-    _screenSizeBasedInitialization(ref);
+    super.initState();
+
+    StartupDebugger.updateStep('Starting Services');
+    _screenSizeBasedInitialization(ref).ignore();
 
     // Start services
     ref.read(appLogServiceProvider).start();
     ref.read(quickActionServiceProvider).start();
-    ref.read(sharedPgnServiceProvider).start();
+    ref.read(sharedPgnServiceProvider).start().ignore();
+    StartupDebugger.updateStep('Services Started');
 
     // DISABLED FOR OFFLINE MODE - REENABLE IF ONLINE FEATURES RETURNED
     // ref.read(notificationServiceProvider).start();
@@ -158,8 +151,6 @@ class _AppState extends ConsumerState<Application> {
       }
     });
     */
-
-    super.initState();
   }
 
   @override

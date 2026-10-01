@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:lichess_mobile/src/constants.dart';
 import 'package:lichess_mobile/src/widgets/pockets.dart';
 
+/// Threshold for considering a screen "small" after subtracting board height.
+const double kSmallHeightMinusBoard = 250.0;
+
 /// Returns the estimated height of what is left after removing the height of the board from the screen.
 double estimateHeightMinusBoard(MediaQueryData mediaQuery) {
   final size = mediaQuery.size;

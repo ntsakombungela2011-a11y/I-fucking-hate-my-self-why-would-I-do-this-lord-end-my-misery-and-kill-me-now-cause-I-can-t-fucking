@@ -3,7 +3,6 @@ import 'package:dartchess/dartchess.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lichess_mobile/src/model/settings/board_preferences.dart';
-import 'package:lichess_mobile/src/utils/chessboard.dart';
 import 'package:lichess_mobile/src/utils/l10n_context.dart';
 import 'package:lichess_mobile/src/utils/navigation.dart';
 import 'package:lichess_mobile/src/widgets/list.dart';
@@ -21,23 +20,9 @@ class PieceSetScreen extends ConsumerStatefulWidget {
 }
 
 class _PieceSetScreenState extends ConsumerState<PieceSetScreen> {
-  bool isLoading = false;
-
-  Future<void> onChanged(PieceSet? value) async {
+  void onChanged(PieceSet? value) {
     if (value != null) {
       ref.read(boardPreferencesProvider.notifier).setPieceSet(value);
-      setState(() {
-        isLoading = true;
-      });
-      try {
-        await precachePieceImages(value);
-      } finally {
-        if (mounted) {
-          setState(() {
-            isLoading = false;
-          });
-        }
-      }
     }
   }
 
@@ -59,7 +44,6 @@ class _PieceSetScreenState extends ConsumerState<PieceSetScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(context.l10n.pieceSet),
-        actions: [if (isLoading) const PlatformAppBarLoadingIndicator()],
       ),
       body: SafeArea(
         child: ListView.separated(
@@ -89,7 +73,7 @@ class _PieceSetScreenState extends ConsumerState<PieceSetScreen> {
                   ],
                 ),
               ),
-              onTap: isLoading ? null : () => onChanged(pieceSet),
+              onTap: () => onChanged(pieceSet),
               selected: boardPrefs.pieceSet == pieceSet,
             );
           },
