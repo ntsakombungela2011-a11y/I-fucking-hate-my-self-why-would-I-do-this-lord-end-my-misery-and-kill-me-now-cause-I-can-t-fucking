@@ -35,7 +35,11 @@ class AppInitializationScreen extends ConsumerWidget {
 
     switch (ref.watch(preloadedDataProvider)) {
       case AsyncData():
-        return const Stack(children: [Application(), StartupTraceOverlay()]);
+        if (!StartupTrace.enabled) return const Application();
+        return const Directionality(
+          textDirection: TextDirection.ltr,
+          child: Stack(children: [Application(), StartupTraceOverlay()]),
+        );
       case AsyncError(:final error, :final stackTrace):
         debugPrint('SEVERE: [App] could not initialize app; $error\n$stackTrace');
         return const SizedBox.shrink();
