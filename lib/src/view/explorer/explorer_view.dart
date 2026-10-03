@@ -78,7 +78,7 @@ class ExplorerView extends ConsumerWidget {
 
     final isLoggedIn = ref.watch(isLoggedInProvider);
     if (!isLoggedIn) {
-      return Center(child: Text(context.l10n.youNeedAnAccountToDoThat));
+      return const Center(child: Text("The opening explorer isn't available offline."));
     }
 
     if (tablebaseRelevant && isComputerAnalysisAllowed) {

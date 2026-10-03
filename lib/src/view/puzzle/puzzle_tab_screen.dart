@@ -71,7 +71,7 @@ class _MaterialTabBodyState extends ConsumerState<_MaterialTabBody> {
       listKey: _listKey,
       removedItemBuilder: _buildMainListRemovedItem,
       initialItems: widget.savedBatches.map((e) => e.$1),
-      itemsOffset: 4,
+      itemsOffset: 3,
     );
   }
 
@@ -165,8 +165,6 @@ Widget _buildMainListItem(
         child: Text(context.l10n.puzzleDesc, style: Styles.sectionTitle),
       );
     case 2:
-      return const DailyPuzzle();
-    case 3:
       return PuzzleAnglePreview(
         angle: const PuzzleTheme(PuzzleThemeKey.mix),
         onTap: () {
