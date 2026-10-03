@@ -1,4 +1,3 @@
-import 'package:dartchess/dartchess.dart';
 import 'package:lichess_mobile/src/db/openings_database.dart';
 
 class OpeningBookOpening {
@@ -10,14 +9,12 @@ class OpeningBookOpening {
 
 class OpeningBookMove {
   const OpeningBookMove({
-    required this.move,
-    required this.san,
+    required this.uci,
     required this.count,
     this.opening,
   });
 
-  final Move move;
-  final String san;
+  final String uci;
   final int count;
   final OpeningBookOpening? opening;
 }
@@ -29,11 +26,7 @@ class OpeningBook {
   final List<OpeningBookMove> moves;
 }
 
-OpeningBook buildOpeningBook({
-  required List<OpeningBookRow> rows,
-  required String currentLine,
-  required Position currentPosition,
-}) {
+OpeningBook buildOpeningBook(List<OpeningBookRow> rows, String currentLine) {
   final currentMoves = currentLine.isEmpty ? const <String>[] : currentLine.split(' ');
   final exactRows = <String, OpeningBookRow>{for (final row in rows) row.uci: row};
   final counts = <String, int>{};
@@ -49,23 +42,14 @@ OpeningBook buildOpeningBook({
 
   final moves = <OpeningBookMove>[];
   for (final entry in counts.entries) {
-    final move = Move.parse(entry.key);
-    if (move == null || !currentPosition.isLegal(move)) continue;
-
-    try {
-      final (_, san) = currentPosition.makeSan(move);
-      final row = exactRows[currentLine.isEmpty ? entry.key : '$currentLine ${entry.key}'];
-      moves.add(
-        OpeningBookMove(
-          move: move,
-          san: san,
-          count: entry.value,
-          opening: row == null ? null : OpeningBookOpening(eco: row.eco, name: row.name),
-        ),
-      );
-    } on PlayException {
-      continue;
-    }
+    final row = exactRows[currentLine.isEmpty ? entry.key : '$currentLine ${entry.key}'];
+    moves.add(
+      OpeningBookMove(
+        uci: entry.key,
+        count: entry.value,
+        opening: row == null ? null : OpeningBookOpening(eco: row.eco, name: row.name),
+      ),
+    );
   }
 
   moves.sort((a, b) => b.count.compareTo(a.count));

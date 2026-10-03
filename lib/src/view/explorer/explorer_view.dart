@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lichess_mobile/src/model/analysis/opening_service.dart';
 import 'package:lichess_mobile/src/model/auth/auth_controller.dart';
-import 'package:lichess_mobile/src/model/common/chess.dart';
 import 'package:lichess_mobile/src/db/openings_database.dart';
 import 'package:lichess_mobile/src/model/explorer/tablebase.dart';
 import 'package:lichess_mobile/src/model/opening_book/opening_book.dart';
@@ -56,18 +55,14 @@ class ExplorerView extends ConsumerWidget {
     required this.onMoveSelected,
     required this.isComputerAnalysisAllowed,
     this.opening,
-    this.rootPosition,
-    this.uciMoves,
-    this.variant,
+    this.bookLine,
   });
 
   final Side pov;
   final Position position;
   final bool isComputerAnalysisAllowed;
   final Opening? opening;
-  final Position? rootPosition;
-  final String? uciMoves;
-  final Variant? variant;
+  final String? bookLine;
   final void Function(Move) onMoveSelected;
 
   bool get tablebaseRelevant => isTablebaseRelevant(position);
@@ -86,9 +81,7 @@ class ExplorerView extends ConsumerWidget {
 
     final isLoggedIn = ref.watch(isLoggedInProvider);
     if (!isLoggedIn) {
-      final isStandardStart =
-          variant == Variant.standard && rootPosition?.fen == Chess.initial.fen && uciMoves != null;
-      if (!isStandardStart) {
+      if (bookLine == null) {
         return const Center(child: Text('The opening book is not available for this position.'));
       }
 
@@ -97,17 +90,21 @@ class ExplorerView extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator.adaptive()),
         error: (_, _) => const Center(child: Text('Could not load the opening book.')),
         data: (rows) {
-          final book = buildOpeningBook(
-            rows: rows,
-            currentLine: uciMoves!,
-            currentPosition: position,
-          );
-          final currentOpening = opening != null && opening!.eco.isNotEmpty
-              ? OpeningBookOpening(eco: opening!.eco, name: opening!.name)
-              : book.opening;
+          final book = buildOpeningBook(rows, bookLine!);
+          final bookMoves = <_OfflineOpeningBookMove>[];
+          for (final bookMove in book.moves) {
+            final move = Move.parse(bookMove.uci);
+            if (move == null || !position.isLegal(move)) continue;
+            try {
+              final (_, san) = position.makeSan(move);
+              bookMoves.add(_OfflineOpeningBookMove(bookMove: bookMove, move: move, san: san));
+            } catch (_) {
+              continue;
+            }
+          }
           return _OfflineOpeningBookView(
-            opening: currentOpening,
-            moves: book.moves,
+            opening: book.opening,
+            moves: bookMoves,
             onMoveSelected: onMoveSelected,
           );
         },
@@ -137,7 +134,7 @@ class _OfflineOpeningBookView extends StatelessWidget {
   });
 
   final OpeningBookOpening? opening;
-  final List<OpeningBookMove> moves;
+  final List<_OfflineOpeningBookMove> moves;
   final void Function(Move) onMoveSelected;
 
   @override
@@ -166,11 +163,23 @@ class _OfflineOpeningBookView extends StatelessWidget {
           for (final move in moves)
             ListTile(
               title: Text(move.san),
-              subtitle: move.opening == null ? null : Text(move.opening!.name),
-              trailing: Text('${move.count} lines'),
+              subtitle: move.bookMove.opening == null ? null : Text(move.bookMove.opening!.name),
+              trailing: Text('${move.bookMove.count} lines'),
               onTap: () => onMoveSelected(move.move),
             ),
       ],
     );
   }
+}
+
+class _OfflineOpeningBookMove {
+  const _OfflineOpeningBookMove({
+    required this.bookMove,
+    required this.move,
+    required this.san,
+  });
+
+  final OpeningBookMove bookMove;
+  final Move move;
+  final String san;
 }

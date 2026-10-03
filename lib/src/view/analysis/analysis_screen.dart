@@ -244,6 +244,13 @@ class _Body extends ConsumerWidget {
     final isEngineAvailable = analysisState.isEngineAvailable(enginePrefs);
     final currentNode = analysisState.currentNode;
     final pov = analysisState.pov;
+    final bookLine = analysisState.variant == Variant.standard &&
+            analysisState.root.position.fen == Chess.initial.fen
+        ? analysisState.root
+            .branchesOn(analysisState.currentPath)
+            .map((branch) => branch.sanMove!.move.uci)
+            .join(' ')
+        : null;
 
     Widget? boardFooter;
     Widget? boardHeader;
@@ -350,12 +357,7 @@ class _Body extends ConsumerWidget {
               nodeOpening: analysisState.currentNode.opening,
               branchOpening: analysisState.currentBranchOpening,
             ),
-            rootPosition: analysisState.root.position,
-            uciMoves: analysisState.root
-                .branchesOn(analysisState.currentPath)
-                .map((branch) => branch.sanMove!.move.uci)
-                .join(' '),
-            variant: analysisState.variant,
+            bookLine: bookLine,
             onMoveSelected: (move) {
               ref.read(ctrlProvider.notifier).onUserMove(move);
             },
