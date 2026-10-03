@@ -337,6 +337,7 @@ class EvaluationService {
         _cancelPendingMoveRequest();
       case final MoveWork moveWork:
         _setMoveWork(moveWork);
+        _setEvalWork(null);
         _discardMoveResults = false;
         _discardEvalResults = true;
     }

@@ -158,10 +158,6 @@ class _Body extends ConsumerWidget {
             ),
           const _AccountSection(),
 
-          Padding(
-            padding: Styles.bodySectionPadding,
-            child: LichessMessage(style: TextTheme.of(context).bodyMedium),
-          ),
         ],
       ),
     );
