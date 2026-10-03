@@ -350,6 +350,12 @@ class _Body extends ConsumerWidget {
               nodeOpening: analysisState.currentNode.opening,
               branchOpening: analysisState.currentBranchOpening,
             ),
+            rootPosition: analysisState.root.position,
+            uciMoves: analysisState.root
+                .branchesOn(analysisState.currentPath)
+                .map((branch) => branch.sanMove!.move.uci)
+                .join(' '),
+            variant: analysisState.variant,
             onMoveSelected: (move) {
               ref.read(ctrlProvider.notifier).onUserMove(move);
             },

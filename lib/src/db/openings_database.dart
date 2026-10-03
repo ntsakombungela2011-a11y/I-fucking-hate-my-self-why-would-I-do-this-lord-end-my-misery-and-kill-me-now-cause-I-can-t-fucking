@@ -18,6 +18,27 @@ final openingsDatabaseProvider = FutureProvider<Database>((Ref ref) async {
   return _openDb(dbPath);
 }, name: 'OpeningsDatabaseProvider');
 
+typedef OpeningBookRow = ({String eco, String name, String uci});
+
+/// Loads the bundled opening-book rows once for the offline explorer.
+Future<List<OpeningBookRow>> readOpeningBookRows(Database database) async {
+  final rows = await database.rawQuery('SELECT eco, name, uci FROM openings');
+  return rows
+      .map(
+        (row) => (
+          eco: row['eco']! as String,
+          name: row['name']! as String,
+          uci: row['uci']! as String,
+        ),
+      )
+      .toList();
+}
+
+final openingBookRowsProvider = FutureProvider<List<OpeningBookRow>>((Ref ref) async {
+  final database = await ref.watch(openingsDatabaseProvider.future);
+  return readOpeningBookRows(database);
+}, name: 'OpeningBookRowsProvider');
+
 Future<Database> _openDb(String path) async {
   final exists = await databaseExists(path);
 
