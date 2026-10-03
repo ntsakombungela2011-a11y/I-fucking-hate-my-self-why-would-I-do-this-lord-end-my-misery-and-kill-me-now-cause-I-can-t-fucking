@@ -1,24 +1,20 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/experimental/mutation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lichess_mobile/l10n/l10n.dart';
-import 'package:lichess_mobile/src/db/database.dart';
 import 'package:lichess_mobile/src/model/auth/auth_controller.dart';
-import 'package:lichess_mobile/src/model/common/preloaded_data.dart';
 import 'package:lichess_mobile/src/model/settings/general_preferences.dart';
 import 'package:lichess_mobile/src/network/connectivity.dart';
-import 'package:lichess_mobile/src/styles/styles.dart';
 import 'package:lichess_mobile/src/utils/l10n.dart';
 import 'package:lichess_mobile/src/utils/l10n_context.dart';
 import 'package:lichess_mobile/src/utils/navigation.dart';
-import 'package:lichess_mobile/src/view/home/home_tab_screen.dart';
 import 'package:lichess_mobile/src/view/settings/account_preferences_screen.dart';
 import 'package:lichess_mobile/src/view/settings/app_log_settings_screen.dart';
 import 'package:lichess_mobile/src/view/settings/board_settings_screen.dart';
 import 'package:lichess_mobile/src/view/settings/engine_settings_screen.dart';
-import 'package:lichess_mobile/src/view/settings/http_log_screen.dart';
 import 'package:lichess_mobile/src/view/settings/palette_picker_screen.dart';
 import 'package:lichess_mobile/src/view/settings/sound_settings_screen.dart';
 import 'package:lichess_mobile/src/view/settings/theme_settings_screen.dart';
@@ -29,7 +25,6 @@ import 'package:lichess_mobile/src/widgets/list.dart';
 import 'package:lichess_mobile/src/widgets/platform.dart';
 import 'package:lichess_mobile/src/widgets/settings.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -42,10 +37,8 @@ class SettingsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isOnline = ref.watch(onlineStatusProvider).value ?? false;
     final generalPrefs = ref.watch(generalPreferencesProvider);
-    final packageInfo = ref.read(preloadedDataProvider).requireValue.packageInfo;
     final authUser = ref.watch(authControllerProvider);
     final signOutState = ref.watch(signOutMutation);
-    final dbSize = ref.watch(getDbSizeInBytesProvider);
 
     return PlatformScaffold(
       appBar: PlatformAppBar(title: Text(context.l10n.settingsSettings)),
@@ -120,16 +113,6 @@ class SettingsScreen extends ConsumerWidget {
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.app_registration),
-                title: Text(context.l10n.mobileSettingsHomeWidgets),
-                trailing: Theme.of(context).platform == TargetPlatform.iOS
-                    ? const CupertinoListTileChevron()
-                    : null,
-                onTap: () {
-                  Navigator.of(context).push(HomeTabScreen.buildRoute(editModeEnabled: true));
-                },
-              ),
-              ListTile(
                 leading: const Icon(Symbols.chess_pawn),
                 title: Text(context.l10n.mobileBoardSettings, overflow: TextOverflow.ellipsis),
                 trailing: Theme.of(context).platform == TargetPlatform.iOS
@@ -172,52 +155,22 @@ class SettingsScreen extends ConsumerWidget {
               ),
             ],
           ),
-          ListSection(
-            hasLeading: true,
-            children: [
-              ListTile(
-                leading: const Icon(Icons.storage_outlined),
-                title: const Text('Local database size'),
-                trailing: dbSize.hasValue ? Text(_getSizeString(dbSize.value)) : null,
-              ),
-              ListTile(
-                leading: const Icon(Icons.http),
-                title: const Text('HTTP logs'),
-                onTap: () => Navigator.push(context, HttpLogScreen.buildRoute()),
-              ),
-              ListTile(
-                leading: const Icon(Icons.bug_report),
-                title: const Text('App Logs'),
-                trailing: Theme.of(context).platform == TargetPlatform.iOS
-                    ? const CupertinoListTileChevron()
-                    : null,
-                onTap: () {
-                  Navigator.of(context).push(AppLogSettingsScreen.buildRoute());
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.star_outline),
-                title: const Text('Rate this app'),
-                onTap: () async {
-                  final isAndroid = Theme.of(context).platform == TargetPlatform.android;
-                  final launched = await launchUrl(
-                    isAndroid
-                        ? Uri.parse('market://details?id=org.lichess.mobileV2')
-                        : Uri.parse('https://apps.apple.com/us/app/lichess/id1662361230'),
-                    mode: LaunchMode.externalApplication,
-                  );
-                  if (!launched && isAndroid) {
-                    launchUrl(
-                      Uri.parse(
-                        'https://play.google.com/store/apps/details?id=org.lichess.mobileV2',
-                      ),
-                      mode: LaunchMode.externalApplication,
-                    );
-                  }
-                },
-              ),
-            ],
-          ),
+          if (kDebugMode)
+            ListSection(
+              hasLeading: true,
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.bug_report),
+                  title: const Text('App Logs'),
+                  trailing: Theme.of(context).platform == TargetPlatform.iOS
+                      ? const CupertinoListTileChevron()
+                      : null,
+                  onTap: () {
+                    Navigator.of(context).push(AppLogSettingsScreen.buildRoute());
+                  },
+                ),
+              ],
+            ),
           if (authUser != null)
             ListSection(
               hasLeading: true,
@@ -237,10 +190,6 @@ class SettingsScreen extends ConsumerWidget {
                 },
               ],
             ),
-          Padding(
-            padding: Styles.bodySectionPadding,
-            child: Text('v${packageInfo.version}', style: TextTheme.of(context).bodySmall),
-          ),
         ],
       ),
     );
@@ -288,7 +237,4 @@ class SettingsScreen extends ConsumerWidget {
     );
   }
 
-  String _getSizeString(int? bytes) => '${_bytesToMB(bytes ?? 0).toStringAsFixed(2)}MB';
-
-  double _bytesToMB(int bytes) => bytes * 0.000001;
 }
