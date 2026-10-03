@@ -11,18 +11,14 @@ import 'package:lichess_mobile/src/model/account/home_preferences.dart';
 import 'package:lichess_mobile/src/model/account/home_widgets.dart';
 import 'package:lichess_mobile/src/model/account/ongoing_game.dart';
 import 'package:lichess_mobile/src/model/auth/auth_controller.dart';
-import 'package:lichess_mobile/src/model/challenge/challenges.dart';
-import 'package:lichess_mobile/src/model/common/id.dart';
 import 'package:lichess_mobile/src/model/correspondence/correspondence_game_storage.dart';
 import 'package:lichess_mobile/src/model/correspondence/offline_correspondence_game.dart';
 import 'package:lichess_mobile/src/model/engine/evaluation_preferences.dart';
 import 'package:lichess_mobile/src/model/engine/nnue_service.dart';
 import 'package:lichess_mobile/src/model/game/game_history.dart';
-import 'package:lichess_mobile/src/model/message/message_repository.dart';
 import 'package:lichess_mobile/src/model/relation/following_user.dart';
 import 'package:lichess_mobile/src/model/user/user.dart';
 import 'package:lichess_mobile/src/network/connectivity.dart';
-import 'package:lichess_mobile/src/styles/lichess_icons.dart';
 import 'package:lichess_mobile/src/styles/styles.dart';
 import 'package:lichess_mobile/src/tab_scaffold.dart';
 import 'package:lichess_mobile/src/utils/focus_detector.dart';
@@ -37,13 +33,11 @@ import 'package:lichess_mobile/src/view/game/game_screen_providers.dart';
 import 'package:lichess_mobile/src/view/game/offline_correspondence_games_screen.dart';
 import 'package:lichess_mobile/src/view/home/following_carousel.dart';
 import 'package:lichess_mobile/src/view/home/games_carousel.dart';
-import 'package:lichess_mobile/src/view/message/conversation_screen.dart';
 import 'package:lichess_mobile/src/view/play/ongoing_games_screen.dart';
 import 'package:lichess_mobile/src/view/play/play_bottom_sheet.dart';
 import 'package:lichess_mobile/src/view/play/play_menu.dart';
 import 'package:lichess_mobile/src/view/play/quick_game_matrix.dart';
 import 'package:lichess_mobile/src/view/settings/engine_settings_screen.dart';
-import 'package:lichess_mobile/src/view/user/challenge_requests_screen.dart';
 import 'package:lichess_mobile/src/view/user/recent_games.dart';
 import 'package:lichess_mobile/src/widgets/buttons.dart';
 import 'package:lichess_mobile/src/widgets/feedback.dart';
@@ -127,7 +121,6 @@ class _HomeScreenState extends ConsumerState<HomeTabScreen> {
       skipLoadingOnReload: true,
       data: (isOnline) {
         final authUser = ref.watch(authControllerProvider);
-        final unreadLichessMessage = ref.watch(unreadMessagesProvider).value?.lichess == true;
         final ongoingGames = ref.watch(ongoingGamesProvider);
         final offlineCorresGames = ref.watch(offlineOngoingCorrespondenceGamesProvider);
         final recentGames = ref.watch(myRecentGamesProvider);
@@ -288,7 +281,7 @@ class _HomeScreenState extends ConsumerState<HomeTabScreen> {
 
         final content = ListView(
           controller: homeScrollController,
-          children: [if (unreadLichessMessage) const _LichessMessageBanner(), ...widgets],
+          children: widgets,
         );
 
         return FocusDetector(
@@ -323,7 +316,6 @@ class _HomeScreenState extends ConsumerState<HomeTabScreen> {
                       titleTextStyle: Theme.of(context).platform == TargetPlatform.iOS
                           ? Theme.of(context).textTheme.headlineSmall
                           : null,
-                      actions: const [_ChallengeScreenButton()],
                     ),
               body: widget.editModeEnabled
                   ? content
@@ -366,55 +358,10 @@ class _HomeScreenState extends ConsumerState<HomeTabScreen> {
   Future<void> _refreshData({required bool isOnline}) {
     return Future.wait([
       ref.refresh(myRecentGamesProvider.future),
-      if (isOnline) ref.refresh(challengesProvider.future),
-      if (isOnline) ref.refresh(unreadMessagesProvider.future),
       if (isOnline) ref.refresh(accountProvider.future),
       if (isOnline) ref.refresh(ongoingGamesProvider.future),
-      if (isOnline) ref.refresh(featuredTournamentsProvider.future),
       if (isOnline) ref.refresh(followingCarouselProvider.future),
     ]);
-  }
-}
-
-class _LichessMessageBanner extends ConsumerWidget {
-  const _LichessMessageBanner();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
-    return Material(
-      color: theme.colorScheme.tertiaryContainer,
-      child: InkWell(
-        onTap: () {
-          Navigator.of(context, rootNavigator: true)
-              .push(
-                ConversationScreen.buildRoute(
-                  user: const LightUser(id: UserId('lichess'), name: 'lichess'),
-                ),
-              )
-              .then((_) => ref.invalidate(unreadMessagesProvider));
-        },
-        child: Padding(
-          padding: Styles.bodyPadding,
-          child: Column(
-            children: [
-              Text(
-                context.l10n.showUnreadLichessMessage,
-                style: TextStyle(
-                  color: theme.colorScheme.onTertiaryContainer,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 4.0),
-              Text(
-                context.l10n.clickHereToReadIt,
-                style: TextStyle(color: theme.colorScheme.onTertiaryContainer),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
   }
 }
 
@@ -753,49 +700,6 @@ class PreviewGameList<T> extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-class _ChallengeScreenButton extends ConsumerWidget {
-  const _ChallengeScreenButton();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final authUser = ref.watch(authControllerProvider);
-    if (authUser == null) {
-      return const SizedBox.shrink();
-    }
-    final isOnlineAsync = ref.watch(onlineStatusProvider);
-    final challenges = ref.watch(challengesProvider);
-
-    final inwardCount = challenges.value?.inward.length ?? 0;
-    final outwardCount = challenges.value?.outward.length ?? 0;
-
-    if (inwardCount == 0 && outwardCount == 0) {
-      return const SizedBox.shrink();
-    }
-
-    return switch (isOnlineAsync) {
-      AsyncData(value: final isOnline) => SemanticIconButton(
-        icon: Badge.count(
-          count: inwardCount,
-          isLabelVisible: inwardCount > 0,
-          child: const Icon(LichessIcons.crossed_swords, size: 18.0),
-        ),
-        semanticsLabel: context.l10n.preferencesNotifyChallenge,
-        onPressed: !isOnline
-            ? null
-            : () {
-                ref.invalidate(challengesProvider);
-                Navigator.of(context).push(ChallengeRequestsScreen.buildRoute());
-              },
-      ),
-      _ => SemanticIconButton(
-        icon: const Icon(LichessIcons.crossed_swords, size: 18.0),
-        semanticsLabel: context.l10n.preferencesNotifyChallenge,
-        onPressed: null,
-      ),
-    };
   }
 }
 
